@@ -1,13 +1,26 @@
 package odontomais.persistence;
 
+import javax.persistence.Query;
 import odontomais.model.Convenio;
 import odontomais.persistence.jpa.GenericDAO;
 
 public class ConvenioDao extends GenericDAO<Convenio, Long> {
-    public ConvenioDao(){
+
+    public ConvenioDao() {
         super(Convenio.class);
     }
 
-    //TODO: criar teste de integração com o banco de dados
-    //qualquer outra pesquisa que não for as default do Generic
+    public int findExisteByName(String nome) {
+        int resultado = 0;
+        String consulta = "SELECT c FROM Convenio c WHERE "
+                + "c.nome = :param";
+        try {
+            Query query = criarQuery(consulta);
+            query.setParameter("param", nome);
+            resultado = (int) query.getFirstResult();
+        } catch (Exception rx) {
+
+        }
+        return resultado;
+    }
 }

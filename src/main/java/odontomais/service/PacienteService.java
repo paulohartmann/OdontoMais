@@ -1,5 +1,6 @@
 package odontomais.service;
 
+import java.util.List;
 import odontomais.model.Paciente;
 import odontomais.persistence.PacienteDao;
 
@@ -23,11 +24,23 @@ public class PacienteService {
         }
     }
 
-    public int findByCPF(String cpf){
-        return dao.findByCPF(cpf);
+    public int findExisteByCPF(String cpf){
+        return dao.findExisteByCPF(cpf);
     }
 
-    public int findByRG(String rg){
-        return dao.findByRG(rg);
+    public int findExisteByRG(String rg){
+        return dao.findExisteByRG(rg);
+    }
+    
+    public Paciente findByCPF(String cpf){
+        return dao.findFromCPF(cpf);
+    }
+    
+    public Paciente findByRG(String rg){
+        return dao.findFromRG(rg);
+    }
+    
+    public List<Paciente> findFromName(String nome){
+        return dao.findFromNome(nome);
     }
 }
