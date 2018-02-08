@@ -11,6 +11,8 @@ public class Agendamento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    //TODO: qual diferença entre consulta e retorno?
+
     private String tipoAgendamento;
     @ManyToOne
     private Paciente paciente;
@@ -18,10 +20,11 @@ public class Agendamento implements Serializable {
     private Convenio convenio;
     @ManyToOne
     private Profissional profissional;
-    private LocalDate dataAgenda;
+    private LocalDate data;
     private LocalTime horaInicio;
     private LocalTime horaFim;
     private String observacao;
+    //TODO: status, gerar nova classe?
     private String status;
 
     public long getId() {
@@ -52,12 +55,12 @@ public class Agendamento implements Serializable {
         this.convenio = convenio;
     }
 
-    public LocalDate getDataAgenda() {
-        return dataAgenda;
+    public LocalDate getData() {
+        return data;
     }
 
-    public void setDataAgenda(LocalDate data) {
-        this.dataAgenda = data;
+    public void setData(LocalDate data) {
+        this.data = data;
     }
 
     public LocalTime getHoraInicio() {
@@ -91,6 +94,7 @@ public class Agendamento implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
 
     public Profissional getProfissional() {
         return profissional;

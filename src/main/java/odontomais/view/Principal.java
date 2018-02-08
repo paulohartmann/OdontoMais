@@ -14,7 +14,7 @@ public class Principal extends JFrame{
     private JPanel contentPane;
 
     public Principal(){
-        
+
         setContentPane(contentPane);
 
         button1.addActionListener(new ActionListener() {
@@ -31,13 +31,12 @@ public class Principal extends JFrame{
     public static void main(String[] args) {
         Principal dialog = new Principal();
         dialog.pack();
-        
-        //dialog.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
+        dialog.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
         dialog.setVisible(true);
 
     }
     private void completeGUI(){
-        contentPane = new JPanel();
+
     }
 
 

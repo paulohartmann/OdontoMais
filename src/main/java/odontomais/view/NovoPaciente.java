@@ -38,6 +38,7 @@ public class NovoPaciente extends JDialog {
 
     private Paciente pacienteAtual;
 
+
     public NovoPaciente(Paciente paciente) {
 
         if (paciente != null) {
@@ -97,7 +98,7 @@ public class NovoPaciente extends JDialog {
         edtResidencial.setText(pacienteAtual.getTelRes());
         edtRG.setText(pacienteAtual.getRg());
         edtTrabalho.setText(pacienteAtual.getTelTrab());
-        if (pacienteAtual.getSexo().equals("M")) {
+        if (pacienteAtual.getSexo() == "M") {
             selectSexoM.setSelected(true);
             selectSexoF.setSelected(false);
         } else {
@@ -129,27 +130,17 @@ public class NovoPaciente extends JDialog {
     }
 
     private boolean testaCampos() {
-        if (edtRG.getText().equals("")) {
-            return false;
-        }
-        if (edtCPF.getText().equals("")) {
-            return false;
-        }
-        if (edtDataNascimento.getText().equals("")) {
-            return false;
-        }
-        if (edtNome.getText().equals("")) {
-            return false;
-        }
-        if (edtCelular.getText().equals("")) {
-            return false;
-        }
+        if (edtRG.getText().equals("")) return false;
+        if (edtCPF.getText().equals("")) return false;
+        if (edtDataNascimento.getText().equals("")) return false;
+        if (edtNome.getText().equals("")) return false;
+        if (edtCelular.getText().equals("")) return false;
         PacienteService service = new PacienteService();
-        if (service.findExisteByCPF(edtCPF.getText()) > 0) {
+        if (service.findByCPF(edtCPF.getText()) > 0) {
             MensagensAlerta.msgCadastroExistente(this);
             return false;
         }
-        if (service.findExisteByRG(edtRG.getText()) > 0) {
+        if (service.findByRG(edtRG.getText()) > 0) {
             MensagensAlerta.msgCadastroExistente(this);
             return false;
         }

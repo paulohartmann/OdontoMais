@@ -8,7 +8,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Query;
 
 public class GenericDAO<T, I extends Serializable> {
 
@@ -61,9 +60,5 @@ public class GenericDAO<T, I extends Serializable> {
 
     public T encontrar(I id) {
         return entityManager.find(persistedClass, id);
-    }
-    
-    protected Query criarQuery(String query) {
-        return entityManager.createQuery(query);
     }
 }

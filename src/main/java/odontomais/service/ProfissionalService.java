@@ -23,7 +23,7 @@ public class ProfissionalService {
         }
     }
 
-    public int findExisteByName(String nome){
-        return dao.findExisteByName(nome);
+    public int findByName(String nome){
+        return dao.fingByName(nome);
     }
 }
