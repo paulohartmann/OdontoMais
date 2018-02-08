@@ -23,7 +23,7 @@ public class TipoAgendamentoService {
         }
     }
 
-    public int findByName(String nome){
-        return dao.findByName(nome);
+    public int findExisteByName(String nome){
+        return dao.findExisteByName(nome);
     }
 }

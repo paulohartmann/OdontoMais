@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class NovoTipoAgendamento extends JDialog {
+
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -49,17 +50,17 @@ public class NovoTipoAgendamento extends JDialog {
     }
 
     private void onOK() {
-        if(edtNomeTipoAgendamento.getText().equals("")){
+        if (edtNomeTipoAgendamento.getText().equals("")) {
             MensagensAlerta.msgCamposObrigatorios(this);
-        }else {
-            if(serviceTipoAgendamento.findByName(edtNomeTipoAgendamento.getText()) > 0){
+        } else {
+            if (serviceTipoAgendamento.findExisteByName(edtNomeTipoAgendamento.getText()) > 0) {
                 MensagensAlerta.msgCadastroExistente(this);
             }
             TipoAgendamento tipoAgend = new TipoAgendamento(edtNomeTipoAgendamento.getText());
-            if(serviceTipoAgendamento.salvar(tipoAgend)){
+            if (serviceTipoAgendamento.salvar(tipoAgend)) {
                 MensagensAlerta.msgCadastroOK(this);
                 dispose();
-            }else{
+            } else {
                 MensagensAlerta.msgErroCadastro(this);
             }
             //dispose();

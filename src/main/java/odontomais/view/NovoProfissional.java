@@ -141,7 +141,7 @@ public class NovoProfissional extends JDialog {
         if (edtIniAlmoco.getText().equals("")) return false;
         if (edtIniExpe.getText().equals("")) return false;
         ProfissionalService service = new ProfissionalService();
-        if(service.findByName(edtNomeProfissional.getText()) > 0){
+        if(service.findExisteByName(edtNomeProfissional.getText()) > 0){
             MensagensAlerta.msgCadastroExistente(this);
             return false;
         }
