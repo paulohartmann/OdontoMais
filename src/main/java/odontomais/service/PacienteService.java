@@ -23,6 +23,10 @@ public class PacienteService {
             return false;
         }
     }
+    
+    public void atualizar(Paciente p){
+        dao.atualizar(p);
+    }
 
     public int findExisteByCPF(String cpf){
         return dao.findExisteByCPF(cpf);

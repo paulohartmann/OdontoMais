@@ -16,6 +16,10 @@ public class MensagensAlerta {
     public static void msgCamposObrigatorios(Component s){
         JOptionPane.showMessageDialog(s, "Confira os campos obrigatórios do formulário!", "Informação", JOptionPane.INFORMATION_MESSAGE);
     }
+    
+    public static void msgCadastroAtualizado(Component s){
+        JOptionPane.showMessageDialog(s, "Cadastro atualizado com sucesso!", "Informação", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     public static void msgErroCadastro(Component s){
         JOptionPane.showMessageDialog(s, "Erro ao cadastrar, confira os dados digitados", "Erro", JOptionPane.WARNING_MESSAGE);

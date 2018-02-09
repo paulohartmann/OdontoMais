@@ -11,19 +11,23 @@ public class ProfissionalService {
 
     ProfissionalDao dao;
 
-    public ProfissionalService(){
+    public ProfissionalService() {
         dao = new ProfissionalDao();
     }
 
-    public boolean salvar(Profissional p){
-        if(dao.salvar(p).getId() > 0){
+    public boolean salvar(Profissional p) {
+        if (dao.salvar(p).getId() > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public int findExisteByName(String nome){
+    public void atualizar(Profissional p) {
+        dao.atualizar(p);
+    }
+
+    public int findExisteByName(String nome) {
         return dao.findExisteByName(nome);
     }
 }

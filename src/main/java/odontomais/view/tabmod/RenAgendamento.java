@@ -43,5 +43,33 @@ public class RenAgendamento extends JLabel implements TableCellRenderer {
         }
         return rot;
     }
+    
+    public void updateTableAllCabosf() {
+        CaboFabricaDAO daocabofabrica = new CaboFabricaDAO();
+        modtabAll = new TabCaboFabrica(daocabofabrica.findAllFromPedido(pedido.getIdPedido()));
+        ///adiciona o modelo a tabela...
+        for (int i = 0; i <= 7; i++) {
+            modtabAll.setEditableColum(i, false);
+        }
+        tbl_AllCabosf.setModel(modtabAll);
+        tbl_AllCabosf.setDefaultRenderer(Object.class, new RenCaboF(modtabAll.getArrayCabo()));
+        tbl_AllCabosf.getTableHeader().setReorderingAllowed(false);
+    }
+    
+    public void updateTableModuloMotores(int tipo) {
+        MotoresDAO o = new MotoresDAO();
+        UnidadeDAO uniDAO = new UnidadeDAO();
+        ModuloMotoresDAO modDAO = new ModuloMotoresDAO();
+        ArrayList<Motores> motoresList = o.findMotoresIDOBRA(obra.getIdObra());
+        for (Motores m : motoresList) {
+            m.setUnidade(uniDAO.findUnidadesFromIdUnidade(m.getUnidade().getIdUnidade()));
+            m.setModuloMotores(modDAO.findModuloMotorIDModuloMotor(m.getModuloMotores().getIdModuloMotor()));
+        }
+        tabMotor = new TabMotor(motoresList);
+        tbl_moduloMotor.setModel(tabMotor);
+        tbl_moduloMotor.getTableHeader().setReorderingAllowed(false);
+        tbl_moduloMotor.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tabMotor.fireTableDataChanged();
+    }
 
 }

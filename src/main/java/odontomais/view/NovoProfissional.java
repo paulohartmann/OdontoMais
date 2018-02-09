@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class NovoProfissional extends JDialog {
+
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
@@ -35,52 +36,44 @@ public class NovoProfissional extends JDialog {
         if (p != null) {
             this.profissional = p;
             completaCampos();
+        } else {
+            profissional = new Profissional();
         }
-        setContentPane(contentPane);
-        setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
+        buttonOK.addActionListener((ActionEvent e) -> {
+            onOK();
         });
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
-
-        // call onCancel() when cross is clicked
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                onCancel();
-            }
+        buttonCancel.addActionListener((ActionEvent e) -> {
+            onCancel();
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
+        contentPane.registerKeyboardAction((ActionEvent e) -> {
+            onCancel();
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
     private void onOK() {
-        if(completaObjeto()){
+        if (completaObjeto()) {
             ProfissionalService service = new ProfissionalService();
-            if(service.salvar(profissional)){
-                MensagensAlerta.msgCadastroOK(this);
-            }else{
-                MensagensAlerta.msgErroCadastro(this);
+            if (profissional.getId() > 0) {
+                service.atualizar(profissional);
+                MensagensAlerta.msgCadastroAtualizado(this);
+                dispose();
+            } else {
+                if (service.salvar(profissional)) {
+                    MensagensAlerta.msgCadastroOK(this);
+                    dispose();
+                } else {
+                    MensagensAlerta.msgErroCadastro(this);
+                }
             }
         }
-        dispose();
+
     }
 
-    private void completaCampos(){
+    private void completaCampos() {
         edtNomeProfissional.setText(profissional.getNome());
         edtIniExpe.setText(FormatadoresTexto.horaToString(profissional.getHorarioInicio()));
         edtFimExpe.setText(FormatadoresTexto.horaToString(profissional.getHorarioFim()));
@@ -100,9 +93,6 @@ public class NovoProfissional extends JDialog {
 
     private boolean completaObjeto() {
         if (testaCampos()) {
-            if (profissional == null) {
-                profissional = new Profissional();
-            }
             profissional.setHorarioAlmocoFim(getHora(edtFimAlmoco.getText()));
             profissional.setHorarioAlmocoInicio(getHora(edtIniAlmoco.getText()));
             profissional.setHorarioFim(getHora(edtFimExpe.getText()));
@@ -118,7 +108,7 @@ public class NovoProfissional extends JDialog {
             diasSemana[6] = SABCheckBox.isSelected();
             profissional.setObservacao(edtObs.getText());
             return true;
-        }else{
+        } else {
             MensagensAlerta.msgCamposObrigatorios(this);
             return false;
         }
@@ -135,13 +125,23 @@ public class NovoProfissional extends JDialog {
     }
 
     private boolean testaCampos() {
-        if (edtNomeProfissional.getText().equals("")) return false;
-        if (edtFimAlmoco.getText().equals("")) return false;
-        if (edtFimExpe.getText().equals("")) return false;
-        if (edtIniAlmoco.getText().equals("")) return false;
-        if (edtIniExpe.getText().equals("")) return false;
+        if (edtNomeProfissional.getText().equals("")) {
+            return false;
+        }
+        if (edtFimAlmoco.getText().equals("")) {
+            return false;
+        }
+        if (edtFimExpe.getText().equals("")) {
+            return false;
+        }
+        if (edtIniAlmoco.getText().equals("")) {
+            return false;
+        }
+        if (edtIniExpe.getText().equals("")) {
+            return false;
+        }
         ProfissionalService service = new ProfissionalService();
-        if(service.findExisteByName(edtNomeProfissional.getText()) > 0){
+        if (service.findExisteByName(edtNomeProfissional.getText()) > 0) {
             MensagensAlerta.msgCadastroExistente(this);
             return false;
         }
@@ -149,11 +149,20 @@ public class NovoProfissional extends JDialog {
     }
 
     private void onCancel() {
-        // add your code here if necessary
         dispose();
     }
 
     private void createUIComponents() {
-        // TODO: place custom component creation code here
+        setContentPane(contentPane);
+        setModal(true);
+        getRootPane().setDefaultButton(buttonOK);
+
+        // call onCancel() when cross is clicked
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                onCancel();
+            }
+        });
     }
 }

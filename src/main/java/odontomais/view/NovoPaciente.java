@@ -38,7 +38,6 @@ public class NovoPaciente extends JDialog {
 
     private Paciente pacienteAtual;
 
-
     public NovoPaciente(Paciente paciente) {
 
         if (paciente != null) {
@@ -53,11 +52,8 @@ public class NovoPaciente extends JDialog {
 
         btnSalvar.addActionListener(e -> salvar());
 
-        btnSalvarEContinuar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                salvarEContinuar();
-            }
+        btnSalvarEContinuar.addActionListener((ActionEvent e) -> {
+            salvarEContinuar();
         });
     }
 
@@ -67,7 +63,7 @@ public class NovoPaciente extends JDialog {
             PacienteService service = new PacienteService();
             if (service.salvarPaciente(pacienteAtual)) {
                 MensagensAlerta.msgCadastroOK(this);
-
+                dispose();
             } else {
                 MensagensAlerta.msgErroCadastro(this);
             }
@@ -77,7 +73,18 @@ public class NovoPaciente extends JDialog {
     }
 
     private void salvarEContinuar() {
-        salvar();
+        if (pacienteAtual.getId() > 0) {
+            salvar();
+        } else {
+            if (testaCampos()) {
+                completaObjeto();
+                PacienteService service = new PacienteService();
+                service.atualizar(pacienteAtual);
+                MensagensAlerta.msgCadastroAtualizado(this);
+            } else {
+                MensagensAlerta.msgCamposObrigatorios(this);
+            }
+        }
         NovoPacienteComplementar novo = new NovoPacienteComplementar(pacienteAtual);
         novo.pack();
         novo.setVisible(true);
@@ -98,7 +105,7 @@ public class NovoPaciente extends JDialog {
         edtResidencial.setText(pacienteAtual.getTelRes());
         edtRG.setText(pacienteAtual.getRg());
         edtTrabalho.setText(pacienteAtual.getTelTrab());
-        if (pacienteAtual.getSexo() == "M") {
+        if (pacienteAtual.getSexo().equals("M")) {
             selectSexoM.setSelected(true);
             selectSexoF.setSelected(false);
         } else {
@@ -130,11 +137,21 @@ public class NovoPaciente extends JDialog {
     }
 
     private boolean testaCampos() {
-        if (edtRG.getText().equals("")) return false;
-        if (edtCPF.getText().equals("")) return false;
-        if (edtDataNascimento.getText().equals("")) return false;
-        if (edtNome.getText().equals("")) return false;
-        if (edtCelular.getText().equals("")) return false;
+        if (edtRG.getText().equals("")) {
+            return false;
+        }
+        if (edtCPF.getText().equals("")) {
+            return false;
+        }
+        if (edtDataNascimento.getText().equals("")) {
+            return false;
+        }
+        if (edtNome.getText().equals("")) {
+            return false;
+        }
+        if (edtCelular.getText().equals("")) {
+            return false;
+        }
         PacienteService service = new PacienteService();
         if (service.findExisteByCPF(edtCPF.getText()) > 0) {
             MensagensAlerta.msgCadastroExistente(this);
