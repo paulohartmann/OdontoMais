@@ -136,11 +136,11 @@ public class NovoPaciente extends JDialog {
         if (edtNome.getText().equals("")) return false;
         if (edtCelular.getText().equals("")) return false;
         PacienteService service = new PacienteService();
-        if (service.findByCPF(edtCPF.getText()) > 0) {
+        if (service.findExisteByCPF(edtCPF.getText()) > 0) {
             MensagensAlerta.msgCadastroExistente(this);
             return false;
         }
-        if (service.findByRG(edtRG.getText()) > 0) {
+        if (service.findExisteByRG(edtRG.getText()) > 0) {
             MensagensAlerta.msgCadastroExistente(this);
             return false;
         }

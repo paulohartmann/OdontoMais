@@ -52,7 +52,7 @@ public class NovoTipoAgendamento extends JDialog {
         if(edtNomeTipoAgendamento.getText().equals("")){
             MensagensAlerta.msgCamposObrigatorios(this);
         }else {
-            if(serviceTipoAgendamento.findByName(edtNomeTipoAgendamento.getText()) > 0){
+            if(serviceTipoAgendamento.findExisteByName(edtNomeTipoAgendamento.getText()) > 0){
                 MensagensAlerta.msgCadastroExistente(this);
             }
             TipoAgendamento tipoAgend = new TipoAgendamento(edtNomeTipoAgendamento.getText());
