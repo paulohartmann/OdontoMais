@@ -7,6 +7,8 @@ package odontomais.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+import odontomais.model.Agendamento;
 import odontomais.persistence.AgendamentoDao;
 
 /**
@@ -28,5 +30,14 @@ public class AgendamentoService {
     public int findHorarioByPaciente(String nome) {
         return dao.findHorarioByPaciente(nome);
     }
+    
+    public List<Agendamento> findAgendamentosSemana(){
+        LocalDate hoje = LocalDate.now();
+        LocalDate fim = LocalDate.now();
+        fim.plusDays(6);
+        return null;
+    }
+    
+    
     
 }

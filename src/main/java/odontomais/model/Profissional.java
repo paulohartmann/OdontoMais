@@ -38,7 +38,6 @@ public class Profissional implements Serializable {
         return bits;
     }
 
-
     public long getId() {
         return id;
     }
