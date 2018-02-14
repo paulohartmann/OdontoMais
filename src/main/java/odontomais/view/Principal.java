@@ -31,14 +31,6 @@ public class Principal extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-        Principal dialog = new Principal();
-        dialog.pack();
-        dialog.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
-        dialog.setVisible(true);
-
-    }
-
     private void completeGUI() {
 
     }

@@ -17,12 +17,10 @@ import odontomais.model.Profissional;
 public class TabProfissional extends AbstractTableModel {
 
     private ArrayList<Profissional> datalist;
-    private Boolean[] editcolumns = new Boolean[5];
+    private Boolean[] editcolumns = new Boolean[3];
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
     private String[] columns = {"Nome",
-        "Horário Expediente",
-        "Horário Almoço",
-        "Dias Serviço",
+        "Celular",
         "Observações"};
 
     public TabProfissional(ArrayList<Profissional> l) {
@@ -30,8 +28,6 @@ public class TabProfissional extends AbstractTableModel {
         editcolumns[0] = false;
         editcolumns[1] = false;
         editcolumns[2] = false;
-        editcolumns[3] = false;
-        editcolumns[4] = false;
         super.fireTableDataChanged();
     }
 
@@ -118,24 +114,38 @@ public class TabProfissional extends AbstractTableModel {
             if (getColumnName(columnIndex).equals("Nome")) {
                 return Mem.getNome();
             }
-            if (getColumnName(columnIndex).equals("Horário Expediente")) {
-                return Mem.getHorarioInicio().format(formatter) + " - " + Mem.getHorarioFim().format(formatter);
+            if (getColumnName(columnIndex).equals("Celular")) {
+                return Mem.getTelCelular();
             }
-            if (getColumnName(columnIndex).equals("Horário Almoço")) {
-                return Mem.getHorarioAlmocoInicio().format(formatter) + " - " + Mem.getHorarioAlmocoFim().format(formatter);
-            }
-            if (getColumnName(columnIndex).equals("Dias Serviço")) {
-                boolean[] dias = Mem.montaArrayDiasServico();
-                String retorno = "";
-                if(dias[0]) retorno += "DOM-";
-                if(dias[1]) retorno += "SEG-";
-                if(dias[2]) retorno += "TER-";
-                if(dias[3]) retorno += "QUA-";
-                if(dias[4]) retorno += "QUI-";
-                if(dias[5]) retorno += "SEX-";
-                if(dias[6]) retorno += "SAB";
-                return retorno;
-            }
+//            if (getColumnName(columnIndex).equals("Horário Almoço")) {
+//                return Mem.getHorarioAlmocoInicio().format(formatter) + " - " + Mem.getHorarioAlmocoFim().format(formatter);
+//            }
+//            if (getColumnName(columnIndex).equals("Dias Serviço")) {
+//                boolean[] dias = Mem.montaArrayDiasServico();
+//                String retorno = "";
+//                if (dias[0]) {
+//                    retorno += "DOM-";
+//                }
+//                if (dias[1]) {
+//                    retorno += "SEG-";
+//                }
+//                if (dias[2]) {
+//                    retorno += "TER-";
+//                }
+//                if (dias[3]) {
+//                    retorno += "QUA-";
+//                }
+//                if (dias[4]) {
+//                    retorno += "QUI-";
+//                }
+//                if (dias[5]) {
+//                    retorno += "SEX-";
+//                }
+//                if (dias[6]) {
+//                    retorno += "SAB";
+//                }
+//                return retorno;
+//            }
             if (getColumnName(columnIndex).equals("Observações")) {
                 return Mem.getObservacao();
             }

@@ -11,15 +11,19 @@ public class ClinicaService {
 
     ClinicaDao dao;
 
-    public ClinicaService(){
+    public ClinicaService() {
         dao = new ClinicaDao();
     }
 
-    public boolean salvar(Clinica c){
-        if(dao.salvar(c).getId() > 0){
+    public boolean salvar(Clinica c) {
+        if (dao.salvar(c).getId() > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
+    }
+
+    public Clinica find() {
+        return dao.getList().get(0);
     }
 }

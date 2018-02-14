@@ -43,7 +43,7 @@ public class RenAgendamento extends JLabel implements TableCellRenderer {
         }
         return rot;
     }
-    
+
     public void updateTableAllCabosf() {
         CaboFabricaDAO daocabofabrica = new CaboFabricaDAO();
         modtabAll = new TabCaboFabrica(daocabofabrica.findAllFromPedido(pedido.getIdPedido()));
@@ -55,7 +55,7 @@ public class RenAgendamento extends JLabel implements TableCellRenderer {
         tbl_AllCabosf.setDefaultRenderer(Object.class, new RenCaboF(modtabAll.getArrayCabo()));
         tbl_AllCabosf.getTableHeader().setReorderingAllowed(false);
     }
-    
+
     public void updateTableModuloMotores(int tipo) {
         MotoresDAO o = new MotoresDAO();
         UnidadeDAO uniDAO = new UnidadeDAO();
