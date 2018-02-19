@@ -37,6 +37,14 @@ public class AgendamentoService {
         return dao.findAgendaByData(d);
     }
 
+    public boolean salvar(Agendamento a){
+        if(dao.salvar(a).getId() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public List<Agendamento> findAgendamentosSemana() {
 
         List<Agendamento> diaAgendado;

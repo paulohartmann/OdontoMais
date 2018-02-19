@@ -1,9 +1,23 @@
 package odontomais.view;
 
+import odontomais.model.Agendamento;
+import odontomais.model.Convenio;
+import odontomais.model.Paciente;
+import odontomais.model.Profissional;
+import odontomais.model.especial.AgendamentoDaSemana;
+import odontomais.service.AgendamentoService;
+import odontomais.service.ConvenioService;
+import odontomais.service.PacienteService;
+import odontomais.service.ProfissionalService;
+import odontomais.view.tabmod.RenAgendamento;
+import odontomais.view.tabmod.TabAgendamento;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 /*
  * Author: phlab
@@ -20,6 +34,15 @@ public class Principal extends JFrame {
     private JTable tblSexta;
     private JTable tblSabado;
     private JButton novoAgendamentoButton;
+
+    AgendamentoDaSemana semana;
+
+    private TabAgendamento tabAgendaSegunda;
+    private TabAgendamento tabAgendaTerca;
+    private TabAgendamento tabAgendaQuarta;
+    private TabAgendamento tabAgendaQuinta;
+    private TabAgendamento tabAgendaSexta;
+    private TabAgendamento tabAgendaSabado;
 
     public Principal() {
 
@@ -49,12 +72,12 @@ public class Principal extends JFrame {
         JMenu menuPaciente = new JMenu("Paciente");
 
         JMenuItem itemNovoPaciente = new JMenuItem("Novo Paciente");
-        itemNovoPaciente.setIcon(new ImageIcon(getClass().getResource("/image/16/adicionar.png")));
+        //itemNovoPaciente.setIcon(new ImageIcon(getClass().getResource("/image/16/adicionar.png")));
         itemNovoPaciente.addActionListener(e -> goNovoPaciente());
         menuPaciente.add(itemNovoPaciente);
 
         JMenuItem itemProcurarPaciente = new JMenuItem("Procurar Pacientes");
-        itemProcurarPaciente.setIcon(new ImageIcon(getClass().getResource("/image/16/procurar.png")));
+        //itemProcurarPaciente.setIcon(new ImageIcon(getClass().getResource("/image/16/procurar.png")));
         itemProcurarPaciente.addActionListener(e -> goProcurarPaciente());
         menuPaciente.add(itemProcurarPaciente);
         menuBar1.add(menuPaciente);
@@ -62,12 +85,12 @@ public class Principal extends JFrame {
         JMenu menuConvenio = new JMenu("Convênio");
 
         JMenuItem itemNovoConvenio = new JMenuItem("Novo Convênio");
-        itemNovoConvenio.setIcon(new ImageIcon(getClass().getResource("/image/16/adicionar.png")));
+        //itemNovoConvenio.setIcon(new ImageIcon(getClass().getResource("/image/16/adicionar.png")));
         itemNovoConvenio.addActionListener(e -> goNovoConvenio());
         menuConvenio.add(itemNovoConvenio);
 
         JMenuItem itemProcurarConvenio = new JMenuItem("Procurar Convênios");
-        itemProcurarConvenio.setIcon(new ImageIcon(getClass().getResource("/image/16/procurar.png")));
+        //itemProcurarConvenio.setIcon(new ImageIcon(getClass().getResource("/image/16/procurar.png")));
         itemProcurarConvenio.addActionListener(e -> goProcurarConvenio());
         menuConvenio.add(itemProcurarConvenio);
         menuBar1.add(menuConvenio);
@@ -75,12 +98,12 @@ public class Principal extends JFrame {
         JMenu menuProfissional = new JMenu("Profissional");
 
         JMenuItem itemNovoProfissional = new JMenuItem("Novo Profissional");
-        itemNovoProfissional.setIcon(new ImageIcon(getClass().getResource("/image/16/adicionar.png")));
+        //itemNovoProfissional.setIcon(new ImageIcon(getClass().getResource("/image/16/adicionar.png")));
         itemNovoProfissional.addActionListener(e -> goNovoProfissional());
         menuProfissional.add(itemNovoProfissional);
 
         JMenuItem itemProcurarProfissional = new JMenuItem("Procurar Profissionais");
-        itemProcurarProfissional.setIcon(new ImageIcon(getClass().getResource("/image/16/procurar.png")));
+        //itemProcurarProfissional.setIcon(new ImageIcon(getClass().getResource("/image/16/procurar.png")));
         itemProcurarProfissional.addActionListener(e -> goProcurarProfissional());
         menuProfissional.add(itemProcurarProfissional);
         menuBar1.add(menuProfissional);
@@ -88,12 +111,12 @@ public class Principal extends JFrame {
         JMenu menuConfig = new JMenu("Configurações");
 
         JMenuItem itemTipoAgendamento = new JMenuItem("Config Tp. Agendamento");
-        itemTipoAgendamento.setIcon(new ImageIcon(getClass().getResource("/image/16/configuracao.png")));
+        //itemTipoAgendamento.setIcon(new ImageIcon(getClass().getResource("/image/16/configuracao.png")));
         itemTipoAgendamento.addActionListener(e -> goConfigTpAgendamento());
         menuConfig.add(itemTipoAgendamento);
 
         JMenuItem itemEditaClinica = new JMenuItem("Config Clínica");
-        itemEditaClinica.setIcon(new ImageIcon(getClass().getResource("/image/16/configuracao.png")));
+        //itemEditaClinica.setIcon(new ImageIcon(getClass().getResource("/image/16/configuracao.png")));
         itemEditaClinica.addActionListener(e -> goConfigClinica());
         menuConfig.add(itemEditaClinica);
         menuBar1.add(menuConfig);
@@ -105,6 +128,69 @@ public class Principal extends JFrame {
     }
 
     private void formWindowOpened(WindowEvent evt) {
+
+        Convenio convenio = new Convenio();
+        convenio.setNome("teste");
+        ConvenioService convenioService = new ConvenioService();
+        convenioService.salvar(convenio);
+
+        Paciente paciente = new Paciente();
+        paciente.setNomeCompleto("Paulo H.");
+        PacienteService pacienteService = new PacienteService();
+        pacienteService.salvarPaciente(paciente);
+
+        Profissional profissional = new Profissional();
+        profissional.setNome("Profi");
+        ProfissionalService profissionalService = new ProfissionalService();
+        profissionalService.salvar(profissional);
+
+
+
+        Agendamento novo = new Agendamento();
+        novo.setObservacao("Horario Ocupado");
+        novo.setConvenio(new Convenio());
+        novo.setHoraFim(LocalTime.of(8,45));
+        novo.setHoraInicio(LocalTime.of(8,30));
+        novo.setPaciente(new Paciente());
+        novo.setProfissional(new Profissional());
+        novo.setStatus("oie");
+        novo.setTipoAgendamento("Tipo looc");
+        novo.setDataAgenda(LocalDate.now());
+        AgendamentoService service = new AgendamentoService();
+        if(service.salvar(novo)){
+            System.out.println("salvou");
+        }
+
+        semana = new AgendamentoDaSemana();
+        updateTables();
+
+        Agendamento novo2 = new Agendamento();
+        novo2.setObservacao("Horario Ocupado");
+        novo2.setConvenio(new Convenio());
+        novo2.setHoraFim(LocalTime.of(10,00));
+        novo2.setHoraInicio(LocalTime.of(9,00));
+        novo2.setPaciente(new Paciente());
+        novo2.setProfissional(new Profissional());
+        novo2.setStatus("oie");
+        novo2.setTipoAgendamento("Tipo looc");
+        novo2.setDataAgenda(LocalDate.now());
+        if(service.salvar(novo2)){
+            System.out.println("salvou 2");
+        }
+        semana.getSegunda().atualizaAgendaDia();
+        updateTables();
+
+
+    }
+
+    private void updateTables(){
+
+        tabAgendaSegunda = new TabAgendamento(semana.getSegunda().getLista());
+        tblSegunda.setModel(tabAgendaSegunda);
+        tblSegunda.setDefaultRenderer(Object.class, new RenAgendamento(semana.getSegunda().getLista()));
+        tblSegunda.getTableHeader().setReorderingAllowed(false);
+        tblSegunda.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tabAgendaSegunda.fireTableDataChanged();
 
     }
 

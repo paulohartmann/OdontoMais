@@ -65,6 +65,19 @@ public class NovoAgendamento extends JDialog {
         edtHoraIni.setTimeToNow();
         edtHoraFim.setTimeToNow();
 
+        btnNovoTipoAgendamento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                goNovoTipoAgendamento();
+            }
+        });
+    }
+
+    private void goNovoTipoAgendamento() {
+
+        NovoTipoAgendamento dialog = new NovoTipoAgendamento();
+        dialog.pack();
+        dialog.setVisible(true);
     }
 
     private void onOK() {
