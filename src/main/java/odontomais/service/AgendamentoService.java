@@ -32,8 +32,8 @@ public class AgendamentoService {
     public int findHorarioByPaciente(String nome) {
         return dao.findHorarioByPaciente(nome);
     }
-    
-    public List<Agendamento> findAgendaByData(LocalDate d){
+
+    public List<Agendamento> findAgendaByData(LocalDate d) {
         return dao.findAgendaByData(d);
     }
 

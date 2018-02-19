@@ -14,7 +14,6 @@ public class Profissional implements Serializable {
     private long id;
     private String nome;
     private String telCelular;
-
     private String observacao;
 
     public long getId() {
