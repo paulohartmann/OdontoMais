@@ -81,13 +81,14 @@ public class NovoPaciente extends JDialog {
                 PacienteService service = new PacienteService();
                 service.atualizar(pacienteAtual);
                 MensagensAlerta.msgCadastroAtualizado(this);
+                NovoPacienteComplementar novo = new NovoPacienteComplementar(pacienteAtual);
+                novo.pack();
+                novo.setVisible(true);
             } else {
                 MensagensAlerta.msgCamposObrigatorios(this);
             }
         }
-        NovoPacienteComplementar novo = new NovoPacienteComplementar(pacienteAtual);
-        novo.pack();
-        novo.setVisible(true);
+
         dispose();
 
     }
@@ -143,7 +144,7 @@ public class NovoPaciente extends JDialog {
         if (edtCPF.getText().equals("")) {
             return false;
         }
-        if (edtDataNascimento.getText().equals("")) {
+        if (edtDataNascimento.getText().equals("__/__/____")) {
             return false;
         }
         if (edtNome.getText().equals("")) {

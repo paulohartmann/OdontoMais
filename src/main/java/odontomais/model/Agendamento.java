@@ -12,11 +12,11 @@ public class Agendamento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String tipoAgendamento;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private Paciente paciente;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private Convenio convenio;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private Profissional profissional;
     private LocalDate dataAgenda;
     private LocalTime horaInicio;

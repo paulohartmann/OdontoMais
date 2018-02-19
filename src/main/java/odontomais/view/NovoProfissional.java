@@ -75,37 +75,12 @@ public class NovoProfissional extends JDialog {
 
     private void completaCampos() {
         edtNomeProfissional.setText(profissional.getNome());
-        edtIniExpe.setText(FormatadoresTexto.horaToString(profissional.getHorarioInicio()));
-        edtFimExpe.setText(FormatadoresTexto.horaToString(profissional.getHorarioFim()));
-        edtIniAlmoco.setText(FormatadoresTexto.horaToString(profissional.getHorarioAlmocoInicio()));
-        edtFimAlmoco.setText(FormatadoresTexto.horaToString(profissional.getHorarioAlmocoFim()));
-        diasSemana = new boolean[7];
-        diasSemana = profissional.montaArrayDiasServico();
-        DOMCheckBox.setSelected(diasSemana[0]);
-        SEGCheckBox.setSelected(diasSemana[1]);
-        TERCheckBox.setSelected(diasSemana[2]);
-        QUACheckBox.setSelected(diasSemana[3]);
-        QUICheckBox.setSelected(diasSemana[4]);
-        SEXCheckBox.setSelected(diasSemana[5]);
-        SABCheckBox.setSelected(diasSemana[6]);
         edtObs.setText(profissional.getObservacao());
     }
 
     private boolean completaObjeto() {
         if (testaCampos()) {
-            profissional.setHorarioAlmocoFim(getHora(edtFimAlmoco.getText()));
-            profissional.setHorarioAlmocoInicio(getHora(edtIniAlmoco.getText()));
-            profissional.setHorarioFim(getHora(edtFimExpe.getText()));
-            profissional.setHorarioInicio(getHora(edtIniExpe.getText()));
             profissional.setNome(edtNomeProfissional.getText());
-            diasSemana = new boolean[7];
-            diasSemana[0] = DOMCheckBox.isSelected();
-            diasSemana[1] = SEGCheckBox.isSelected();
-            diasSemana[2] = TERCheckBox.isSelected();
-            diasSemana[3] = QUACheckBox.isSelected();
-            diasSemana[4] = QUICheckBox.isSelected();
-            diasSemana[5] = SEXCheckBox.isSelected();
-            diasSemana[6] = SABCheckBox.isSelected();
             profissional.setObservacao(edtObs.getText());
             return true;
         } else {
@@ -126,18 +101,6 @@ public class NovoProfissional extends JDialog {
 
     private boolean testaCampos() {
         if (edtNomeProfissional.getText().equals("")) {
-            return false;
-        }
-        if (edtFimAlmoco.getText().equals("")) {
-            return false;
-        }
-        if (edtFimExpe.getText().equals("")) {
-            return false;
-        }
-        if (edtIniAlmoco.getText().equals("")) {
-            return false;
-        }
-        if (edtIniExpe.getText().equals("")) {
             return false;
         }
         ProfissionalService service = new ProfissionalService();

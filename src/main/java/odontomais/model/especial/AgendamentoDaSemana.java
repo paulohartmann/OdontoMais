@@ -22,7 +22,6 @@ public class AgendamentoDaSemana {
 
     public AgendamentoDaSemana() {
         init();
-
     }
 
     private void init() {
@@ -33,82 +32,130 @@ public class AgendamentoDaSemana {
         switch (diaSemana) {
             case 1:
                 //segunda
-                segunda = new AgendamentoDoDia(hoje);
-                terca = new AgendamentoDoDia(hoje.plusDays(1));
-                quarta = new AgendamentoDoDia(hoje.plusDays(2));
-                quinta = new AgendamentoDoDia(hoje.plusDays(3));
-                sexta = new AgendamentoDoDia(hoje.plusDays(4));
-                sabado = new AgendamentoDoDia(hoje.plusDays(5));
+                setSegunda(new AgendamentoDoDia(hoje));
+                setTerca(new AgendamentoDoDia(hoje.plusDays(1)));
+                setQuarta(new AgendamentoDoDia(hoje.plusDays(2)));
+                setQuinta(new AgendamentoDoDia(hoje.plusDays(3)));
+                setSexta(new AgendamentoDoDia(hoje.plusDays(4)));
+                setSabado(new AgendamentoDoDia(hoje.plusDays(5)));
                 break;
             case 2:
                 //terca
-                segunda = new AgendamentoDoDia(hoje.minusDays(1));
-                terca = new AgendamentoDoDia(hoje);
-                quarta = new AgendamentoDoDia(hoje.plusDays(1));
-                quinta = new AgendamentoDoDia(hoje.plusDays(2));
-                sexta = new AgendamentoDoDia(hoje.plusDays(3));
-                sabado = new AgendamentoDoDia(hoje.plusDays(4));
+                setSegunda(new AgendamentoDoDia(hoje.minusDays(1)));
+                setTerca(new AgendamentoDoDia(hoje));
+                setQuarta(new AgendamentoDoDia(hoje.plusDays(1)));
+                setQuinta(new AgendamentoDoDia(hoje.plusDays(2)));
+                setSexta(new AgendamentoDoDia(hoje.plusDays(3)));
+                setSabado(new AgendamentoDoDia(hoje.plusDays(4)));
                 break;
             case 3:
-                segunda = new AgendamentoDoDia(hoje.minusDays(2));
-                terca = new AgendamentoDoDia(hoje.minusDays(1));
-                quarta = new AgendamentoDoDia(hoje);
-                quinta = new AgendamentoDoDia(hoje.plusDays(1));
-                sexta = new AgendamentoDoDia(hoje.plusDays(2));
-                sabado = new AgendamentoDoDia(hoje.plusDays(3));
+                setSegunda(new AgendamentoDoDia(hoje.minusDays(2)));
+                setTerca(new AgendamentoDoDia(hoje.minusDays(1)));
+                setQuarta(new AgendamentoDoDia(hoje));
+                setQuinta(new AgendamentoDoDia(hoje.plusDays(1)));
+                setSexta(new AgendamentoDoDia(hoje.plusDays(2)));
+                setSabado(new AgendamentoDoDia(hoje.plusDays(3)));
                 break;
             case 4:
-                segunda = new AgendamentoDoDia(hoje.minusDays(3));
-                terca = new AgendamentoDoDia(hoje.minusDays(2));
-                quarta = new AgendamentoDoDia(hoje.minusDays(1));
-                quinta = new AgendamentoDoDia(hoje);
-                sexta = new AgendamentoDoDia(hoje.plusDays(1));
-                sabado = new AgendamentoDoDia(hoje.plusDays(2));
+                setSegunda(new AgendamentoDoDia(hoje.minusDays(3)));
+                setTerca(new AgendamentoDoDia(hoje.minusDays(2)));
+                setQuarta(new AgendamentoDoDia(hoje.minusDays(1)));
+                setQuinta(new AgendamentoDoDia(hoje));
+                setSexta(new AgendamentoDoDia(hoje.plusDays(1)));
+                setSabado(new AgendamentoDoDia(hoje.plusDays(2)));
                 break;
             case 5:
-                segunda = new AgendamentoDoDia(hoje.minusDays(4));
-                terca = new AgendamentoDoDia(hoje.minusDays(3));
-                quarta = new AgendamentoDoDia(hoje.minusDays(2));
-                quinta = new AgendamentoDoDia(hoje.minusDays(1));
-                sexta = new AgendamentoDoDia(hoje);
-                sabado = new AgendamentoDoDia(hoje.plusDays(1));
+                setSegunda(new AgendamentoDoDia(hoje.minusDays(4)));
+                setTerca(new AgendamentoDoDia(hoje.minusDays(3)));
+                setQuarta(new AgendamentoDoDia(hoje.minusDays(2)));
+                setQuinta(new AgendamentoDoDia(hoje.minusDays(1)));
+                setSexta(new AgendamentoDoDia(hoje));
+                setSabado(new AgendamentoDoDia(hoje.plusDays(1)));
                 break;
             case 6:
-                segunda = new AgendamentoDoDia(hoje.minusDays(5));
-                terca = new AgendamentoDoDia(hoje.minusDays(4));
-                quarta = new AgendamentoDoDia(hoje.minusDays(3));
-                quinta = new AgendamentoDoDia(hoje.minusDays(2));
-                sexta = new AgendamentoDoDia(hoje.minusDays(1));
-                sabado = new AgendamentoDoDia(hoje);
+                setSegunda(new AgendamentoDoDia(hoje.minusDays(5)));
+                setTerca(new AgendamentoDoDia(hoje.minusDays(4)));
+                setQuarta(new AgendamentoDoDia(hoje.minusDays(3)));
+                setQuinta(new AgendamentoDoDia(hoje.minusDays(2)));
+                setSexta(new AgendamentoDoDia(hoje.minusDays(1)));
+                setSabado(new AgendamentoDoDia(hoje));
                 break;
             case 7:
-                segunda = new AgendamentoDoDia(hoje.plusDays(1));
-                terca = new AgendamentoDoDia(hoje.plusDays(2));
-                quarta = new AgendamentoDoDia(hoje.plusDays(3));
-                quinta = new AgendamentoDoDia(hoje.plusDays(4));
-                sexta = new AgendamentoDoDia(hoje.plusDays(5));
-                sabado = new AgendamentoDoDia(hoje.plusDays(6));
+                setSegunda(new AgendamentoDoDia(hoje.plusDays(1)));
+                setTerca(new AgendamentoDoDia(hoje.plusDays(2)));
+                setQuarta(new AgendamentoDoDia(hoje.plusDays(3)));
+                setQuinta(new AgendamentoDoDia(hoje.plusDays(4)));
+                setSexta(new AgendamentoDoDia(hoje.plusDays(5)));
+                setSabado(new AgendamentoDoDia(hoje.plusDays(6)));
                 break;
         }
     }
 
     public void nextWeek() {
-        segunda.nextWeek();
-        terca.nextWeek();
-        quarta.nextWeek();
-        quinta.nextWeek();
-        sexta.nextWeek();
-        sabado.nextWeek();
+        getSegunda().nextWeek();
+        getTerca().nextWeek();
+        getQuarta().nextWeek();
+        getQuinta().nextWeek();
+        getSexta().nextWeek();
+        getSabado().nextWeek();
 
     }
 
     public void previusWeek() {
-        segunda.previusWeek();
-        terca.previusWeek();
-        quarta.previusWeek();
-        quinta.previusWeek();
-        sexta.previusWeek();
-        sabado.previusWeek();
+        getSegunda().previusWeek();
+        getTerca().previusWeek();
+        getQuarta().previusWeek();
+        getQuinta().previusWeek();
+        getSexta().previusWeek();
+        getSabado().previusWeek();
     }
 
+
+    public AgendamentoDoDia getSegunda() {
+        return segunda;
+    }
+
+    public void setSegunda(AgendamentoDoDia segunda) {
+        this.segunda = segunda;
+    }
+
+    public AgendamentoDoDia getTerca() {
+        return terca;
+    }
+
+    public void setTerca(AgendamentoDoDia terca) {
+        this.terca = terca;
+    }
+
+    public AgendamentoDoDia getQuarta() {
+        return quarta;
+    }
+
+    public void setQuarta(AgendamentoDoDia quarta) {
+        this.quarta = quarta;
+    }
+
+    public AgendamentoDoDia getQuinta() {
+        return quinta;
+    }
+
+    public void setQuinta(AgendamentoDoDia quinta) {
+        this.quinta = quinta;
+    }
+
+    public AgendamentoDoDia getSexta() {
+        return sexta;
+    }
+
+    public void setSexta(AgendamentoDoDia sexta) {
+        this.sexta = sexta;
+    }
+
+    public AgendamentoDoDia getSabado() {
+        return sabado;
+    }
+
+    public void setSabado(AgendamentoDoDia sabado) {
+        this.sabado = sabado;
+    }
 }

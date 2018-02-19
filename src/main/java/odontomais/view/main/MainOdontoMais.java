@@ -6,23 +6,22 @@
 package odontomais.view.main;
 
 import java.awt.GraphicsEnvironment;
+
 import odontomais.service.AgendamentoService;
 import odontomais.view.Principal;
 
 /**
- *
  * @author paulohar
  */
 public class MainOdontoMais {
 
     public static void main(String[] args) {
-        AgendamentoService service = new AgendamentoService();
-        service.findAgendamentosSemana();
 
-        //  Principal dialog = new Principal();
-        // dialog.pack();
-        //  dialog.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
-        //  dialog.setVisible(true);
+
+        Principal dialog = new Principal();
+        dialog.pack();
+        dialog.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds());
+        dialog.setVisible(true);
     }
 
 }

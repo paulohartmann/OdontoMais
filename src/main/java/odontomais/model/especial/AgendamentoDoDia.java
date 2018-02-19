@@ -63,7 +63,7 @@ public class AgendamentoDoDia {
         service = new AgendamentoService();
 
         ClinicaService serviceClinica = new ClinicaService();
-        Clinica clinica = serviceClinica.find();
+        //Clinica clinica = serviceClinica.find();
         inicio = LocalTime.of(8, 0); //clinica.getHorarioInicio();
         fim = LocalTime.of(21, 0);  //clinica.getHorarioFim();
         inicio.format(DateTimeFormatter.ofPattern("HH:mm"));
@@ -91,6 +91,7 @@ public class AgendamentoDoDia {
             a.setHoraFim(time);
             lista.add(a);
         }
+        atualizaAgendaDia();
     }
 
     public void atualizaAgendaDia() {
@@ -98,23 +99,27 @@ public class AgendamentoDoDia {
         for (Agendamento a : lista) {
             for (Agendamento o : listaDia) {
                 if (a.getHoraInicio().equals(o.getHoraInicio())) {
-                    a.setObservacao(o.getObservacao());
-                    a.setConvenio(o.getConvenio());
-                    a.setPaciente(o.getPaciente());
-                    a.setProfissional(o.getProfissional());
-                    a.setStatus(o.getStatus());
-                    a.setTipoAgendamento(o.getTipoAgendamento());
+                    completaObj(a,o);
+                }
+                if(a.getHoraInicio().isBefore(o.getHoraFim()) && a.getHoraFim().isAfter(o.getHoraInicio())){
+                    completaObj(a,o);
                 }
                 if (a.getHoraFim().equals(o.getHoraFim())) {
-                    a.setObservacao(o.getObservacao());
-                    a.setConvenio(o.getConvenio());
-                    a.setPaciente(o.getPaciente());
-                    a.setProfissional(o.getProfissional());
-                    a.setStatus(o.getStatus());
-                    a.setTipoAgendamento(o.getTipoAgendamento());
+                    completaObj(a,o);
                 }
             }
         }
+
+    }
+
+    public Agendamento completaObj(Agendamento a, Agendamento o){
+        a.setObservacao(o.getObservacao());
+        a.setConvenio(o.getConvenio());
+        a.setPaciente(o.getPaciente());
+        a.setProfissional(o.getProfissional());
+        a.setStatus(o.getStatus());
+        a.setTipoAgendamento(o.getTipoAgendamento());
+        return a;
     }
 
     public void nextWeek() {

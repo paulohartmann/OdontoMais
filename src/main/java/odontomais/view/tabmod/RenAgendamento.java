@@ -4,22 +4,26 @@
  */
 package odontomais.view.tabmod;
 
+import odontomais.model.Agendamento;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
 /**
- *
  * @author rodrigos
  */
 public class RenAgendamento extends JLabel implements TableCellRenderer {
 
-    public RenAgendamento() {
+    protected List<Agendamento> lista;
 
+    public RenAgendamento(List<Agendamento> l) {
+        this.lista = l;
     }
 
     @Override
@@ -27,6 +31,8 @@ public class RenAgendamento extends JLabel implements TableCellRenderer {
 
         JLabel rot = new JLabel();
         if (value != null) {
+            Agendamento agenda = lista.get(table.convertRowIndexToModel(row));
+            rot.setText(agenda.getStatus());
             rot.setOpaque(true);
             rot.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.WHITE));
 
@@ -44,7 +50,7 @@ public class RenAgendamento extends JLabel implements TableCellRenderer {
         return rot;
     }
 
-    public void updateTableAllCabosf() {
+    /*public void updateTableAllCabosf() {
         CaboFabricaDAO daocabofabrica = new CaboFabricaDAO();
         modtabAll = new TabCaboFabrica(daocabofabrica.findAllFromPedido(pedido.getIdPedido()));
         ///adiciona o modelo a tabela...
@@ -71,5 +77,5 @@ public class RenAgendamento extends JLabel implements TableCellRenderer {
         tbl_moduloMotor.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tabMotor.fireTableDataChanged();
     }
-
+*/
 }
