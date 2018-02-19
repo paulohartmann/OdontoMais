@@ -12,7 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import odontomais.model.Agendamento;
-import odontomais.model.Clinica;
 import odontomais.model.Convenio;
 import odontomais.model.Paciente;
 import odontomais.model.Profissional;
@@ -32,9 +31,11 @@ public class AgendamentoDoDia {
     private int intervalo;
 
     private AgendamentoService service;
+    private Profissional profissional;
 
-    public AgendamentoDoDia(List<Agendamento> l) {
+    public AgendamentoDoDia(List<Agendamento> l, Profissional p) {
         lista = l;
+        this.profissional = p;
         init();
     }
 
@@ -95,30 +96,31 @@ public class AgendamentoDoDia {
     }
 
     public void atualizaAgendaDia() {
-        List<Agendamento> listaDia = service.findAgendaByData(dia);
+        List<Agendamento> listaDia = service.findAgendaByDataProfissional(dia, profissional.getId());
         for (Agendamento a : lista) {
             for (Agendamento o : listaDia) {
                 if (a.getHoraInicio().equals(o.getHoraInicio())) {
-                    completaObj(a,o);
+                    completaObj(a, o);
                 }
-                if(a.getHoraInicio().isBefore(o.getHoraFim()) && a.getHoraFim().isAfter(o.getHoraInicio())){
-                    completaObj(a,o);
+                if (a.getHoraInicio().isBefore(o.getHoraFim()) && a.getHoraFim().isAfter(o.getHoraInicio())) {
+                    completaObj(a, o);
                 }
                 if (a.getHoraFim().equals(o.getHoraFim())) {
-                    completaObj(a,o);
+                    completaObj(a, o);
                 }
             }
         }
 
     }
 
-    public Agendamento completaObj(Agendamento a, Agendamento o){
+    public Agendamento completaObj(Agendamento a, Agendamento o) {
         a.setObservacao(o.getObservacao());
         a.setConvenio(o.getConvenio());
         a.setPaciente(o.getPaciente());
         a.setProfissional(o.getProfissional());
         a.setStatus(o.getStatus());
         a.setTipoAgendamento(o.getTipoAgendamento());
+
         return a;
     }
 

@@ -49,7 +49,7 @@ public class Principal extends JFrame {
         setContentPane(contentPane);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("OdontoMais");
-        
+
         novoAgendamentoButton.addActionListener(e -> goNovoAgendamento());
 
     }
@@ -144,53 +144,75 @@ public class Principal extends JFrame {
         ProfissionalService profissionalService = new ProfissionalService();
         profissionalService.salvar(profissional);
 
-
-
         Agendamento novo = new Agendamento();
         novo.setObservacao("Horario Ocupado");
         novo.setConvenio(new Convenio());
-        novo.setHoraFim(LocalTime.of(8,45));
-        novo.setHoraInicio(LocalTime.of(8,30));
+        novo.setHoraFim(LocalTime.of(8, 45));
+        novo.setHoraInicio(LocalTime.of(8, 30));
         novo.setPaciente(new Paciente());
         novo.setProfissional(new Profissional());
         novo.setStatus("oie");
         novo.setTipoAgendamento("Tipo looc");
         novo.setDataAgenda(LocalDate.now());
         AgendamentoService service = new AgendamentoService();
-        if(service.salvar(novo)){
+        if (service.salvar(novo)) {
             System.out.println("salvou");
         }
 
         semana = new AgendamentoDaSemana();
         updateTables();
 
-        Agendamento novo2 = new Agendamento();
-        novo2.setObservacao("Horario Ocupado");
-        novo2.setConvenio(new Convenio());
-        novo2.setHoraFim(LocalTime.of(10,00));
-        novo2.setHoraInicio(LocalTime.of(9,00));
-        novo2.setPaciente(new Paciente());
-        novo2.setProfissional(new Profissional());
-        novo2.setStatus("oie");
-        novo2.setTipoAgendamento("Tipo looc");
-        novo2.setDataAgenda(LocalDate.now());
-        if(service.salvar(novo2)){
-            System.out.println("salvou 2");
-        }
-        semana.getSegunda().atualizaAgendaDia();
-        updateTables();
-
-
     }
 
-    private void updateTables(){
+    private void updateTables() {
 
+        //semana.getSegunda().atualizaAgendaDia();
         tabAgendaSegunda = new TabAgendamento(semana.getSegunda().getLista());
         tblSegunda.setModel(tabAgendaSegunda);
         tblSegunda.setDefaultRenderer(Object.class, new RenAgendamento(semana.getSegunda().getLista()));
         tblSegunda.getTableHeader().setReorderingAllowed(false);
         tblSegunda.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         tabAgendaSegunda.fireTableDataChanged();
+
+        //semana.getTerca().atualizaAgendaDia();
+        tabAgendaTerca = new TabAgendamento(semana.getTerca().getLista());
+        tblTerca.setModel(tabAgendaTerca);
+        tblTerca.setDefaultRenderer(Object.class, new RenAgendamento(semana.getTerca().getLista()));
+        tblTerca.getTableHeader().setReorderingAllowed(false);
+        tblTerca.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tabAgendaTerca.fireTableDataChanged();
+
+        semana.getQuarta().atualizaAgendaDia();
+        tabAgendaQuarta = new TabAgendamento(semana.getQuarta().getLista());
+        tblQuarta.setModel(tabAgendaQuarta);
+        tblQuarta.setDefaultRenderer(Object.class, new RenAgendamento(semana.getQuarta().getLista()));
+        tblQuarta.getTableHeader().setReorderingAllowed(false);
+        tblQuarta.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tabAgendaQuarta.fireTableDataChanged();
+
+        semana.getQuinta().atualizaAgendaDia();
+        tabAgendaQuinta = new TabAgendamento(semana.getQuinta().getLista());
+        tblQuinta.setModel(tabAgendaQuinta);
+        tblQuinta.setDefaultRenderer(Object.class, new RenAgendamento(semana.getQuinta().getLista()));
+        tblQuinta.getTableHeader().setReorderingAllowed(false);
+        tblQuinta.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tabAgendaQuinta.fireTableDataChanged();
+
+        semana.getSexta().atualizaAgendaDia();
+        tabAgendaSexta = new TabAgendamento(semana.getSexta().getLista());
+        tblSexta.setModel(tabAgendaSexta);
+        tblSexta.setDefaultRenderer(Object.class, new RenAgendamento(semana.getSexta().getLista()));
+        tblSexta.getTableHeader().setReorderingAllowed(false);
+        tblSexta.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tabAgendaSexta.fireTableDataChanged();
+
+        semana.getSabado().atualizaAgendaDia();
+        tabAgendaSabado = new TabAgendamento(semana.getSabado().getLista());
+        tblSabado.setModel(tabAgendaSabado);
+        tblSabado.setDefaultRenderer(Object.class, new RenAgendamento(semana.getSabado().getLista()));
+        tblSabado.getTableHeader().setReorderingAllowed(false);
+        tblSabado.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tabAgendaSabado.fireTableDataChanged();
 
     }
 

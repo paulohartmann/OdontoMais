@@ -33,8 +33,8 @@ public class AgendamentoService {
         return dao.findHorarioByPaciente(nome);
     }
 
-    public List<Agendamento> findAgendaByData(LocalDate d) {
-        return dao.findAgendaByData(d);
+    public List<Agendamento> findAgendaByDataProfissional(LocalDate d, long id) {
+        return dao.findAgendaByDataProfissional(d, id);
     }
 
     public boolean salvar(Agendamento a){

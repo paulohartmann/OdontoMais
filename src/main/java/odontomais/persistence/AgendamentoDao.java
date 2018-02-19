@@ -29,13 +29,14 @@ public class AgendamentoDao extends GenericDAO<Agendamento, Long> {
         return resultado;
     }
 
-    public List<Agendamento> findAgendaByData(LocalDate dia) {
+    public List<Agendamento> findAgendaByDataProfissional(LocalDate dia, long id) {
         List<Agendamento> resultado = null;
         String consulta = "SELECT c FROM Agendamento c WHERE "
-                + "c.dataAgenda = :dia";
+                + "c.dataAgenda = :dia and c.profissional.id = id";
         try {
             Query query = criarQuery(consulta);
             query.setParameter("dia", dia);
+            query.setParameter("id", id);
             resultado = (List<Agendamento>) query.getResultList();
         } catch (Exception rx) {
 
