@@ -16,7 +16,7 @@ public class Agendamento implements Serializable {
     private Paciente paciente;
     @ManyToOne(cascade=CascadeType.ALL)
     private Convenio convenio;
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     private Profissional profissional;
     private LocalDate dataAgenda;
     private LocalTime horaInicio;

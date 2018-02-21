@@ -39,8 +39,9 @@ public class AgendamentoDoDia {
         init();
     }
 
-    public AgendamentoDoDia(LocalDate d) {
+    public AgendamentoDoDia(LocalDate d, Profissional p) {
         dia = d;
+        this.profissional = p;
         init();
         novaAgendaDia();
     }

@@ -5,6 +5,8 @@
  */
 package odontomais.model.especial;
 
+import odontomais.model.Profissional;
+
 import java.time.LocalDate;
 
 /**
@@ -20,8 +22,12 @@ public class AgendamentoDaSemana {
     private AgendamentoDoDia sexta;
     private AgendamentoDoDia sabado;
 
-    public AgendamentoDaSemana() {
+    private Profissional profissional;
+
+    public AgendamentoDaSemana(Profissional p) {
+        this.profissional = p;
         init();
+
     }
 
     private void init() {
@@ -32,61 +38,61 @@ public class AgendamentoDaSemana {
         switch (diaSemana) {
             case 1:
                 //segunda
-                setSegunda(new AgendamentoDoDia(hoje));
-                setTerca(new AgendamentoDoDia(hoje.plusDays(1)));
-                setQuarta(new AgendamentoDoDia(hoje.plusDays(2)));
-                setQuinta(new AgendamentoDoDia(hoje.plusDays(3)));
-                setSexta(new AgendamentoDoDia(hoje.plusDays(4)));
-                setSabado(new AgendamentoDoDia(hoje.plusDays(5)));
+                setSegunda(new AgendamentoDoDia(hoje, profissional));
+                setTerca(new AgendamentoDoDia(hoje.plusDays(1), profissional));
+                setQuarta(new AgendamentoDoDia(hoje.plusDays(2), profissional));
+                setQuinta(new AgendamentoDoDia(hoje.plusDays(3), profissional));
+                setSexta(new AgendamentoDoDia(hoje.plusDays(4), profissional));
+                setSabado(new AgendamentoDoDia(hoje.plusDays(5), profissional));
                 break;
             case 2:
                 //terca
-                setSegunda(new AgendamentoDoDia(hoje.minusDays(1)));
-                setTerca(new AgendamentoDoDia(hoje));
-                setQuarta(new AgendamentoDoDia(hoje.plusDays(1)));
-                setQuinta(new AgendamentoDoDia(hoje.plusDays(2)));
-                setSexta(new AgendamentoDoDia(hoje.plusDays(3)));
-                setSabado(new AgendamentoDoDia(hoje.plusDays(4)));
+                setSegunda(new AgendamentoDoDia(hoje.minusDays(1), profissional));
+                setTerca(new AgendamentoDoDia(hoje, profissional));
+                setQuarta(new AgendamentoDoDia(hoje.plusDays(1), profissional));
+                setQuinta(new AgendamentoDoDia(hoje.plusDays(2), profissional));
+                setSexta(new AgendamentoDoDia(hoje.plusDays(3), profissional));
+                setSabado(new AgendamentoDoDia(hoje.plusDays(4), profissional));
                 break;
             case 3:
-                setSegunda(new AgendamentoDoDia(hoje.minusDays(2)));
-                setTerca(new AgendamentoDoDia(hoje.minusDays(1)));
-                setQuarta(new AgendamentoDoDia(hoje));
-                setQuinta(new AgendamentoDoDia(hoje.plusDays(1)));
-                setSexta(new AgendamentoDoDia(hoje.plusDays(2)));
-                setSabado(new AgendamentoDoDia(hoje.plusDays(3)));
+                setSegunda(new AgendamentoDoDia(hoje.minusDays(2), profissional));
+                setTerca(new AgendamentoDoDia(hoje.minusDays(1), profissional));
+                setQuarta(new AgendamentoDoDia(hoje, profissional));
+                setQuinta(new AgendamentoDoDia(hoje.plusDays(1), profissional));
+                setSexta(new AgendamentoDoDia(hoje.plusDays(2), profissional));
+                setSabado(new AgendamentoDoDia(hoje.plusDays(3), profissional));
                 break;
             case 4:
-                setSegunda(new AgendamentoDoDia(hoje.minusDays(3)));
-                setTerca(new AgendamentoDoDia(hoje.minusDays(2)));
-                setQuarta(new AgendamentoDoDia(hoje.minusDays(1)));
-                setQuinta(new AgendamentoDoDia(hoje));
-                setSexta(new AgendamentoDoDia(hoje.plusDays(1)));
-                setSabado(new AgendamentoDoDia(hoje.plusDays(2)));
+                setSegunda(new AgendamentoDoDia(hoje.minusDays(3), profissional));
+                setTerca(new AgendamentoDoDia(hoje.minusDays(2), profissional));
+                setQuarta(new AgendamentoDoDia(hoje.minusDays(1), profissional));
+                setQuinta(new AgendamentoDoDia(hoje, profissional));
+                setSexta(new AgendamentoDoDia(hoje.plusDays(1), profissional));
+                setSabado(new AgendamentoDoDia(hoje.plusDays(2), profissional));
                 break;
             case 5:
-                setSegunda(new AgendamentoDoDia(hoje.minusDays(4)));
-                setTerca(new AgendamentoDoDia(hoje.minusDays(3)));
-                setQuarta(new AgendamentoDoDia(hoje.minusDays(2)));
-                setQuinta(new AgendamentoDoDia(hoje.minusDays(1)));
-                setSexta(new AgendamentoDoDia(hoje));
-                setSabado(new AgendamentoDoDia(hoje.plusDays(1)));
+                setSegunda(new AgendamentoDoDia(hoje.minusDays(4), profissional));
+                setTerca(new AgendamentoDoDia(hoje.minusDays(3), profissional));
+                setQuarta(new AgendamentoDoDia(hoje.minusDays(2), profissional));
+                setQuinta(new AgendamentoDoDia(hoje.minusDays(1), profissional));
+                setSexta(new AgendamentoDoDia(hoje, profissional));
+                setSabado(new AgendamentoDoDia(hoje.plusDays(1), profissional));
                 break;
             case 6:
-                setSegunda(new AgendamentoDoDia(hoje.minusDays(5)));
-                setTerca(new AgendamentoDoDia(hoje.minusDays(4)));
-                setQuarta(new AgendamentoDoDia(hoje.minusDays(3)));
-                setQuinta(new AgendamentoDoDia(hoje.minusDays(2)));
-                setSexta(new AgendamentoDoDia(hoje.minusDays(1)));
-                setSabado(new AgendamentoDoDia(hoje));
+                setSegunda(new AgendamentoDoDia(hoje.minusDays(5), profissional));
+                setTerca(new AgendamentoDoDia(hoje.minusDays(4), profissional));
+                setQuarta(new AgendamentoDoDia(hoje.minusDays(3), profissional));
+                setQuinta(new AgendamentoDoDia(hoje.minusDays(2), profissional));
+                setSexta(new AgendamentoDoDia(hoje.minusDays(1), profissional));
+                setSabado(new AgendamentoDoDia(hoje, profissional));
                 break;
             case 7:
-                setSegunda(new AgendamentoDoDia(hoje.plusDays(1)));
-                setTerca(new AgendamentoDoDia(hoje.plusDays(2)));
-                setQuarta(new AgendamentoDoDia(hoje.plusDays(3)));
-                setQuinta(new AgendamentoDoDia(hoje.plusDays(4)));
-                setSexta(new AgendamentoDoDia(hoje.plusDays(5)));
-                setSabado(new AgendamentoDoDia(hoje.plusDays(6)));
+                setSegunda(new AgendamentoDoDia(hoje.plusDays(1), profissional));
+                setTerca(new AgendamentoDoDia(hoje.plusDays(2), profissional));
+                setQuarta(new AgendamentoDoDia(hoje.plusDays(3), profissional));
+                setQuinta(new AgendamentoDoDia(hoje.plusDays(4), profissional));
+                setSexta(new AgendamentoDoDia(hoje.plusDays(5), profissional));
+                setSabado(new AgendamentoDoDia(hoje.plusDays(6), profissional));
                 break;
         }
     }

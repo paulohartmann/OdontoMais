@@ -34,7 +34,12 @@ public class AgendamentoService {
     }
 
     public List<Agendamento> findAgendaByDataProfissional(LocalDate d, long id) {
-        return dao.findAgendaByDataProfissional(d, id);
+        List<Agendamento> lista = dao.findAgendaByDataProfissional(d, id);
+        if(lista == null){
+            return new ArrayList<Agendamento>();
+        }else{
+            return lista;
+        }
     }
 
     public boolean salvar(Agendamento a){

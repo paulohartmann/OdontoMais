@@ -9,16 +9,15 @@ import odontomais.model.Agendamento;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
 
 /**
  * @author rodrigos
  */
-public class RenAgendamento extends JLabel implements TableCellRenderer {
+public class RenAgendamento extends JPanel implements TableCellRenderer {
 
     protected List<Agendamento> lista;
 
@@ -29,6 +28,7 @@ public class RenAgendamento extends JLabel implements TableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
+        JPanel panel = new JPanel();
         JLabel rot = new JLabel();
         if (value != null) {
             Agendamento agenda = lista.get(table.convertRowIndexToModel(row));
@@ -36,18 +36,23 @@ public class RenAgendamento extends JLabel implements TableCellRenderer {
             rot.setOpaque(true);
             rot.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.WHITE));
 
-            rot.setVerticalAlignment(CENTER);
+            rot.setVerticalAlignment(JLabel.CENTER);
 
             rot.setForeground(Color.BLUE);
 
-            rot.setHorizontalTextPosition(RIGHT);
+            rot.setHorizontalTextPosition(JLabel.RIGHT);
             rot.setFont(new Font("Serif", Font.BOLD, 12));
             if (isSelected) {
                 rot.setBackground(new Color(0, 51, 255));
                 rot.setForeground(Color.WHITE);
             }
+            panel.add(rot);
+            JLabel horarioFim = new JLabel();
+            horarioFim.setText(agenda.getHoraFim().toString());
         }
-        return rot;
+        rot.setText("teste");
+        panel.add(rot);
+        return panel;
     }
 
     /*public void updateTableAllCabosf() {

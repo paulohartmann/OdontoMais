@@ -150,7 +150,7 @@ public class Principal extends JFrame {
         novo.setHoraFim(LocalTime.of(8, 45));
         novo.setHoraInicio(LocalTime.of(8, 30));
         novo.setPaciente(new Paciente());
-        novo.setProfissional(new Profissional());
+        novo.setProfissional(profissional);
         novo.setStatus("oie");
         novo.setTipoAgendamento("Tipo looc");
         novo.setDataAgenda(LocalDate.now());
@@ -159,7 +159,7 @@ public class Principal extends JFrame {
             System.out.println("salvou");
         }
 
-        semana = new AgendamentoDaSemana();
+        semana = new AgendamentoDaSemana(profissional);
         updateTables();
 
     }
