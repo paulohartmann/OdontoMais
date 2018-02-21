@@ -2,8 +2,6 @@ package odontomais.service.util;
 
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /*
  * Author: phlab
@@ -83,14 +81,5 @@ public class FormatadoresTexto {
         mf1.setPlaceholderCharacter('_');
         return mf1;
     }
-
-    public static String horaToString(LocalDate hora){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        String t = hora.format(formatter);
-        return t;
-    }
-
-
-
 
 }

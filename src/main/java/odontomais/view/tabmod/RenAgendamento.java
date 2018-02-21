@@ -6,13 +6,11 @@ package odontomais.view.tabmod;
 
 import odontomais.model.Agendamento;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
+import odontomais.model.util.DataUtil;
 
 /**
  * @author rodrigos
@@ -27,12 +25,23 @@ public class RenAgendamento extends JPanel implements TableCellRenderer {
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        JLabel horaIni = new javax.swing.JLabel();
+        JLabel nomePaciente = new javax.swing.JLabel();
+        JLabel horaFim = new javax.swing.JLabel();
 
-        JPanel panel = new JPanel();
-        JLabel rot = new JLabel();
-        if (value != null) {
+        JPanel panel = init(horaIni, horaFim, nomePaciente);
+
+        //if (value != null) {
             Agendamento agenda = lista.get(table.convertRowIndexToModel(row));
-            rot.setText(agenda.getStatus());
+            if (agenda.getId() > 0) {
+                nomePaciente.setText(agenda.getPaciente().getNomeCompleto());
+            } else {
+                nomePaciente.setText(agenda.getObservacao());
+            }
+            horaIni.setText(DataUtil.converteTimeToString(agenda.getHoraInicio()));
+            horaFim.setText(DataUtil.converteTimeToString(agenda.getHoraFim()));
+
+            /*
             rot.setOpaque(true);
             rot.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.WHITE));
 
@@ -47,40 +56,65 @@ public class RenAgendamento extends JPanel implements TableCellRenderer {
                 rot.setForeground(Color.WHITE);
             }
             panel.add(rot);
-            JLabel horarioFim = new JLabel();
-            horarioFim.setText(agenda.getHoraFim().toString());
-        }
-        rot.setText("teste");
-        panel.add(rot);
+             */
+        //}
         return panel;
     }
 
-    /*public void updateTableAllCabosf() {
-        CaboFabricaDAO daocabofabrica = new CaboFabricaDAO();
-        modtabAll = new TabCaboFabrica(daocabofabrica.findAllFromPedido(pedido.getIdPedido()));
-        ///adiciona o modelo a tabela...
-        for (int i = 0; i <= 7; i++) {
-            modtabAll.setEditableColum(i, false);
-        }
-        tbl_AllCabosf.setModel(modtabAll);
-        tbl_AllCabosf.setDefaultRenderer(Object.class, new RenCaboF(modtabAll.getArrayCabo()));
-        tbl_AllCabosf.getTableHeader().setReorderingAllowed(false);
-    }
+    private JPanel init(JLabel jLabel1, JLabel jLabel2, JLabel jLabel3) {
+        JPanel jPanel1 = new javax.swing.JPanel();
 
-    public void updateTableModuloMotores(int tipo) {
-        MotoresDAO o = new MotoresDAO();
-        UnidadeDAO uniDAO = new UnidadeDAO();
-        ModuloMotoresDAO modDAO = new ModuloMotoresDAO();
-        ArrayList<Motores> motoresList = o.findMotoresIDOBRA(obra.getIdObra());
-        for (Motores m : motoresList) {
-            m.setUnidade(uniDAO.findUnidadesFromIdUnidade(m.getUnidade().getIdUnidade()));
-            m.setModuloMotores(modDAO.findModuloMotorIDModuloMotor(m.getModuloMotores().getIdModuloMotor()));
-        }
-        tabMotor = new TabMotor(motoresList);
-        tbl_moduloMotor.setModel(tabMotor);
-        tbl_moduloMotor.getTableHeader().setReorderingAllowed(false);
-        tbl_moduloMotor.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        tabMotor.fireTableDataChanged();
+        jLabel1.setText("jLabel1");
+
+        jLabel2.setText("jLabel2");
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("jLabel3");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel1)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel2)
+                                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(274, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(246, Short.MAX_VALUE))
+        );
+
+        return jPanel1;
     }
-*/
 }

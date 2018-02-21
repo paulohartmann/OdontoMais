@@ -21,11 +21,11 @@ public class PacienteDao extends GenericDAO<Paciente, Long> {
             query.setParameter("param", cpf);
             resultado = (Paciente) query.getSingleResult();
         } catch (Exception rx) {
-
+            getLogger().error("Erro ao procurar paciente por cpf", rx.getCause());
         }
         return resultado;
     }
-    
+
     public Paciente findFromRG(String rg) {
         Paciente resultado = null;
         String consulta = "SELECT c FROM Paciente c WHERE "
@@ -35,7 +35,7 @@ public class PacienteDao extends GenericDAO<Paciente, Long> {
             query.setParameter("param", rg);
             resultado = (Paciente) query.getSingleResult();
         } catch (Exception rx) {
-
+            getLogger().error("Erro ao procurar paciente por rg", rx.getCause());
         }
         return resultado;
     }
@@ -43,13 +43,13 @@ public class PacienteDao extends GenericDAO<Paciente, Long> {
     public List<Paciente> findFromNome(String nome) {
         List<Paciente> resultado = null;
         String consulta = "SELECT c FROM Paciente c WHERE "
-                + "c.nomeCompleto = :param";
+                + "c.nomeCompleto LIKE :param";
         try {
             Query query = criarQuery(consulta);
             query.setParameter("param", nome + "%");
             resultado = (List<Paciente>) query.getResultList();
         } catch (Exception rx) {
-
+            getLogger().error("Erro ao procurar lista de pacientes por nome", rx.getCause());
         }
         return resultado;
     }
@@ -63,7 +63,7 @@ public class PacienteDao extends GenericDAO<Paciente, Long> {
             query.setParameter("param", param);
             resultado = (int) query.getFirstResult();
         } catch (Exception rx) {
-
+            getLogger().error("Erro ao procurar existencia de paciente do cpf", rx.getCause());
         }
         return resultado;
     }
@@ -77,7 +77,7 @@ public class PacienteDao extends GenericDAO<Paciente, Long> {
             query.setParameter("param", param);
             resultado = (int) query.getFirstResult();
         } catch (Exception rx) {
-
+            getLogger().error("Erro ao procurar existencia de paciente do rg", rx.getCause());
         }
         return resultado;
     }

@@ -5,7 +5,6 @@
  */
 package odontomais.view.tabmod;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import odontomais.model.TipoAgendamento;
@@ -18,7 +17,6 @@ public class TabTipoAgendamento extends AbstractTableModel {
 
     private ArrayList<TipoAgendamento> datalist;
     private Boolean[] editcolumns = new Boolean[1];
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private String[] columns = {"Nome"};
 
     public TabTipoAgendamento(ArrayList<TipoAgendamento> l) {

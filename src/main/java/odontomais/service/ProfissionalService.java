@@ -1,5 +1,6 @@
 package odontomais.service;
 
+import java.util.List;
 import odontomais.model.Profissional;
 import odontomais.persistence.ProfissionalDao;
 
@@ -27,7 +28,15 @@ public class ProfissionalService {
         dao.atualizar(p);
     }
 
-    public int findExisteByName(String nome) {
+    public int findQtdByName(String nome) {
+        return dao.findQtdByName(nome);
+    }
+    
+    public Profissional findByName(String nome){
         return dao.findExisteByName(nome);
+    }
+    
+    public List<Profissional> findAll(){
+        return dao.getList();
     }
 }

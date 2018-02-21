@@ -10,7 +10,7 @@ public class ConvenioDao extends GenericDAO<Convenio, Long> {
         super(Convenio.class);
     }
 
-    public int findExisteByName(String nome) {
+    public int findQtdByName(String nome) {
         int resultado = 0;
         String consulta = "SELECT c FROM Convenio c WHERE "
                 + "c.nome = :param";
@@ -19,7 +19,21 @@ public class ConvenioDao extends GenericDAO<Convenio, Long> {
             query.setParameter("param", nome);
             resultado = (int) query.getFirstResult();
         } catch (Exception rx) {
+            getLogger().error("Erro ao procurar qnt convênio", rx.getCause());
+        }
+        return resultado;
+    }
 
+    public Convenio findExisteByName(String nome) {
+        Convenio resultado = null;
+        String consulta = "SELECT c FROM Convenio c WHERE "
+                + "c.nome = :param";
+        try {
+            Query query = criarQuery(consulta);
+            query.setParameter("param", nome);
+            resultado = (Convenio) query.getSingleResult();
+        } catch (Exception rx) {
+            getLogger().error("Erro ao procurar convênio pelo nome", rx.getCause());
         }
         return resultado;
     }

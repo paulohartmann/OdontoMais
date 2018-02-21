@@ -7,10 +7,7 @@ import odontomais.service.util.MensagensAlerta;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.Normalizer;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import odontomais.model.util.DataUtil;
 
 /*
  * Author: phlab
@@ -61,7 +58,7 @@ public class NovoPaciente extends JDialog {
         if (testaCampos()) {
             completaObjeto();
             PacienteService service = new PacienteService();
-            if (service.salvarPaciente(pacienteAtual)) {
+            if (service.salvar(pacienteAtual)) {
                 MensagensAlerta.msgCadastroOK(this);
                 dispose();
             } else {
@@ -120,8 +117,7 @@ public class NovoPaciente extends JDialog {
         pacienteAtual.setTelCel(edtCelular.getText());
         pacienteAtual.setCidade(edtCidade.getText());
         pacienteAtual.setCpf(edtCPF.getText());
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        pacienteAtual.setDataNascimento(LocalDate.parse(edtDataNascimento.getText(), dtf));
+        pacienteAtual.setDataNascimento(DataUtil.converteStringToDate(edtDataNascimento.getText()));
         pacienteAtual.setEmail(edtEmail.getText());
         pacienteAtual.setEndResidencial(edtEndereco.getText());
         pacienteAtual.setEstado(edtEstado.getText());

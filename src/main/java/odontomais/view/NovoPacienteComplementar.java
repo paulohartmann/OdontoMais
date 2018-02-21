@@ -11,6 +11,7 @@ import java.awt.event.*;
 import java.util.List;
 
 public class NovoPacienteComplementar extends JDialog {
+
     private JPanel contentPane;
     private JTextField edtProfissao;
     private JTextField edtProblemaSaude;
@@ -63,11 +64,13 @@ public class NovoPacienteComplementar extends JDialog {
         novo.setVisible(true);
     }
 
-    private void completaConvenioTela(){
+    private void completaConvenioTela() {
         ConvenioService convenioService = new ConvenioService();
         List<Convenio> listaConvenio = convenioService.getLista();
         edtBoxConvenios.removeAllItems();
-        for(Convenio c : listaConvenio) edtBoxConvenios.addItem(c.getNome());
+        for (Convenio c : listaConvenio) {
+            edtBoxConvenios.addItem(c.getNome());
+        }
     }
 
     private void onCancel() {
@@ -77,24 +80,24 @@ public class NovoPacienteComplementar extends JDialog {
     private void onOK() {
         completaObjeto();
         PacienteService service = new PacienteService();
-        if (service.salvarPaciente(paciente)) {
+        if (service.salvar(paciente)) {
             MensagensAlerta.msgCadastroOK(this);
         } else {
             MensagensAlerta.msgErroCadastro(this);
         }
     }
 
-    private void completaObjeto(){
+    private void completaObjeto() {
         paciente.setProfissao(edtProfissao.getText());
         paciente.setProblemasSaude(edtProblemaSaude.getText());
         try {
             paciente.setConvenio(edtBoxConvenios.getSelectedItem().toString());
-        }catch (Exception ex){
+        } catch (Exception ex) {
             paciente.setConvenio("");
         }
-        if(edtCheckTratamentoMedico.isSelected()){
+        if (edtCheckTratamentoMedico.isSelected()) {
             paciente.setTratamentoMedicoRecente(true);
-        }else{
+        } else {
             paciente.setTratamentoMedicoRecente(false);
         }
         paciente.setMedicamentosRecorrentes(edtMedicamentoRecorrente.getText());

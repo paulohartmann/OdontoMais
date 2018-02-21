@@ -28,4 +28,8 @@ public class ConvenioService {
     public List<Convenio> getLista(){
         return dao.getList();
     }
+    
+    public Convenio findByName(String name){
+        return dao.findExisteByName(name);
+    }
 }

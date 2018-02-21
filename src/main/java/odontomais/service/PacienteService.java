@@ -16,7 +16,7 @@ public class PacienteService {
         dao = new PacienteDao();
     }
 
-    public boolean salvarPaciente(Paciente p) {
+    public boolean salvar(Paciente p) {
         if (dao.salvar(p).getId() > 0) {
             return true;
         }else{

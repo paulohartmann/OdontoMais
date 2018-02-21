@@ -19,7 +19,7 @@ public class TipoAgendamentoDao extends GenericDAO<TipoAgendamento, Long> {
             query.setParameter("param", nome);
             resultado = (int) query.getFirstResult();
         } catch (Exception rx) {
-
+            getLogger().error("Erro ao procurar tipoagendamento por nome", rx.getCause());
         }
         return resultado;
     }

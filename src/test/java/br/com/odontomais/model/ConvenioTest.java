@@ -6,6 +6,7 @@ import org.junit.Assert;
 import java.time.LocalDate;
 
 public class ConvenioTest {
+
     Convenio convenioComValidade;
 
     @org.junit.Before
@@ -32,8 +33,5 @@ public class ConvenioTest {
         boolean resultado = convenioComValidade.testaValidade(LocalDate.of(2017, 10, 10));
         Assert.assertEquals(true, resultado);
     }
-
-
-
 
 }

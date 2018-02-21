@@ -5,10 +5,10 @@
  */
 package odontomais.view.tabmod;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import odontomais.model.Paciente;
+import odontomais.model.util.DataUtil;
 
 /**
  *
@@ -18,7 +18,6 @@ public class TabPaciente extends AbstractTableModel {
 
     private ArrayList<Paciente> datalist;
     private Boolean[] editcolumns = new Boolean[8];
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private String[] columns = {"Nome",
         "Dt. Nascimento",
         "Email",
@@ -125,7 +124,7 @@ public class TabPaciente extends AbstractTableModel {
                 return Mem.getNomeCompleto();
             }
             if (getColumnName(columnIndex).equals("Dt. Nascimento")) {
-                return Mem.getDataNascimento().format(formatter);
+                return DataUtil.converteDataToString(Mem.getDataNascimento());
             }
             if (getColumnName(columnIndex).equals("Tel. Celular")) {
                 return Mem.getTelCel();

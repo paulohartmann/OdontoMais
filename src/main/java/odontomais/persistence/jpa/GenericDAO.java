@@ -66,4 +66,8 @@ public class GenericDAO<T, I extends Serializable> {
     protected Query criarQuery(String query) {
         return entityManager.createQuery(query);
     }
+    
+    public Logger getLogger(){
+        return logger;
+    }
 }

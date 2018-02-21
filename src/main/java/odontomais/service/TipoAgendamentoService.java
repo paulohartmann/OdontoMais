@@ -1,5 +1,6 @@
 package odontomais.service;
 
+import java.util.List;
 import odontomais.model.TipoAgendamento;
 import odontomais.persistence.TipoAgendamentoDao;
 
@@ -25,5 +26,9 @@ public class TipoAgendamentoService {
 
     public int findExisteByName(String nome){
         return dao.findExisteByName(nome);
+    }
+    
+    public List<TipoAgendamento> findAll(){
+        return dao.getList();
     }
 }

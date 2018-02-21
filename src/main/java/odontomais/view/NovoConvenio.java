@@ -54,6 +54,7 @@ public class NovoConvenio extends JDialog {
             Convenio c = new Convenio();
             c.setNome(edtDescricao.getText());
             c.setNumero(edtNumero.getText());
+            
 
             if (service.salvar(c)) {
                 MensagensAlerta.msgCadastroOK(this);
@@ -73,6 +74,7 @@ public class NovoConvenio extends JDialog {
 
     private boolean testaCampos() {
         if (edtDescricao.equals("")) return false;
+        //TODO: testa se já existe no banco
         return true;
     }
 }

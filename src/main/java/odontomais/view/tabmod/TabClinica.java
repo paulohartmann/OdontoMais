@@ -5,7 +5,6 @@
  */
 package odontomais.view.tabmod;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import odontomais.model.Clinica;
@@ -18,7 +17,6 @@ public class TabClinica extends AbstractTableModel {
 
     private ArrayList<Clinica> datalist;
     private Boolean[] editcolumns = new Boolean[7];
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private String[] columns = {"Nome",
         "Tel. Comercial",
         "Tel. Secundário",

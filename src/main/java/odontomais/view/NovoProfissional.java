@@ -7,8 +7,6 @@ import odontomais.service.util.MensagensAlerta;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class NovoProfissional extends JDialog {
 
@@ -89,22 +87,12 @@ public class NovoProfissional extends JDialog {
         }
     }
 
-    private LocalDate getHora(String hora) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        try {
-            return LocalDate.parse(hora, formatter);
-        } catch (Exception ex) {
-            //erro ao converter
-        }
-        return null;
-    }
-
     private boolean testaCampos() {
         if (edtNomeProfissional.getText().equals("")) {
             return false;
         }
         ProfissionalService service = new ProfissionalService();
-        if (service.findExisteByName(edtNomeProfissional.getText()) > 0) {
+        if (service.findQtdByName(edtNomeProfissional.getText()) > 0) {
             MensagensAlerta.msgCadastroExistente(this);
             return false;
         }

@@ -54,10 +54,6 @@ public class Principal extends JFrame {
 
     }
 
-    private void completeGUI() {
-
-    }
-
     private void createUIComponents() {
 
         addWindowListener(new WindowAdapter() {
@@ -137,7 +133,7 @@ public class Principal extends JFrame {
         Paciente paciente = new Paciente();
         paciente.setNomeCompleto("Paulo H.");
         PacienteService pacienteService = new PacienteService();
-        pacienteService.salvarPaciente(paciente);
+        pacienteService.salvar(paciente);
 
         Profissional profissional = new Profissional();
         profissional.setNome("Profi");
