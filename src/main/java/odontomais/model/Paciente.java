@@ -30,7 +30,8 @@ public class Paciente implements Serializable {
     private String profissao;
     //TODO: apenas um convênio por paciente?
 
-    private String convenio;
+    @ManyToOne(cascade=CascadeType.MERGE)
+    private Convenio convenio;
 
     private boolean tratamentoMedicoRecente;
     private String medicamentosRecorrentes;
@@ -38,7 +39,7 @@ public class Paciente implements Serializable {
 
     public Paciente(String nomeCompleto, LocalDate dataNascimento, String sexo, String endResidencial,
                     String bairro, String cidade, String telRes, String telCel, String telTrab, String profissao,
-                    String convenio, String cpf, String rg, String email) {
+                    Convenio convenio, String cpf, String rg, String email) {
         this.nomeCompleto = nomeCompleto;
         this.dataNascimento = dataNascimento;
         this.sexo = sexo;
@@ -56,6 +57,7 @@ public class Paciente implements Serializable {
     }
 
     public Paciente() {
+        convenio = new Convenio();
     }
 
     public long getId() {
@@ -160,11 +162,11 @@ public class Paciente implements Serializable {
     }
 
 
-    public String getConvenio() {
+    public Convenio getConvenio() {
         return convenio;
     }
 
-    public void setConvenio(String convenio) {
+    public void setConvenio(Convenio convenio) {
         this.convenio = convenio;
     }
 

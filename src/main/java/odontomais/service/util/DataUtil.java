@@ -1,4 +1,4 @@
-package odontomais.model.util;
+package odontomais.service.util;
 
 import org.apache.log4j.Logger;
 

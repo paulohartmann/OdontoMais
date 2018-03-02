@@ -11,6 +11,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import odontomais.model.Agendamento;
+import odontomais.model.Paciente;
+import odontomais.model.Profissional;
 import odontomais.persistence.AgendamentoDao;
 
 /**
@@ -25,12 +27,16 @@ public class AgendamentoService {
         dao = new AgendamentoDao();
     }
 
-    public int findHorarioByHoraData(LocalTime hora, LocalDate dia) {
-        return dao.findHorarioByHoraData(hora, dia);
+    public List<Agendamento> findHorarioByHoraData(LocalTime hora, LocalTime horaFim, LocalDate dia, Profissional p) {
+        return dao.findHorarioByHoraData(hora, horaFim, dia, p);
     }
 
-    public int findHorarioByPaciente(String nome) {
-        return dao.findHorarioByPaciente(nome);
+    public void remove(Agendamento a){
+        dao.remover(a.getId());
+    }
+
+    public List<Agendamento> findByPaciente(Paciente p){
+       return dao.findByPaciente(p);
     }
 
     public List<Agendamento> findAgendaByDataProfissional(LocalDate d, long id) {
@@ -50,47 +56,15 @@ public class AgendamentoService {
         }
     }
 
-    public List<Agendamento> findAgendamentosSemana() {
+    public void atualizar(Agendamento a){
+        dao.atualizar(a);
+    }
+    public int findQtdAgendaDia(LocalDate dia){
+        return dao.findAgendaDia(dia).size();
+    }
 
-        List<Agendamento> diaAgendado;
-        diaAgendado = new ArrayList<>();
-        int min = 15;
-
-        LocalTime time = LocalTime.of(8, 0);
-        time.format(DateTimeFormatter.ofPattern("HH:mm"));
-        for (int i = 0; i < 50; i++) {
-            Agendamento a = new Agendamento();
-            a.setHoraInicio(time);
-            a.setObservacao("Horário Vago");
-            time = time.plusMinutes(min);
-            a.setHoraFim(time);
-            diaAgendado.add(a);
-        }
-
-        time = LocalTime.of(16, 00);
-        Agendamento o = new Agendamento();
-        o.setObservacao("Manut. Clareamento");
-        o.setHoraInicio(time);
-        time = LocalTime.of(16, 30);
-        o.setHoraFim(time);
-
-        for (Agendamento a : diaAgendado) {
-            if (a.getHoraInicio().equals(o.getHoraInicio())) {
-                a.setObservacao(o.getObservacao());
-            }
-            if (a.getHoraFim().equals(o.getHoraFim())) {
-                a.setObservacao(o.getObservacao());
-            }
-        }
-
-        for (Agendamento a : diaAgendado) {
-            System.out.println(a.getHoraInicio().toString());
-            System.out.println(a.getObservacao());
-            System.out.println(a.getHoraFim().toString());
-            System.out.println("");
-        }
-
-        return null;
+    public Agendamento findById(long id){
+        return dao.findById(id);
     }
 
 }

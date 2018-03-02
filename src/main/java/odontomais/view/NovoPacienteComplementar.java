@@ -31,6 +31,7 @@ public class NovoPacienteComplementar extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(salvarButton);
         completaConvenioTela();
+        completaTela();
 
         salvarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -60,8 +61,10 @@ public class NovoPacienteComplementar extends JDialog {
 
     private void newConvenio() {
         NovoConvenio novo = new NovoConvenio();
+        novo.setLocationRelativeTo(null);
         novo.pack();
         novo.setVisible(true);
+        completaConvenioTela();
     }
 
     private void completaConvenioTela() {
@@ -79,22 +82,38 @@ public class NovoPacienteComplementar extends JDialog {
 
     private void onOK() {
         completaObjeto();
-        PacienteService service = new PacienteService();
-        if (service.salvar(paciente)) {
-            MensagensAlerta.msgCadastroOK(this);
+        Convenio c = selecionaConvenio();
+        if (c != null) {
+            paciente.setConvenio(c);
         } else {
-            MensagensAlerta.msgErroCadastro(this);
+            JOptionPane.showMessageDialog(this, "Selecione um convênio na lista");
+            return;
         }
+        PacienteService service = new PacienteService();
+        if(paciente.getId() == 0) {
+            if (service.salvar(paciente)) {
+                MensagensAlerta.msgCadastroOK(this);
+                dispose();
+            } else {
+                MensagensAlerta.msgErroCadastro(this);
+            }
+        }else{
+            service.atualizar(paciente);
+            MensagensAlerta.msgCadastroOK(this);
+            dispose();
+        }
+    }
+
+    private Convenio selecionaConvenio() {
+        ConvenioService service = new ConvenioService();
+        Convenio c = service.findByName(edtBoxConvenios.getSelectedItem().toString());
+        return c;
     }
 
     private void completaObjeto() {
         paciente.setProfissao(edtProfissao.getText());
         paciente.setProblemasSaude(edtProblemaSaude.getText());
-        try {
-            paciente.setConvenio(edtBoxConvenios.getSelectedItem().toString());
-        } catch (Exception ex) {
-            paciente.setConvenio("");
-        }
+
         if (edtCheckTratamentoMedico.isSelected()) {
             paciente.setTratamentoMedicoRecente(true);
         } else {
@@ -102,5 +121,20 @@ public class NovoPacienteComplementar extends JDialog {
         }
         paciente.setMedicamentosRecorrentes(edtMedicamentoRecorrente.getText());
         paciente.setAlergias(edtAlergias.getText());
+    }
+
+    private void completaTela(){
+        if (paciente.getConvenio().getNome() != null) {
+            edtBoxConvenios.setSelectedItem(paciente.getConvenio().getNome());
+        }
+        if(paciente.isTratamentoMedicoRecente()){
+            edtCheckTratamentoMedico.setSelected(true);
+        }else {
+            edtCheckTratamentoMedico.setSelected(false);
+        }
+        edtAlergias.setText((paciente.getAlergias() == null) ? "" : paciente.getAlergias());
+        edtMedicamentoRecorrente.setText((paciente.getMedicamentosRecorrentes() == null) ? "" : paciente.getMedicamentosRecorrentes());
+        edtProblemaSaude.setText((paciente.getProblemasSaude() == null) ? "" : paciente.getProblemasSaude());
+        edtProfissao.setText((paciente.getProfissao() == null) ? "" : paciente.getProfissao());
     }
 }

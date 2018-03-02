@@ -54,6 +54,8 @@ public class PacienteDao extends GenericDAO<Paciente, Long> {
         return resultado;
     }
 
+
+
     public int findExisteByCPF(String param) {
         int resultado = 0;
         String consulta = "SELECT c FROM Paciente c WHERE "

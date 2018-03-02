@@ -110,7 +110,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <text value="55 9 91560525"/>
+                      <text value=""/>
                     </properties>
                   </component>
                   <grid id="458ba" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -151,7 +151,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <text value="55 9 91560525"/>
+                      <text value=""/>
                     </properties>
                   </component>
                   <component id="f470a" class="javax.swing.JFormattedTextField" binding="edtDataNascimento" custom-create="true">
@@ -303,7 +303,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <text value="s"/>
+                      <text value=""/>
                     </properties>
                   </component>
                   <component id="51715" class="javax.swing.JFormattedTextField" binding="edtBairro">
@@ -313,7 +313,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <text value="s"/>
+                      <text value=""/>
                     </properties>
                   </component>
                   <component id="4e1cd" class="javax.swing.JFormattedTextField" binding="edtCidade">
@@ -323,7 +323,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <text value="s"/>
+                      <text value=""/>
                     </properties>
                   </component>
                   <component id="47044" class="javax.swing.JLabel">
@@ -341,7 +341,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <text value="s"/>
+                      <text value=""/>
                     </properties>
                   </component>
                 </children>
@@ -371,8 +371,8 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <label value="Salvar e Continuar"/>
-                  <text value="Salvar e Continuar"/>
+                  <label value="Preencher Campos Adicionais"/>
+                  <text value="Preencher Campos Adicionais"/>
                 </properties>
               </component>
             </children>

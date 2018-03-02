@@ -6,11 +6,14 @@ package odontomais.view.tabmod;
 
 import odontomais.model.Agendamento;
 
-import java.awt.Component;
+import java.awt.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
-import odontomais.model.util.DataUtil;
+
+import odontomais.service.util.DataUtil;
 
 /**
  * @author rodrigos
@@ -28,35 +31,26 @@ public class RenAgendamento extends JPanel implements TableCellRenderer {
         JLabel horaIni = new javax.swing.JLabel();
         JLabel nomePaciente = new javax.swing.JLabel();
         JLabel horaFim = new javax.swing.JLabel();
+        //table.setRowHeight(20);
+        LocalDate hoje = LocalDate.now();
+
 
         JPanel panel = init(horaIni, horaFim, nomePaciente);
 
         //if (value != null) {
-            Agendamento agenda = lista.get(table.convertRowIndexToModel(row));
-            if (agenda.getId() > 0) {
-                nomePaciente.setText(agenda.getPaciente().getNomeCompleto());
-            } else {
-                nomePaciente.setText(agenda.getObservacao());
-            }
-            horaIni.setText(DataUtil.converteTimeToString(agenda.getHoraInicio()));
-            horaFim.setText(DataUtil.converteTimeToString(agenda.getHoraFim()));
+        Agendamento agenda = lista.get(table.convertRowIndexToModel(row));
+        String nome;
+        if (agenda.getId() > 0) {
+            nome = agenda.getPaciente().getNomeCompleto();
+        } else {
+            nome = " ";
+        }
+        horaIni.setText(DataUtil.converteTimeToString(agenda.getHoraInicio()) + " - " + nome);
+        if (hoje.equals(agenda.getDataAgenda())) {
+            panel.setBackground(new Color(255, 229, 204));
+        }
 
-            /*
-            rot.setOpaque(true);
-            rot.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, Color.WHITE));
 
-            rot.setVerticalAlignment(JLabel.CENTER);
-
-            rot.setForeground(Color.BLUE);
-
-            rot.setHorizontalTextPosition(JLabel.RIGHT);
-            rot.setFont(new Font("Serif", Font.BOLD, 12));
-            if (isSelected) {
-                rot.setBackground(new Color(0, 51, 255));
-                rot.setForeground(Color.WHITE);
-            }
-            panel.add(rot);
-             */
         //}
         return panel;
     }
@@ -66,7 +60,8 @@ public class RenAgendamento extends JPanel implements TableCellRenderer {
 
         jLabel1.setText("jLabel1");
 
-        jLabel2.setText("jLabel2");
+
+        jLabel2.setText("");
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("jLabel3");

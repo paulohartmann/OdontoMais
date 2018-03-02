@@ -4,21 +4,17 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.TimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
+import odontomais.model.*;
+import odontomais.service.*;
 import odontomais.service.util.FormatadoresTexto;
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.time.LocalDate;
-import odontomais.model.Agendamento;
-import odontomais.model.Convenio;
-import odontomais.model.Paciente;
-import odontomais.model.Profissional;
-import odontomais.model.TipoAgendamento;
-import odontomais.service.AgendamentoService;
-import odontomais.service.ConvenioService;
-import odontomais.service.PacienteService;
-import odontomais.service.ProfissionalService;
-import odontomais.service.TipoAgendamentoService;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Objects;
+
 import odontomais.service.util.MensagensAlerta;
 import org.apache.log4j.Logger;
 
@@ -45,9 +41,18 @@ public class NovoAgendamento extends JDialog {
     private Profissional profissional;
     private Paciente paciente;
 
+    private Agendamento agendamento;
+
     final static Logger logger = Logger.getLogger(NovoAgendamento.class);
 
-    public NovoAgendamento() {
+    public NovoAgendamento(Agendamento ag) {
+        if (ag != null) {
+            agendamento = ag;
+            preencheTela();
+        } else {
+            agendamento = new Agendamento();
+            edtData.setDateToToday();
+        }
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -73,9 +78,6 @@ public class NovoAgendamento extends JDialog {
             onCancel();
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        edtData.setDateToToday();
-        edtHoraIni.setTimeToNow();
-        edtHoraFim.setTimeToNow();
 
         btnNovoTipoAgendamento.addActionListener(new ActionListener() {
             @Override
@@ -101,11 +103,16 @@ public class NovoAgendamento extends JDialog {
         DatePickerSettings ds = new DatePickerSettings();
         ds.setFormatForDatesCommonEra("dd/MM/yyyy");
         ds.setFormatForDatesBeforeCommonEra("dd/MM/yyyy");
+
         edtData = new DatePicker(ds);
         edtData.setDateToToday();
 
         TimePickerSettings timeSettings = new TimePickerSettings();
         timeSettings.use24HourClockFormat();
+        ClinicaService service = new ClinicaService();
+        Clinica c = service.find();
+        timeSettings.initialTime = c.getHorarioInicio();
+        timeSettings.generatePotentialMenuTimes(TimePickerSettings.TimeIncrement.FifteenMinutes, c.getHorarioInicio(), c.getHorarioFim());
         edtHoraFim = new TimePicker(timeSettings);
         edtHoraIni = new TimePicker(timeSettings);
 
@@ -156,7 +163,22 @@ public class NovoAgendamento extends JDialog {
     }
 
     private void goProcuraPaciente() {
-        //tela para procurar paciente, passando por parametro o getText do campo.
+        ListaPacientes listaPacientes = new ListaPacientes();
+        listaPacientes.pack();
+        listaPacientes.setLocationRelativeTo(null);
+        listaPacientes.setVisible(true);
+
+        if (listaPacientes.getPaciente() != null) {
+            paciente = listaPacientes.getPaciente();
+            completaPaciente();
+        }
+    }
+
+    private void completaPaciente() {
+        edtNomePaciente.setText(paciente.getNomeCompleto());
+        edtCelular.setText(paciente.getTelCel());
+        edtResidencial.setText(paciente.getTelRes());
+        edtComboConvenio.setSelectedItem(paciente.getConvenio().getNome());
     }
 
     private void onOK() {
@@ -164,8 +186,13 @@ public class NovoAgendamento extends JDialog {
             Agendamento agenda = preencheObjeto();
             AgendamentoService service = new AgendamentoService();
             try {
-                service.salvar(agenda);
+                if (agenda.getId() > 0) {
+                    service.atualizar(agenda);
+                } else {
+                    service.salvar(agenda);
+                }
                 MensagensAlerta.msgCadastroOK(this);
+                dispose();
             } catch (Exception ex) {
                 logger.error("Erro ao salvar novo agendamento", ex.getCause());
                 MensagensAlerta.msgErroCadastro(this);
@@ -180,16 +207,41 @@ public class NovoAgendamento extends JDialog {
     }
 
     private Agendamento preencheObjeto() {
-        Agendamento agenda = new Agendamento();
-        agenda.setConvenio(convenio);
-        agenda.setDataAgenda(edtData.getDate());
-        agenda.setHoraFim(edtHoraFim.getTime());
-        agenda.setHoraInicio(edtHoraIni.getTime());
-        agenda.setObservacao(edtObs.getText());
-        agenda.setPaciente(paciente);
-        agenda.setProfissional(profissional);
-        agenda.setTipoAgendamento(edtComboTipoAgendamento.getSelectedItem().toString());
-        return agenda;
+        agendamento.setConvenio(convenio);
+        agendamento.setDataAgenda(edtData.getDate());
+        agendamento.setHoraFim(edtHoraFim.getTime());
+        agendamento.setHoraInicio(edtHoraIni.getTime());
+        agendamento.setObservacao(edtObs.getText());
+        agendamento.setPaciente(paciente);
+        agendamento.setProfissional(profissional);
+        agendamento.setTipoAgendamento(Objects.requireNonNull(edtComboTipoAgendamento.getSelectedItem()).toString());
+        return agendamento;
+    }
+
+    private void preencheTela() {
+        AgendamentoService service = new AgendamentoService();
+        Agendamento ag = service.findById(agendamento.getId());
+        if (ag == null) {
+            ag = agendamento;
+        }
+
+
+        edtComboConvenio.setSelectedItem(agendamento.getConvenio().getNome());
+        edtResidencial.setText(agendamento.getPaciente().getTelRes());
+        edtCelular.setText(agendamento.getPaciente().getTelCel());
+        edtNomePaciente.setText(agendamento.getPaciente().getNomeCompleto());
+
+
+        edtHoraIni.setTime(ag.getHoraInicio());
+        edtHoraIni.setEnabled(false);
+        edtHoraFim.setTime(ag.getHoraFim());
+        edtHoraFim.setEnabled(false);
+        edtData.setDate(agendamento.getDataAgenda());
+        edtData.setEnabled(false);
+        edtComboProfissional.setSelectedItem(agendamento.getProfissional().getNome());
+        edtComboProfissional.setEnabled(false);
+        edtComboTipoAgendamento.setSelectedItem(agendamento.getTipoAgendamento());
+        edtObs.setText(agendamento.getObservacao());
     }
 
     private boolean testaCampos() {
@@ -198,12 +250,17 @@ public class NovoAgendamento extends JDialog {
             return false;
         }
 
+        if (edtHoraFim.getTime().equals(edtHoraIni.getTime())) {
+            JOptionPane.showMessageDialog(this, "Os horários não podem ser iguais", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+
         if (edtData.getDate().isBefore(LocalDate.now())) {
             JOptionPane.showMessageDialog(this, "Não é possível selecionar esta data", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             return false;
         }
 
-        if (edtCelular.getText().equals("") || edtResidencial.getText().equals("")) {
+        if (edtCelular.getText().equals("(__)_____-____") || edtResidencial.getText().equals("(__)_____-____")) {
             JOptionPane.showMessageDialog(this, "Pelo menos um telefone para contato deve ser preenchido", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             return false;
         }
@@ -222,12 +279,20 @@ public class NovoAgendamento extends JDialog {
             return false;
         }
 
-        PacienteService pacienteService = new PacienteService();
-        paciente = pacienteService.findFromName(edtNomePaciente.getText()).get(0);
         if (paciente == null) {
             JOptionPane.showMessageDialog(this, "Nenhum paciente selecionado para o agendamento", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             return false;
         }
+
+        if (agendamento.getId() == 0) {
+            AgendamentoService agendamentoService = new AgendamentoService();
+            List<Agendamento> i = agendamentoService.findHorarioByHoraData(edtHoraIni.getTime(), edtHoraFim.getTime(), edtData.getDate(), profissional);
+            if (i.size() > 0) {
+                JOptionPane.showMessageDialog(this, "Esse horário já esta ocupado", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+                return false;
+            }
+        }
+
 
         return true;
     }

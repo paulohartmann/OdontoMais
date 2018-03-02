@@ -1,23 +1,24 @@
 package odontomais.view;
 
+
 import odontomais.model.Agendamento;
-import odontomais.model.Convenio;
-import odontomais.model.Paciente;
+import odontomais.model.Clinica;
 import odontomais.model.Profissional;
 import odontomais.model.especial.AgendamentoDaSemana;
-import odontomais.service.AgendamentoService;
-import odontomais.service.ConvenioService;
-import odontomais.service.PacienteService;
+import odontomais.service.ClinicaService;
 import odontomais.service.ProfissionalService;
+import odontomais.service.util.DataUtil;
 import odontomais.view.tabmod.RenAgendamento;
 import odontomais.view.tabmod.TabAgendamento;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.List;
 
 /*
  * Author: phlab
@@ -34,6 +35,18 @@ public class Principal extends JFrame {
     private JTable tblSexta;
     private JTable tblSabado;
     private JButton novoAgendamentoButton;
+    private JLabel txtCabSeg;
+    private JLabel txtCabTer;
+    private JLabel txtCabQua;
+    private JLabel txtCabQui;
+    private JLabel txtCabSex;
+    private JLabel txtCabSab;
+    private JButton btnPrevWeek;
+    private JButton btnNextWeek;
+    private JComboBox jcbProfissional;
+    private JLabel txtAniversariantes;
+    private JLabel txtAgendFaltantes;
+    private JLabel txtAgendTotal;
 
     AgendamentoDaSemana semana;
 
@@ -45,13 +58,112 @@ public class Principal extends JFrame {
     private TabAgendamento tabAgendaSabado;
 
     public Principal() {
-
         setContentPane(contentPane);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("OdontoMais");
 
-        novoAgendamentoButton.addActionListener(e -> goNovoAgendamento());
+        novoAgendamentoButton.addActionListener(e -> goNovoAgendamento(null));
 
+        btnNextWeek.addActionListener(e -> goNextWeek());
+        btnPrevWeek.addActionListener(e -> goPrevWeek());
+        tblSegunda.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        tblSegunda.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    goClickAgendamento(1);
+                }
+            }
+        });
+        tblTerca.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        tblTerca.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    goClickAgendamento(2);
+                }
+            }
+        });
+        tblQuarta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        tblQuarta.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    goClickAgendamento(3);
+                }
+            }
+        });
+        tblQuinta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        tblQuinta.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    goClickAgendamento(4);
+                }
+            }
+        });
+        tblSexta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        tblSexta.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    goClickAgendamento(5);
+                }
+            }
+        });
+        tblSabado.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        tblSabado.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    goClickAgendamento(6);
+                }
+            }
+        });
+
+        jcbProfissional.addActionListener(e -> atualizaAgenda());
+
+    }
+
+    private void goClickAgendamento(int diaSemana) {
+        switch (diaSemana) {
+            case 1:
+                goNovoAgendamento(tabAgendaSegunda.get(tblSegunda.getSelectedRow()));
+                break;
+            case 2:
+                goNovoAgendamento(tabAgendaTerca.get(tblTerca.getSelectedRow()));
+                break;
+            case 3:
+                goNovoAgendamento(tabAgendaQuarta.get(tblQuarta.getSelectedRow()));
+                break;
+            case 4:
+                goNovoAgendamento(tabAgendaQuinta.get(tblQuinta.getSelectedRow()));
+                break;
+            case 5:
+                goNovoAgendamento(tabAgendaSexta.get(tblSexta.getSelectedRow()));
+                break;
+            case 6:
+                goNovoAgendamento(tabAgendaSabado.get(tblSabado.getSelectedRow()));
+                break;
+        }
+
+    }
+
+    private void atualizaAgenda() {
+
+        semana = new AgendamentoDaSemana(pegaProfissionalSelecionado());
+        updateTables();
+
+    }
+
+    private void goPrevWeek() {
+        semana.previusWeek(1);
+        updateTables();
+    }
+
+    private void goNextWeek() {
+        semana.nextWeek(1);
+        updateTables();
     }
 
     private void createUIComponents() {
@@ -68,7 +180,7 @@ public class Principal extends JFrame {
         JMenu menuPaciente = new JMenu("Paciente");
 
         JMenuItem itemNovoPaciente = new JMenuItem("Novo Paciente");
-        //itemNovoPaciente.setIcon(new ImageIcon(getClass().getResource("/image/16/adicionar.png")));
+        //itemNovoPaciente.setIcon(new ImageIcon(getClass().getResource("image/16/adicionar.png")));
         itemNovoPaciente.addActionListener(e -> goNovoPaciente());
         menuPaciente.add(itemNovoPaciente);
 
@@ -125,90 +237,85 @@ public class Principal extends JFrame {
 
     private void formWindowOpened(WindowEvent evt) {
 
-        Convenio convenio = new Convenio();
-        convenio.setNome("teste");
-        ConvenioService convenioService = new ConvenioService();
-        convenioService.salvar(convenio);
+        atualizaComboProfissional();
+        atualizaAgenda();
 
-        Paciente paciente = new Paciente();
-        paciente.setNomeCompleto("Paulo H.");
-        PacienteService pacienteService = new PacienteService();
-        pacienteService.salvar(paciente);
 
-        Profissional profissional = new Profissional();
-        profissional.setNome("Profi");
-        ProfissionalService profissionalService = new ProfissionalService();
-        profissionalService.salvar(profissional);
+    }
 
-        Agendamento novo = new Agendamento();
-        novo.setObservacao("Horario Ocupado");
-        novo.setConvenio(new Convenio());
-        novo.setHoraFim(LocalTime.of(8, 45));
-        novo.setHoraInicio(LocalTime.of(8, 30));
-        novo.setPaciente(new Paciente());
-        novo.setProfissional(profissional);
-        novo.setStatus("oie");
-        novo.setTipoAgendamento("Tipo looc");
-        novo.setDataAgenda(LocalDate.now());
-        AgendamentoService service = new AgendamentoService();
-        if (service.salvar(novo)) {
-            System.out.println("salvou");
+    private void atualizaComboProfissional() {
+        ProfissionalService service = new ProfissionalService();
+        List<Profissional> profissionalList = service.findAll();
+        jcbProfissional.removeAllItems();
+        for (Profissional p : profissionalList) {
+            jcbProfissional.addItem(p.getNome());
         }
 
-        semana = new AgendamentoDaSemana(profissional);
-        updateTables();
+    }
 
+    private Profissional pegaProfissionalSelecionado() {
+        String nome = jcbProfissional.getSelectedItem().toString();
+        ProfissionalService service = new ProfissionalService();
+        return service.findByName(nome);
     }
 
     private void updateTables() {
 
-        //semana.getSegunda().atualizaAgendaDia();
+        DefaultTableModel model = new DefaultTableModel();
         tabAgendaSegunda = new TabAgendamento(semana.getSegunda().getLista());
         tblSegunda.setModel(tabAgendaSegunda);
         tblSegunda.setDefaultRenderer(Object.class, new RenAgendamento(semana.getSegunda().getLista()));
         tblSegunda.getTableHeader().setReorderingAllowed(false);
         tblSegunda.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tblSegunda.setRowHeight(25);
         tabAgendaSegunda.fireTableDataChanged();
 
-        //semana.getTerca().atualizaAgendaDia();
         tabAgendaTerca = new TabAgendamento(semana.getTerca().getLista());
         tblTerca.setModel(tabAgendaTerca);
         tblTerca.setDefaultRenderer(Object.class, new RenAgendamento(semana.getTerca().getLista()));
         tblTerca.getTableHeader().setReorderingAllowed(false);
         tblTerca.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tblTerca.setRowHeight(25);
         tabAgendaTerca.fireTableDataChanged();
 
-        semana.getQuarta().atualizaAgendaDia();
         tabAgendaQuarta = new TabAgendamento(semana.getQuarta().getLista());
         tblQuarta.setModel(tabAgendaQuarta);
         tblQuarta.setDefaultRenderer(Object.class, new RenAgendamento(semana.getQuarta().getLista()));
         tblQuarta.getTableHeader().setReorderingAllowed(false);
         tblQuarta.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tblQuarta.setRowHeight(25);
         tabAgendaQuarta.fireTableDataChanged();
 
-        semana.getQuinta().atualizaAgendaDia();
         tabAgendaQuinta = new TabAgendamento(semana.getQuinta().getLista());
         tblQuinta.setModel(tabAgendaQuinta);
         tblQuinta.setDefaultRenderer(Object.class, new RenAgendamento(semana.getQuinta().getLista()));
         tblQuinta.getTableHeader().setReorderingAllowed(false);
         tblQuinta.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tblQuinta.setRowHeight(25);
         tabAgendaQuinta.fireTableDataChanged();
 
-        semana.getSexta().atualizaAgendaDia();
         tabAgendaSexta = new TabAgendamento(semana.getSexta().getLista());
         tblSexta.setModel(tabAgendaSexta);
         tblSexta.setDefaultRenderer(Object.class, new RenAgendamento(semana.getSexta().getLista()));
         tblSexta.getTableHeader().setReorderingAllowed(false);
         tblSexta.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tblSexta.setRowHeight(25);
         tabAgendaSexta.fireTableDataChanged();
 
-        semana.getSabado().atualizaAgendaDia();
         tabAgendaSabado = new TabAgendamento(semana.getSabado().getLista());
         tblSabado.setModel(tabAgendaSabado);
         tblSabado.setDefaultRenderer(Object.class, new RenAgendamento(semana.getSabado().getLista()));
         tblSabado.getTableHeader().setReorderingAllowed(false);
         tblSabado.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        tblSabado.setRowHeight(25);
         tabAgendaSabado.fireTableDataChanged();
+
+        txtCabSeg.setText(DataUtil.converteDataToString(semana.getSegunda().getDia()));
+        txtCabTer.setText(DataUtil.converteDataToString(semana.getTerca().getDia()));
+        txtCabQua.setText(DataUtil.converteDataToString(semana.getQuarta().getDia()));
+        txtCabQui.setText(DataUtil.converteDataToString(semana.getQuinta().getDia()));
+        txtCabSex.setText(DataUtil.converteDataToString(semana.getSexta().getDia()));
+        txtCabSab.setText(DataUtil.converteDataToString(semana.getSabado().getDia()));
 
     }
 
@@ -219,7 +326,10 @@ public class Principal extends JFrame {
     }
 
     private void goProcurarPaciente() {
-
+        ListaPacientes listaPacientes = new ListaPacientes();
+        listaPacientes.pack();
+        listaPacientes.setLocationRelativeTo(null);
+        listaPacientes.setVisible(true);
     }
 
     private void goNovoConvenio() {
@@ -254,9 +364,10 @@ public class Principal extends JFrame {
         dialog.setVisible(true);
     }
 
-    private void goNovoAgendamento() {
-        NovoAgendamento dialog = new NovoAgendamento();
+    private void goNovoAgendamento(Agendamento ag) {
+        NovoAgendamento dialog = new NovoAgendamento(ag);
         dialog.pack();
         dialog.setVisible(true);
+        atualizaAgenda();
     }
 }

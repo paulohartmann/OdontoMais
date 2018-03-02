@@ -12,9 +12,9 @@ public class Agendamento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String tipoAgendamento;
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     private Paciente paciente;
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     private Convenio convenio;
     @ManyToOne(cascade=CascadeType.MERGE)
     private Profissional profissional;
@@ -26,6 +26,10 @@ public class Agendamento implements Serializable {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id){
+        this.id = id;
     }
 
     public String getTipoAgendamento() {

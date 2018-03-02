@@ -24,6 +24,10 @@ public class ClinicaService {
     }
 
     public Clinica find() {
-        return dao.getList().get(0);
+        try {
+            return dao.getList().get(0);
+        }catch (IndexOutOfBoundsException ex){
+            return null;
+        }
     }
 }

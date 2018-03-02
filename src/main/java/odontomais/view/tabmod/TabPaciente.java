@@ -6,9 +6,10 @@
 package odontomais.view.tabmod;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import odontomais.model.Paciente;
-import odontomais.model.util.DataUtil;
+import odontomais.service.util.DataUtil;
 
 /**
  *
@@ -16,7 +17,7 @@ import odontomais.model.util.DataUtil;
  */
 public class TabPaciente extends AbstractTableModel {
 
-    private ArrayList<Paciente> datalist;
+    private List<Paciente> datalist;
     private Boolean[] editcolumns = new Boolean[8];
     private String[] columns = {"Nome",
         "Dt. Nascimento",
@@ -27,7 +28,7 @@ public class TabPaciente extends AbstractTableModel {
         "CPF",
         "RG"};
 
-    public TabPaciente(ArrayList<Paciente> l) {
+    public TabPaciente(List<Paciente> l) {
         datalist = l;
         editcolumns[0] = false;
         editcolumns[1] = false;
@@ -58,7 +59,7 @@ public class TabPaciente extends AbstractTableModel {
         super.fireTableDataChanged();
     }
 
-    public void add(ArrayList<Paciente> l) {
+    public void add(List<Paciente> l) {
         datalist.addAll(l);
         super.fireTableDataChanged();
     }

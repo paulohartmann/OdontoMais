@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 public class Clinica implements Serializable {
@@ -26,8 +27,10 @@ public class Clinica implements Serializable {
     private String pathLogotipo;
     private String telComercial;
     private String telEmergencial;
-    private LocalDate horarioInicio;
-    private LocalDate horarioFim;
+    private LocalTime horarioInicio;
+    private LocalTime horarioFim;
+    private LocalTime horarioInicioAlmoco;
+    private LocalTime horarioFimAlmoco;
     private int intervaloAgenda;
 
     private String endereco;
@@ -45,6 +48,22 @@ public class Clinica implements Serializable {
         return image;
     }
 
+    public LocalTime getHorarioInicioAlmoco() {
+        return horarioInicioAlmoco;
+    }
+
+    public void setHorarioInicioAlmoco(LocalTime horarioInicioAlmoco) {
+        this.horarioInicioAlmoco = horarioInicioAlmoco;
+    }
+
+    public LocalTime getHorarioFimAlmoco() {
+        return horarioFimAlmoco;
+    }
+
+    public void setHorarioFimAlmoco(LocalTime horarioFimAlmoco) {
+        this.horarioFimAlmoco = horarioFimAlmoco;
+    }
+
     public int getIntervaloAgenda() {
         return intervaloAgenda;
     }
@@ -53,19 +72,19 @@ public class Clinica implements Serializable {
         this.intervaloAgenda = intervaloAgenda;
     }
     
-    public LocalDate getHorarioInicio() {
+    public LocalTime getHorarioInicio() {
         return horarioInicio;
     }
 
-    public void setHorarioInicio(LocalDate horarioInicio) {
+    public void setHorarioInicio(LocalTime horarioInicio) {
         this.horarioInicio = horarioInicio;
     }
 
-    public LocalDate getHorarioFim() {
+    public LocalTime getHorarioFim() {
         return horarioFim;
     }
 
-    public void setHorarioFim(LocalDate horarioFim) {
+    public void setHorarioFim(LocalTime horarioFim) {
         this.horarioFim = horarioFim;
     }
 

@@ -23,6 +23,10 @@ public class PacienteService {
             return false;
         }
     }
+
+    public void remover(Paciente p){
+        dao.remover(p.getId());
+    }
     
     public void atualizar(Paciente p){
         dao.atualizar(p);

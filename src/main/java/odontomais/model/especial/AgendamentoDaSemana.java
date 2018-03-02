@@ -97,23 +97,23 @@ public class AgendamentoDaSemana {
         }
     }
 
-    public void nextWeek() {
-        getSegunda().nextWeek();
-        getTerca().nextWeek();
-        getQuarta().nextWeek();
-        getQuinta().nextWeek();
-        getSexta().nextWeek();
-        getSabado().nextWeek();
+    public void nextWeek(int i) {
+        getSegunda().nextWeek(i);
+        getTerca().nextWeek(i);
+        getQuarta().nextWeek(i);
+        getQuinta().nextWeek(i);
+        getSexta().nextWeek(i);
+        getSabado().nextWeek(i);
 
     }
 
-    public void previusWeek() {
-        getSegunda().previusWeek();
-        getTerca().previusWeek();
-        getQuarta().previusWeek();
-        getQuinta().previusWeek();
-        getSexta().previusWeek();
-        getSabado().previusWeek();
+    public void previusWeek(int i) {
+        getSegunda().previusWeek(i);
+        getTerca().previusWeek(i);
+        getQuarta().previusWeek(i);
+        getQuinta().previusWeek(i);
+        getSexta().previusWeek(i);
+        getSabado().previusWeek(i);
     }
 
 

@@ -15,22 +15,15 @@ public class NovoProfissional extends JDialog {
     private JButton buttonCancel;
     private JTextField edtNomeProfissional;
     private JTextArea edtObs;
-    private JFormattedTextField edtIniExpe;
-    private JFormattedTextField edtIniAlmoco;
-    private JFormattedTextField edtFimExpe;
-    private JFormattedTextField edtFimAlmoco;
-    private JCheckBox DOMCheckBox;
-    private JCheckBox SEGCheckBox;
-    private JCheckBox TERCheckBox;
-    private JCheckBox QUACheckBox;
-    private JCheckBox QUICheckBox;
-    private JCheckBox SEXCheckBox;
-    private JCheckBox SABCheckBox;
 
     private Profissional profissional;
-    private boolean[] diasSemana;
 
     public NovoProfissional(Profissional p) {
+        setLocationRelativeTo(null);
+        setContentPane(contentPane);
+        setModal(true);
+
+
         if (p != null) {
             this.profissional = p;
             completaCampos();
@@ -104,8 +97,7 @@ public class NovoProfissional extends JDialog {
     }
 
     private void createUIComponents() {
-        setContentPane(contentPane);
-        setModal(true);
+
         getRootPane().setDefaultButton(buttonOK);
 
         // call onCancel() when cross is clicked

@@ -7,7 +7,8 @@ import odontomais.service.util.MensagensAlerta;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import odontomais.model.util.DataUtil;
+
+import odontomais.service.util.DataUtil;
 
 /*
  * Author: phlab
@@ -70,24 +71,15 @@ public class NovoPaciente extends JDialog {
     }
 
     private void salvarEContinuar() {
-        if (pacienteAtual.getId() > 0) {
-            salvar();
+        if (testaCampos()) {
+            completaObjeto();
+            NovoPacienteComplementar novo = new NovoPacienteComplementar(pacienteAtual);
+            novo.pack();
+            dispose();
+            novo.setVisible(true);
         } else {
-            if (testaCampos()) {
-                completaObjeto();
-                PacienteService service = new PacienteService();
-                service.atualizar(pacienteAtual);
-                MensagensAlerta.msgCadastroAtualizado(this);
-                NovoPacienteComplementar novo = new NovoPacienteComplementar(pacienteAtual);
-                novo.pack();
-                novo.setVisible(true);
-            } else {
-                MensagensAlerta.msgCamposObrigatorios(this);
-            }
+            MensagensAlerta.msgCamposObrigatorios(this);
         }
-
-        dispose();
-
     }
 
     private void completaTela() {
@@ -95,7 +87,7 @@ public class NovoPaciente extends JDialog {
         edtCelular.setText(pacienteAtual.getTelCel());
         edtCidade.setText(pacienteAtual.getCidade());
         edtCPF.setText(pacienteAtual.getCpf());
-        edtDataNascimento.setText(pacienteAtual.getDataNascimento().toString());
+        edtDataNascimento.setText(DataUtil.converteDataToString(pacienteAtual.getDataNascimento()));
         edtEmail.setText(pacienteAtual.getEmail());
         edtEndereco.setText(pacienteAtual.getEndResidencial());
         edtEstado.setText(pacienteAtual.getEstado());

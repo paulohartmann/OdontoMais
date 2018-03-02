@@ -58,6 +58,7 @@ public class NovoConvenio extends JDialog {
 
             if (service.salvar(c)) {
                 MensagensAlerta.msgCadastroOK(this);
+                dispose();
             } else {
                 MensagensAlerta.msgErroCadastro(this);
             }

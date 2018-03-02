@@ -11,15 +11,12 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import odontomais.model.Agendamento;
-import odontomais.model.Convenio;
-import odontomais.model.Paciente;
-import odontomais.model.Profissional;
+
+import odontomais.model.*;
 import odontomais.service.AgendamentoService;
 import odontomais.service.ClinicaService;
 
 /**
- *
  * @author paulohar
  */
 public class AgendamentoDoDia {
@@ -32,6 +29,7 @@ public class AgendamentoDoDia {
 
     private AgendamentoService service;
     private Profissional profissional;
+    private Clinica clinica;
 
     public AgendamentoDoDia(List<Agendamento> l, Profissional p) {
         lista = l;
@@ -65,9 +63,9 @@ public class AgendamentoDoDia {
         service = new AgendamentoService();
 
         ClinicaService serviceClinica = new ClinicaService();
-        //Clinica clinica = serviceClinica.find();
-        inicio = LocalTime.of(8, 0); //clinica.getHorarioInicio();
-        fim = LocalTime.of(21, 0);  //clinica.getHorarioFim();
+        clinica = serviceClinica.find();
+        inicio = clinica.getHorarioInicio();
+        fim = clinica.getHorarioFim();
         inicio.format(DateTimeFormatter.ofPattern("HH:mm"));
         fim.format(DateTimeFormatter.ofPattern("HH:mm"));
         intervalo = 15; //clinica.getIntervaloAgenda();
@@ -79,25 +77,41 @@ public class AgendamentoDoDia {
         long x = elapsedMinutes / intervalo;
 
         LocalTime time = inicio;
+        System.out.println("tam. array: " + x);
+        boolean jaAlmoco = false;
         for (long i = 0; i < x; i++) {
-            Agendamento a = new Agendamento();
-            a.setConvenio(new Convenio());
-            a.setDataAgenda(dia);
-            a.setPaciente(new Paciente());
-            a.setProfissional(new Profissional());
-            a.setStatus("");
-            a.setTipoAgendamento("");
-            a.setHoraInicio(time);
-            a.setObservacao("Horário Vago");
-            time = time.plusMinutes(intervalo);
-            a.setHoraFim(time);
-            lista.add(a);
+            if (!testaAlmoco(time)) {
+                Agendamento a = new Agendamento();
+                a.setConvenio(new Convenio());
+                a.setDataAgenda(dia);
+                a.setPaciente(new Paciente());
+                a.setProfissional(new Profissional());
+                a.setStatus("");
+                a.setTipoAgendamento("");
+                a.setHoraInicio(time);
+                a.setObservacao("Horário Vago");
+                time = time.plusMinutes(intervalo);
+                a.setHoraFim(time);
+                lista.add(a);
+            } else {
+                time = time.plusMinutes(intervalo);
+            }
+
         }
         atualizaAgendaDia();
     }
 
+    private boolean testaAlmoco(LocalTime time) {
+        if (time.isAfter(clinica.getHorarioInicioAlmoco()) && time.isBefore(clinica.getHorarioFimAlmoco())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void atualizaAgendaDia() {
         List<Agendamento> listaDia = service.findAgendaByDataProfissional(dia, profissional.getId());
+        System.out.println(dia.toString() + listaDia.size());
         for (Agendamento a : lista) {
             for (Agendamento o : listaDia) {
                 if (a.getHoraInicio().equals(o.getHoraInicio())) {
@@ -115,6 +129,7 @@ public class AgendamentoDoDia {
     }
 
     public Agendamento completaObj(Agendamento a, Agendamento o) {
+        a.setId(o.getId());
         a.setObservacao(o.getObservacao());
         a.setConvenio(o.getConvenio());
         a.setPaciente(o.getPaciente());
@@ -125,16 +140,14 @@ public class AgendamentoDoDia {
         return a;
     }
 
-    public void nextWeek() {
-        dia.plusDays(7);
+    public void nextWeek(int i) {
+        dia = dia.plusDays(7 * i);
         novaAgendaDia();
-        atualizaAgendaDia();
 
     }
 
-    public void previusWeek() {
-        dia.minusDays(7);
+    public void previusWeek(int i) {
+        dia = dia.minusDays(7 * i);
         novaAgendaDia();
-        atualizaAgendaDia();
     }
 }
