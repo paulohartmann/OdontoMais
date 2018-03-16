@@ -3,22 +3,29 @@ package odontomais.view;
 
 import odontomais.model.Agendamento;
 import odontomais.model.Clinica;
+import odontomais.model.Paciente;
 import odontomais.model.Profissional;
 import odontomais.model.especial.AgendamentoDaSemana;
+import odontomais.service.AgendamentoService;
 import odontomais.service.ClinicaService;
+import odontomais.service.PacienteService;
 import odontomais.service.ProfissionalService;
 import odontomais.service.util.DataUtil;
 import odontomais.view.tabmod.RenAgendamento;
-import odontomais.view.tabmod.TabAgendamento;
+import odontomais.view.tabmod.TabAgendamentoSemana;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static odontomais.service.util.DataUtil.converteDataTimeToString;
 
 /*
  * Author: phlab
@@ -44,18 +51,27 @@ public class Principal extends JFrame {
     private JButton btnPrevWeek;
     private JButton btnNextWeek;
     private JComboBox jcbProfissional;
-    private JLabel txtAniversariantes;
-    private JLabel txtAgendFaltantes;
     private JLabel txtAgendTotal;
+    private JButton procurarAgendamentoButton;
+    private JPanel pnlRodape;
+    private JLabel txtDataHora;
+    private JLabel txtDescClinica;
+    private JLabel txtAniver;
+    private JButton btnPrevWeek4;
+    private JButton btnNextWeek4;
+    private JLabel txtAgendVagoDia;
+
+    private java.util.Timer timerRodape;
 
     AgendamentoDaSemana semana;
 
-    private TabAgendamento tabAgendaSegunda;
-    private TabAgendamento tabAgendaTerca;
-    private TabAgendamento tabAgendaQuarta;
-    private TabAgendamento tabAgendaQuinta;
-    private TabAgendamento tabAgendaSexta;
-    private TabAgendamento tabAgendaSabado;
+    private TabAgendamentoSemana tabAgendaSegunda;
+    private TabAgendamentoSemana tabAgendaTerca;
+    private TabAgendamentoSemana tabAgendaQuarta;
+    private TabAgendamentoSemana tabAgendaQuinta;
+    private TabAgendamentoSemana tabAgendaSexta;
+    private TabAgendamentoSemana tabAgendaSabado;
+
 
     public Principal() {
         setContentPane(contentPane);
@@ -64,8 +80,10 @@ public class Principal extends JFrame {
 
         novoAgendamentoButton.addActionListener(e -> goNovoAgendamento(null));
 
-        btnNextWeek.addActionListener(e -> goNextWeek());
-        btnPrevWeek.addActionListener(e -> goPrevWeek());
+        btnNextWeek.addActionListener(e -> goNextWeek(1));
+        btnPrevWeek.addActionListener(e -> goPrevWeek(1));
+        btnNextWeek4.addActionListener(e -> goNextWeek(4));
+        btnPrevWeek4.addActionListener(e -> goPrevWeek(4));
         tblSegunda.setCursor(new Cursor(Cursor.HAND_CURSOR));
         tblSegunda.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -121,6 +139,7 @@ public class Principal extends JFrame {
             }
         });
 
+        procurarAgendamentoButton.addActionListener(e -> goProcurarAgendamento());
         jcbProfissional.addActionListener(e -> atualizaAgenda());
 
     }
@@ -156,13 +175,13 @@ public class Principal extends JFrame {
 
     }
 
-    private void goPrevWeek() {
-        semana.previusWeek(1);
+    private void goPrevWeek(int i) {
+        semana.previusWeek(i);
         updateTables();
     }
 
-    private void goNextWeek() {
-        semana.nextWeek(1);
+    private void goNextWeek(int i) {
+        semana.nextWeek(i);
         updateTables();
     }
 
@@ -233,6 +252,9 @@ public class Principal extends JFrame {
         JMenu menuRelat = new JMenu("Relatórios");
         menuBar1.add(menuFinancas);
         menuBar1.add(menuRelat);
+
+        //txtAgendTotal = new JLabel();
+
     }
 
     private void formWindowOpened(WindowEvent evt) {
@@ -240,12 +262,44 @@ public class Principal extends JFrame {
         atualizaComboProfissional();
         atualizaAgenda();
 
+        timerRodape = new Timer();
+        timerRodape.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                EventQueue.invokeLater(() -> txtDataHora.setText(converteDataTimeToString(LocalDateTime.now())));
+            }
+        }, 0, 1000);
 
+        calculaAgendamentoDia();
+
+        ClinicaService clinicaService = new ClinicaService();
+        Clinica c = clinicaService.find();
+        txtDescClinica.setText("<html><b>" + c.getNome() + "</b> | Fone:" + c.getTelComercial() + "</html>");
+
+        PacienteService pacienteService = new PacienteService();
+        List<Paciente> aniverList = pacienteService.findDataAniver(LocalDate.now());
+        txtAniver.setText("<html>");
+        for (Paciente p : aniverList) {
+            txtAniver.setText(txtAniver.getText() + "<b>" + p.getNomeCompleto() + "</b> - Fone: " + p.getTelCel() + "<br/>");
+        }
+
+    }
+
+    private void calculaAgendamentoDia() {
+        AgendamentoService service = new AgendamentoService();
+        txtAgendTotal.setText(String.valueOf(service.totalDeAgendamentosDia(LocalDate.now())));
+        txtAgendTotal.setFont(new Font("Dialog", Font.BOLD, 40));
+        txtAgendTotal.setForeground(new Color(47, 101, 202));
+
+        int vagoDia = (semana.getQuarta().getLista().size() - 1) - Integer.valueOf(txtAgendTotal.getText());
+        txtAgendVagoDia.setText(String.valueOf(vagoDia));
+        txtAgendVagoDia.setFont(new Font("Dialog", Font.BOLD, 40));
+        txtAgendVagoDia.setForeground(new Color(47, 101, 202));
     }
 
     private void atualizaComboProfissional() {
         ProfissionalService service = new ProfissionalService();
-        List<Profissional> profissionalList = service.findAll();
+        List<Profissional> profissionalList = service.getList();
         jcbProfissional.removeAllItems();
         for (Profissional p : profissionalList) {
             jcbProfissional.addItem(p.getNome());
@@ -261,8 +315,7 @@ public class Principal extends JFrame {
 
     private void updateTables() {
 
-        DefaultTableModel model = new DefaultTableModel();
-        tabAgendaSegunda = new TabAgendamento(semana.getSegunda().getLista());
+        tabAgendaSegunda = new TabAgendamentoSemana(semana.getSegunda().getLista());
         tblSegunda.setModel(tabAgendaSegunda);
         tblSegunda.setDefaultRenderer(Object.class, new RenAgendamento(semana.getSegunda().getLista()));
         tblSegunda.getTableHeader().setReorderingAllowed(false);
@@ -270,7 +323,7 @@ public class Principal extends JFrame {
         tblSegunda.setRowHeight(25);
         tabAgendaSegunda.fireTableDataChanged();
 
-        tabAgendaTerca = new TabAgendamento(semana.getTerca().getLista());
+        tabAgendaTerca = new TabAgendamentoSemana(semana.getTerca().getLista());
         tblTerca.setModel(tabAgendaTerca);
         tblTerca.setDefaultRenderer(Object.class, new RenAgendamento(semana.getTerca().getLista()));
         tblTerca.getTableHeader().setReorderingAllowed(false);
@@ -278,7 +331,7 @@ public class Principal extends JFrame {
         tblTerca.setRowHeight(25);
         tabAgendaTerca.fireTableDataChanged();
 
-        tabAgendaQuarta = new TabAgendamento(semana.getQuarta().getLista());
+        tabAgendaQuarta = new TabAgendamentoSemana(semana.getQuarta().getLista());
         tblQuarta.setModel(tabAgendaQuarta);
         tblQuarta.setDefaultRenderer(Object.class, new RenAgendamento(semana.getQuarta().getLista()));
         tblQuarta.getTableHeader().setReorderingAllowed(false);
@@ -286,7 +339,7 @@ public class Principal extends JFrame {
         tblQuarta.setRowHeight(25);
         tabAgendaQuarta.fireTableDataChanged();
 
-        tabAgendaQuinta = new TabAgendamento(semana.getQuinta().getLista());
+        tabAgendaQuinta = new TabAgendamentoSemana(semana.getQuinta().getLista());
         tblQuinta.setModel(tabAgendaQuinta);
         tblQuinta.setDefaultRenderer(Object.class, new RenAgendamento(semana.getQuinta().getLista()));
         tblQuinta.getTableHeader().setReorderingAllowed(false);
@@ -294,7 +347,7 @@ public class Principal extends JFrame {
         tblQuinta.setRowHeight(25);
         tabAgendaQuinta.fireTableDataChanged();
 
-        tabAgendaSexta = new TabAgendamento(semana.getSexta().getLista());
+        tabAgendaSexta = new TabAgendamentoSemana(semana.getSexta().getLista());
         tblSexta.setModel(tabAgendaSexta);
         tblSexta.setDefaultRenderer(Object.class, new RenAgendamento(semana.getSexta().getLista()));
         tblSexta.getTableHeader().setReorderingAllowed(false);
@@ -302,7 +355,7 @@ public class Principal extends JFrame {
         tblSexta.setRowHeight(25);
         tabAgendaSexta.fireTableDataChanged();
 
-        tabAgendaSabado = new TabAgendamento(semana.getSabado().getLista());
+        tabAgendaSabado = new TabAgendamentoSemana(semana.getSabado().getLista());
         tblSabado.setModel(tabAgendaSabado);
         tblSabado.setDefaultRenderer(Object.class, new RenAgendamento(semana.getSabado().getLista()));
         tblSabado.getTableHeader().setReorderingAllowed(false);
@@ -339,6 +392,12 @@ public class Principal extends JFrame {
     }
 
     private void goProcurarConvenio() {
+        ListaConvenio lista = new ListaConvenio();
+        lista.pack();
+        lista.setLocationRelativeTo(null);
+        lista.setModal(false);
+        lista.setVisible(true);
+
 
     }
 
@@ -353,7 +412,7 @@ public class Principal extends JFrame {
     }
 
     private void goConfigClinica() {
-        NovoClinica dialog = new NovoClinica();
+        NovoClinica dialog = new NovoClinica(null);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -369,5 +428,15 @@ public class Principal extends JFrame {
         dialog.pack();
         dialog.setVisible(true);
         atualizaAgenda();
+        calculaAgendamentoDia();
+    }
+
+    private void goProcurarAgendamento() {
+        ListaAgendamentos lista = new ListaAgendamentos();
+        lista.pack();
+        lista.setLocationRelativeTo(null);
+        lista.setVisible(true);
+        atualizaAgenda();
+        calculaAgendamentoDia();
     }
 }

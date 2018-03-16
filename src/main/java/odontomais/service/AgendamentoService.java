@@ -67,4 +67,11 @@ public class AgendamentoService {
         return dao.findById(id);
     }
 
+    public int totalDeAgendamentosDia(LocalDate dia){
+        List<Agendamento> lista = dao.findAgendaDia(dia);
+        return lista.size();
+    }
+
+
+
 }

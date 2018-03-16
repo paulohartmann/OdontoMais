@@ -36,7 +36,11 @@ public class ProfissionalService {
         return dao.findExisteByName(nome);
     }
     
-    public List<Profissional> findAll(){
+    public List<Profissional> getList(){
         return dao.getList();
+    }
+
+    public Profissional encontrar(long id){
+        return dao.encontrar(id);
     }
 }

@@ -1,5 +1,6 @@
 package odontomais.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import odontomais.model.Paciente;
 import odontomais.persistence.PacienteDao;
@@ -43,6 +44,10 @@ public class PacienteService {
     public Paciente findByCPF(String cpf){
         return dao.findFromCPF(cpf);
     }
+
+    public Paciente findById(long id){
+        return dao.encontrar(id);
+    }
     
     public Paciente findByRG(String rg){
         return dao.findFromRG(rg);
@@ -51,4 +56,6 @@ public class PacienteService {
     public List<Paciente> findFromName(String nome){
         return dao.findFromNome(nome);
     }
+
+    public List<Paciente> findDataAniver(LocalDate date) { return dao.findFromDataAniver(date); }
 }

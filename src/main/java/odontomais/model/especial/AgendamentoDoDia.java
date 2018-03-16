@@ -111,7 +111,6 @@ public class AgendamentoDoDia {
 
     public void atualizaAgendaDia() {
         List<Agendamento> listaDia = service.findAgendaByDataProfissional(dia, profissional.getId());
-        System.out.println(dia.toString() + listaDia.size());
         for (Agendamento a : lista) {
             for (Agendamento o : listaDia) {
                 if (a.getHoraInicio().equals(o.getHoraInicio())) {
@@ -125,7 +124,6 @@ public class AgendamentoDoDia {
                 }
             }
         }
-
     }
 
     public Agendamento completaObj(Agendamento a, Agendamento o) {

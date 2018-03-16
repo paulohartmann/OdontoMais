@@ -45,10 +45,16 @@ public class RenAgendamento extends JPanel implements TableCellRenderer {
         } else {
             nome = " ";
         }
-        horaIni.setText(DataUtil.converteTimeToString(agenda.getHoraInicio()) + " - " + nome);
         if (hoje.equals(agenda.getDataAgenda())) {
-            panel.setBackground(new Color(255, 229, 204));
+            panel.setBackground(new Color(135, 206, 250));
         }
+        if (agenda.getHoraInicio().equals(LocalTime.of(12, 0))) {
+            horaIni.setText("Horário Almoço");
+            panel.setBackground(new Color(255,255,224));
+        } else {
+            horaIni.setText(DataUtil.converteTimeToString(agenda.getHoraInicio()) + " - " + nome);
+        }
+
 
 
         //}

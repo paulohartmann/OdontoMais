@@ -95,6 +95,9 @@ public class ListaPacientes extends JDialog {
     private void atualizaTabela(List<Paciente> list) {
         tabPaciente = new TabPaciente(list);
         tblPacientes.setModel(tabPaciente);
+        tblPacientes.getTableHeader().setReorderingAllowed(false);
+        tblPacientes.getTableHeader().setVisible(true);
+        tblPacientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tabPaciente.fireTableDataChanged();
     }
 

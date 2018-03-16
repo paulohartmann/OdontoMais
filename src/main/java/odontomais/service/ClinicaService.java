@@ -23,6 +23,10 @@ public class ClinicaService {
         }
     }
 
+    public void atualizar(Clinica c){
+        dao.atualizar(c);
+    }
+
     public Clinica find() {
         try {
             return dao.getList().get(0);

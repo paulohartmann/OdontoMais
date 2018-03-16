@@ -3,6 +3,7 @@ package odontomais.service.util;
 import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,6 +12,7 @@ public class DataUtil {
     final static Logger logger = Logger.getLogger(DataUtil.class);
     final static DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     final static DateTimeFormatter horaFormat = DateTimeFormatter.ofPattern("HH:mm");
+    final static DateTimeFormatter dataHoraFormat = DateTimeFormatter.ofPattern("HH:mm:ss 'de' EEEE, d 'de' MMMM 'de' yyyy");
 
     public static LocalDate converteStringToDate(String data){
         try{
@@ -44,6 +46,15 @@ public class DataUtil {
             return time.format(horaFormat);
         }catch (Exception ex){
             logger.error("Erro ao converter LocalTime para String", ex.fillInStackTrace());
+            return null;
+        }
+    }
+
+    public static String converteDataTimeToString(LocalDateTime date){
+        try{
+            return date.format(dataHoraFormat);
+        }catch (Exception ex){
+            logger.error("Erro ao converter Data para String", ex.fillInStackTrace());
             return null;
         }
     }

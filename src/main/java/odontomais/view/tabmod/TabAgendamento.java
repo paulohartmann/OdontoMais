@@ -7,6 +7,7 @@ package odontomais.view.tabmod;
 
 import odontomais.model.Agendamento;
 import odontomais.model.Clinica;
+import odontomais.service.util.DataUtil;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -18,12 +19,17 @@ import java.util.List;
 public class TabAgendamento extends AbstractTableModel {
 
     private List<Agendamento> datalist;
-    private Boolean[] editcolumns = new Boolean[1];
-    private String[] columns = {"Title"};
+    private Boolean[] editcolumns = new Boolean[6];
+    private String[] columns = {"Nome", "Profissional", "Data", "Horário", "Convênio", "Observação"};
 
     public TabAgendamento(List<Agendamento> l) {
         datalist = l;
         editcolumns[0] = false;
+        editcolumns[1] = false;
+        editcolumns[2] = false;
+        editcolumns[3] = false;
+        editcolumns[4] = false;
+        editcolumns[5] = false;
         super.fireTableDataChanged();
     }
 
@@ -107,9 +113,26 @@ public class TabAgendamento extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Agendamento Mem = get(rowIndex);
         if (Mem != null) {
-            if (getColumnName(columnIndex).equals("Title")) {
-                return Mem.getObservacao();
-            } else {
+            if(!Mem.getObservacao().equals("Horário Vago")) {
+                if (getColumnName(columnIndex).equals("Nome")) {
+                    return Mem.getPaciente().getNomeCompleto();
+                }
+                if (getColumnName(columnIndex).equals("Profissional")) {
+                    return Mem.getProfissional().getNome();
+                }
+                if (getColumnName(columnIndex).equals("Data")) {
+                    return DataUtil.converteDataToString(Mem.getDataAgenda());
+                }
+                if (getColumnName(columnIndex).equals("Horário")) {
+                    return DataUtil.converteTimeToString(Mem.getHoraInicio());
+                }
+                if (getColumnName(columnIndex).equals("Convênio")) {
+                    return Mem.getConvenio().getNome();
+                }
+                if (getColumnName(columnIndex).equals("Observação")) {
+                    return Mem.getObservacao();
+                }
+            }else{
                 return "";
             }
         }

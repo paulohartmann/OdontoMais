@@ -19,11 +19,12 @@ public class AgendamentoDao extends GenericDAO<Agendamento, Long> {
 
     public List<Agendamento> findHorarioByHoraData(LocalTime hora, LocalTime horaFim, LocalDate dia, Profissional p) {
         List<Agendamento> resultado = null;
-        String consulta = "SELECT c FROM Agendamento c WHERE "
-                + "(c.horaInicio <= :final AND c.horaFim >= :final AND c.dataAgenda = :dia AND c.profissional = :p)";
+        String consulta = "SELECT c FROM Agendamento c WHERE " +
+                "(c.horaInicio >= :inicial AND c.horaInicio < :final AND c.dataAgenda = :dia AND c.profissional = :p) OR " +
+                "(c.horaFim > :inicial AND c.horaFim <= :final AND c.dataAgenda = :dia AND c.profissional = :p)";
         try {
             Query query = criarQuery(consulta);
-           // query.setParameter("inicial", hora);
+            query.setParameter("inicial", hora);
             query.setParameter("final", horaFim);
             query.setParameter("dia", dia);
             query.setParameter("p", p);

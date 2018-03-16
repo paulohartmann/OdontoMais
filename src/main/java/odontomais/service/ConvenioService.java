@@ -25,11 +25,19 @@ public class ConvenioService {
         }
     }
 
+    public void atualizar(Convenio c){
+        dao.atualizar(c);
+    }
+
+    public Convenio get(String nome){ return dao.get(nome);}
+
     public List<Convenio> getLista(){
         return dao.getList();
     }
     
-    public Convenio findByName(String name){
+    public List<Convenio> findByName(String name){
         return dao.findExisteByName(name);
     }
+
+    public Convenio findById(long id) { return dao.findById(id);}
 }

@@ -6,22 +6,24 @@
 package odontomais.view.tabmod;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
+
 import odontomais.model.Convenio;
 
 /**
- *
  * @author rodrigos
  */
 public class TabConvenio extends AbstractTableModel {
 
-    private ArrayList<Convenio> datalist;
-    private Boolean[] editcolumns = new Boolean[1];
-    private String[] columns = {"Nome Convênio"};
+    private List<Convenio> datalist;
+    private Boolean[] editcolumns = new Boolean[2];
+    private String[] columns = {"Nome Convênio", "Disponível"};
 
-    public TabConvenio(ArrayList<Convenio> l) {
+    public TabConvenio(List<Convenio> l) {
         datalist = l;
         editcolumns[0] = false;
+        editcolumns[1] = false;
         super.fireTableDataChanged();
     }
 
@@ -107,6 +109,13 @@ public class TabConvenio extends AbstractTableModel {
         if (Mem != null) {
             if (getColumnName(columnIndex).equals("Nome Convênio")) {
                 return Mem.getNome();
+            }
+            if (getColumnName(columnIndex).equals("Disponível")) {
+                if (Mem.isSemValidade()) {
+                    return "Desabilitado";
+                } else {
+                    return "Habilitado";
+                }
             }
             return "";
         } else {

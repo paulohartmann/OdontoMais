@@ -1,12 +1,16 @@
 package odontomais.view;
 
+import odontomais.model.Convenio;
 import odontomais.model.Paciente;
+import odontomais.service.ConvenioService;
 import odontomais.service.PacienteService;
 import odontomais.service.util.FormatadoresTexto;
 import odontomais.service.util.MensagensAlerta;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.time.LocalDate;
+import java.util.List;
 
 import odontomais.service.util.DataUtil;
 
@@ -33,6 +37,8 @@ public class NovoPaciente extends JDialog {
     private JFormattedTextField edtCPF;
     private JFormattedTextField edtEmail;
     private JPanel contentPane;
+    private JComboBox edtBoxConvenios;
+    private JButton btnNovoConvenio;
 
     private Paciente pacienteAtual;
 
@@ -44,9 +50,12 @@ public class NovoPaciente extends JDialog {
         } else {
             pacienteAtual = new Paciente();
         }
+        completaConvenioTela();
 
         setContentPane(contentPane);
         setModal(true);
+
+        btnNovoConvenio.addActionListener(e -> newConvenio());
 
         btnSalvar.addActionListener(e -> salvar());
 
@@ -55,15 +64,45 @@ public class NovoPaciente extends JDialog {
         });
     }
 
+    private Convenio selecionaConvenio() {
+        ConvenioService service = new ConvenioService();
+        Convenio c = service.get(edtBoxConvenios.getSelectedItem().toString());
+        return c;
+    }
+
+    private void newConvenio() {
+        NovoConvenio novo = new NovoConvenio();
+        novo.setLocationRelativeTo(null);
+        novo.pack();
+        novo.setVisible(true);
+        completaConvenioTela();
+    }
+
+    private void completaConvenioTela() {
+        ConvenioService convenioService = new ConvenioService();
+        List<Convenio> listaConvenio = convenioService.getLista();
+        edtBoxConvenios.removeAllItems();
+        for (Convenio c : listaConvenio) {
+            edtBoxConvenios.addItem(c.getNome());
+        }
+    }
+
+
     private void salvar() {
         if (testaCampos()) {
             completaObjeto();
             PacienteService service = new PacienteService();
-            if (service.salvar(pacienteAtual)) {
+            if (pacienteAtual.getId() > 0) {
+                service.atualizar(pacienteAtual);
                 MensagensAlerta.msgCadastroOK(this);
                 dispose();
             } else {
-                MensagensAlerta.msgErroCadastro(this);
+                if (service.salvar(pacienteAtual)) {
+                    MensagensAlerta.msgCadastroOK(this);
+                    dispose();
+                } else {
+                    MensagensAlerta.msgErroCadastro(this);
+                }
             }
         } else {
             MensagensAlerta.msgCamposObrigatorios(this);
@@ -117,6 +156,7 @@ public class NovoPaciente extends JDialog {
         pacienteAtual.setTelRes(edtResidencial.getText());
         pacienteAtual.setRg(edtRG.getText());
         pacienteAtual.setTelTrab(edtTrabalho.getText());
+        pacienteAtual.setConvenio(selecionaConvenio());
         if (selectSexoF.isSelected()) {
             pacienteAtual.setSexo("F");
         } else {
@@ -141,6 +181,12 @@ public class NovoPaciente extends JDialog {
         if (edtCelular.getText().equals("")) {
             return false;
         }
+        try {
+            if (DataUtil.converteStringToDate(edtDataNascimento.getText()).isAfter(LocalDate.now())) return false;
+        } catch (NullPointerException ex) {
+            return false;
+        }
+
         PacienteService service = new PacienteService();
         if (service.findExisteByCPF(edtCPF.getText()) > 0) {
             MensagensAlerta.msgCadastroExistente(this);
@@ -148,6 +194,11 @@ public class NovoPaciente extends JDialog {
         }
         if (service.findExisteByRG(edtRG.getText()) > 0) {
             MensagensAlerta.msgCadastroExistente(this);
+            return false;
+        }
+        Convenio c = selecionaConvenio();
+        if (c == null) {
+            JOptionPane.showMessageDialog(this, "Selecione um convênio na lista");
             return false;
         }
 

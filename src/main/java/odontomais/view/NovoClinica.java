@@ -7,6 +7,7 @@ import odontomais.service.util.FormatadoresTexto;
 import odontomais.service.util.MensagensAlerta;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.event.*;
 
 public class NovoClinica extends JDialog {
@@ -25,7 +26,15 @@ public class NovoClinica extends JDialog {
     private JFormattedTextField edtHoraIniAlmoco;
     private JFormattedTextField edtHoraFimAlmoco;
 
-    public NovoClinica() {
+    private Clinica clinica;
+
+    public NovoClinica(Clinica clinica) {
+        if (clinica != null) {
+            this.clinica = clinica;
+            atualizaTela();
+        } else {
+            this.clinica = new Clinica();
+        }
         setLocationRelativeTo(null);
         setContentPane(contentPane);
         setModal(true);
@@ -54,23 +63,28 @@ public class NovoClinica extends JDialog {
 
     private void onOK() {
         if (testaCamposTela()) {
-            Clinica c = new Clinica();
-            c.setBairro(edtBairro.getText());
-            c.setCidade(edtCidade.getText());
-            c.setEndereco(edtEndereco.getText());
-            c.setNome(edtNomeClinica.getText());
-            c.setTelComercial(edtTelComercial.getText());
-            c.setTelEmergencial(edtTelEmergencial.getText());
-            c.setHorarioInicio(DataUtil.converteStringToTime(edtHorarioIni.getText()));
-            c.setHorarioFim(DataUtil.converteStringToTime(edtHorarioFim.getText()));
-            c.setHorarioInicioAlmoco(DataUtil.converteStringToTime(edtHoraIniAlmoco.getText()));
-            c.setHorarioFimAlmoco(DataUtil.converteStringToTime(edtHoraFimAlmoco.getText()));
+            clinica.setBairro(edtBairro.getText());
+            clinica.setCidade(edtCidade.getText());
+            clinica.setEndereco(edtEndereco.getText());
+            clinica.setNome(edtNomeClinica.getText());
+            clinica.setTelComercial(edtTelComercial.getText());
+            clinica.setTelEmergencial(edtTelEmergencial.getText());
+            clinica.setHorarioInicio(DataUtil.converteStringToTime(edtHorarioIni.getText()));
+            clinica.setHorarioFim(DataUtil.converteStringToTime(edtHorarioFim.getText()));
+            clinica.setHorarioInicioAlmoco(DataUtil.converteStringToTime(edtHoraIniAlmoco.getText()));
+            clinica.setHorarioFimAlmoco(DataUtil.converteStringToTime(edtHoraFimAlmoco.getText()));
             ClinicaService service = new ClinicaService();
-            if (service.salvar(c)) {
+            if (clinica.getId() > 0) {
+                service.atualizar(clinica);
                 MensagensAlerta.msgCadastroOK(this);
                 dispose();
             } else {
-                MensagensAlerta.msgErroCadastro(this);
+                if (!service.salvar(clinica)) {
+                    MensagensAlerta.msgErroCadastro(this);
+                }else{
+                    MensagensAlerta.msgCadastroOK(this);
+                    dispose();
+                }
             }
         } else {
             MensagensAlerta.msgCamposObrigatorios(this);
@@ -98,13 +112,27 @@ public class NovoClinica extends JDialog {
         edtHoraFimAlmoco.setText("13:30");
     }
 
+    private void atualizaTela(){
+        edtHoraFimAlmoco.setText(DataUtil.converteTimeToString(clinica.getHorarioFimAlmoco()));
+        edtHoraIniAlmoco.setText(DataUtil.converteTimeToString(clinica.getHorarioInicioAlmoco()));
+        edtHorarioFim.setText(DataUtil.converteTimeToString(clinica.getHorarioFim()));
+        edtHorarioIni.setText(DataUtil.converteTimeToString(clinica.getHorarioInicio()));
+        edtTelEmergencial.setText(clinica.getTelEmergencial());
+        edtTelComercial.setText(clinica.getTelComercial());
+        edtBairro.setText(clinica.getBairro());
+        edtNomeClinica.setText(clinica.getNome());
+        edtCidade.setText(clinica.getCidade());
+        edtEndereco.setText(clinica.getEndereco());
+
+    }
+
     private boolean testaCamposTela() {
         if (edtNomeClinica.getText().equals("")) return false;
         if (edtTelComercial.getText().equals("(__)____-____")) return false;
-        if(edtHorarioIni.getText().equals("__:__")) return false;
-        if(edtHorarioFim.getText().equals("__:__")) return false;
-        if(edtHoraFimAlmoco.getText().equals("__:__")) return false;
-        if(edtHoraIniAlmoco.getText().equals("__:__")) return false;
+        if (edtHorarioIni.getText().equals("__:__")) return false;
+        if (edtHorarioFim.getText().equals("__:__")) return false;
+        if (edtHoraFimAlmoco.getText().equals("__:__")) return false;
+        if (edtHoraIniAlmoco.getText().equals("__:__")) return false;
         return true;
     }
 }

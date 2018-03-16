@@ -15,12 +15,10 @@ public class NovoPacienteComplementar extends JDialog {
     private JPanel contentPane;
     private JTextField edtProfissao;
     private JTextField edtProblemaSaude;
-    private JComboBox<String> edtBoxConvenios;
     private JCheckBox edtCheckTratamentoMedico;
     private JTextField edtMedicamentoRecorrente;
     private JTextField edtAlergias;
     private JButton salvarButton;
-    private JButton btnNovoConvenio;
     private JButton cancelButton;
 
     private Paciente paciente;
@@ -30,7 +28,6 @@ public class NovoPacienteComplementar extends JDialog {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(salvarButton);
-        completaConvenioTela();
         completaTela();
 
         salvarButton.addActionListener(new ActionListener() {
@@ -39,7 +36,7 @@ public class NovoPacienteComplementar extends JDialog {
             }
         });
 
-        btnNovoConvenio.addActionListener(e -> newConvenio());
+
 
         cancelButton.addActionListener(e -> onCancel());
 
@@ -59,22 +56,8 @@ public class NovoPacienteComplementar extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void newConvenio() {
-        NovoConvenio novo = new NovoConvenio();
-        novo.setLocationRelativeTo(null);
-        novo.pack();
-        novo.setVisible(true);
-        completaConvenioTela();
-    }
 
-    private void completaConvenioTela() {
-        ConvenioService convenioService = new ConvenioService();
-        List<Convenio> listaConvenio = convenioService.getLista();
-        edtBoxConvenios.removeAllItems();
-        for (Convenio c : listaConvenio) {
-            edtBoxConvenios.addItem(c.getNome());
-        }
-    }
+
 
     private void onCancel() {
         dispose();
@@ -82,13 +65,7 @@ public class NovoPacienteComplementar extends JDialog {
 
     private void onOK() {
         completaObjeto();
-        Convenio c = selecionaConvenio();
-        if (c != null) {
-            paciente.setConvenio(c);
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione um convênio na lista");
-            return;
-        }
+
         PacienteService service = new PacienteService();
         if(paciente.getId() == 0) {
             if (service.salvar(paciente)) {
@@ -102,12 +79,6 @@ public class NovoPacienteComplementar extends JDialog {
             MensagensAlerta.msgCadastroOK(this);
             dispose();
         }
-    }
-
-    private Convenio selecionaConvenio() {
-        ConvenioService service = new ConvenioService();
-        Convenio c = service.findByName(edtBoxConvenios.getSelectedItem().toString());
-        return c;
     }
 
     private void completaObjeto() {
@@ -124,9 +95,6 @@ public class NovoPacienteComplementar extends JDialog {
     }
 
     private void completaTela(){
-        if (paciente.getConvenio().getNome() != null) {
-            edtBoxConvenios.setSelectedItem(paciente.getConvenio().getNome());
-        }
         if(paciente.isTratamentoMedicoRecente()){
             edtCheckTratamentoMedico.setSelected(true);
         }else {

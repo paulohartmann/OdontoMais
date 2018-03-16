@@ -1,6 +1,8 @@
 package odontomais.persistence;
 
+import java.time.LocalDate;
 import java.util.List;
+
 import odontomais.model.Paciente;
 import odontomais.persistence.jpa.GenericDAO;
 
@@ -24,6 +26,10 @@ public class PacienteDao extends GenericDAO<Paciente, Long> {
             getLogger().error("Erro ao procurar paciente por cpf", rx.getCause());
         }
         return resultado;
+    }
+
+    public Paciente encontrar(long id) {
+        return encontrar(id);
     }
 
     public Paciente findFromRG(String rg) {
@@ -54,7 +60,17 @@ public class PacienteDao extends GenericDAO<Paciente, Long> {
         return resultado;
     }
 
-
+    public List<Paciente> findFromDataAniver(LocalDate date) {
+        List<Paciente> resultado = null;
+        String consulta = "SELECT c FROM Paciente c WHERE MONTH(c.dataNascimento) = MONTH(NOW()) AND DAY(c.dataNascimento) = DAY(NOW())";
+        try {
+            Query query = criarQuery(consulta);
+            resultado = (List<Paciente>) query.getResultList();
+        } catch (Exception rx) {
+            getLogger().error("Erro ao procurar lista de pacientes por dataNascimento", rx.getCause());
+        }
+        return resultado;
+    }
 
     public int findExisteByCPF(String param) {
         int resultado = 0;

@@ -10,8 +10,8 @@ import odontomais.service.util.FormatadoresTexto;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,6 +36,7 @@ public class NovoAgendamento extends JDialog {
     private TimePicker edtHoraIni;
     private TimePicker edtHoraFim;
     private JComboBox edtComboProfissional;
+    private JButton liberarHorarioButton;
 
     private Convenio convenio;
     private Profissional profissional;
@@ -64,6 +65,8 @@ public class NovoAgendamento extends JDialog {
         buttonCancel.addActionListener((ActionEvent e) -> {
             onCancel();
         });
+
+        liberarHorarioButton.addActionListener(e -> goLiberaHorario());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -96,6 +99,15 @@ public class NovoAgendamento extends JDialog {
         init();
     }
 
+    private void goLiberaHorario() {
+        AgendamentoService service = new AgendamentoService();
+        Agendamento ag = service.findById(agendamento.getId());
+        if (ag != null) {
+            service.remove(agendamento);
+            dispose();
+        }
+    }
+
     private void createUIComponents() {
         edtCelular = new JFormattedTextField(FormatadoresTexto.foneCelFormat());
         edtResidencial = new JFormattedTextField(FormatadoresTexto.foneFixoFormat());
@@ -122,6 +134,12 @@ public class NovoAgendamento extends JDialog {
         completaComboTpAgendamento();
         completaComboConvenio();
         completaProfissional();
+
+        completaHorariosDoDia();
+    }
+
+    private void completaHorariosDoDia() {
+
     }
 
     private void completaComboTpAgendamento() {
@@ -143,7 +161,7 @@ public class NovoAgendamento extends JDialog {
     private void completaProfissional() {
         ProfissionalService service = new ProfissionalService();
         edtComboProfissional.removeAllItems();
-        for (Profissional p : service.findAll()) {
+        for (Profissional p : service.getList()) {
             edtComboProfissional.addItem(p.getNome());
         }
     }
@@ -198,7 +216,6 @@ public class NovoAgendamento extends JDialog {
                 MensagensAlerta.msgErroCadastro(this);
             }
         }
-        //dispose();
     }
 
     private void onCancel() {
@@ -224,6 +241,9 @@ public class NovoAgendamento extends JDialog {
         if (ag == null) {
             ag = agendamento;
         }
+        paciente = agendamento.getPaciente();
+        convenio = agendamento.getConvenio();
+        profissional = agendamento.getProfissional();
 
 
         edtComboConvenio.setSelectedItem(agendamento.getConvenio().getNome());
@@ -245,6 +265,10 @@ public class NovoAgendamento extends JDialog {
     }
 
     private boolean testaCampos() {
+        if (edtData.getDate().getDayOfWeek() == DayOfWeek.SUNDAY) {
+            JOptionPane.showMessageDialog(this, "A data marcada é um domingo", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
         if (edtHoraFim.getTime().isBefore(edtHoraIni.getTime())) {
             JOptionPane.showMessageDialog(this, "Os horários não estão compatíveis", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             return false;
@@ -266,14 +290,14 @@ public class NovoAgendamento extends JDialog {
         }
 
         ConvenioService convenioService = new ConvenioService();
-        convenio = convenioService.findByName(edtComboConvenio.getSelectedItem().toString());
+        convenio = convenioService.get((String) edtComboConvenio.getSelectedItem());
         if (convenio == null) {
             JOptionPane.showMessageDialog(this, "Nenhum convênio selecionado", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             return false;
         }
 
         ProfissionalService profissionalService = new ProfissionalService();
-        profissional = profissionalService.findByName(edtComboProfissional.getSelectedItem().toString());
+        profissional = profissionalService.findByName((String) edtComboProfissional.getSelectedItem());
         if (profissional == null) {
             JOptionPane.showMessageDialog(this, "Nenhum profissional selecionado para o agendamento", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             return false;
