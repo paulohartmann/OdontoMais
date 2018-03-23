@@ -15,6 +15,7 @@ public class NovoProfissional extends JDialog {
     private JButton buttonCancel;
     private JTextField edtNomeProfissional;
     private JTextArea edtObs;
+    private JTextField edtEmail;
 
     private Profissional profissional;
 
@@ -39,10 +40,6 @@ public class NovoProfissional extends JDialog {
             onCancel();
         });
 
-        // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction((ActionEvent e) -> {
-            onCancel();
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
     private void onOK() {
@@ -67,12 +64,14 @@ public class NovoProfissional extends JDialog {
     private void completaCampos() {
         edtNomeProfissional.setText(profissional.getNome());
         edtObs.setText(profissional.getObservacao());
+        edtEmail.setText(profissional.getEmail());
     }
 
     private boolean completaObjeto() {
         if (testaCampos()) {
             profissional.setNome(edtNomeProfissional.getText());
             profissional.setObservacao(edtObs.getText());
+            profissional.setEmail(edtEmail.getText());
             return true;
         } else {
             MensagensAlerta.msgCamposObrigatorios(this);
@@ -81,9 +80,10 @@ public class NovoProfissional extends JDialog {
     }
 
     private boolean testaCampos() {
-        if (edtNomeProfissional.getText().equals("")) {
-            return false;
-        }
+        if (edtNomeProfissional.getText().equals("")) return false;
+
+        if (edtEmail.getText().equals("")) return false;
+
         ProfissionalService service = new ProfissionalService();
         if (service.findQtdByName(edtNomeProfissional.getText()) > 0) {
             MensagensAlerta.msgCadastroExistente(this);

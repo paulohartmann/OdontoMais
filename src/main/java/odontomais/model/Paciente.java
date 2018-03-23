@@ -3,6 +3,7 @@ package odontomais.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,6 +33,9 @@ public class Paciente implements Serializable {
 
     @ManyToOne(cascade=CascadeType.MERGE)
     private Convenio convenio;
+
+    @ManyToMany(cascade=CascadeType.MERGE)
+    private List<Tratamento> tratamentos = new ArrayList<>();
 
     private boolean tratamentoMedicoRecente;
     private String medicamentosRecorrentes;
@@ -64,6 +68,13 @@ public class Paciente implements Serializable {
         return id;
     }
 
+    public List<Tratamento> getTratamentos() {
+        return tratamentos;
+    }
+
+    public void setTratamentos(List<Tratamento> tratamentos) {
+        this.tratamentos = tratamentos;
+    }
 
     //problemas de saúde, separados por vírgula
     private String problemasSaude;

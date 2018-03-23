@@ -7,6 +7,10 @@
         <class>odontomais.model.Paciente</class>
         <class>odontomais.model.Convenio</class>
         <class>odontomais.model.Agendamento</class>
+        <class>odontomais.model.Clinica</class>
+        <class>odontomais.model.Profissional</class>
+        <class>odontomais.model.TipoAgendamento</class>
+        <class>odontomais.model.Tratamento</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/OdontoMais" />
             <property name="javax.persistence.jdbc.user" value="root" />

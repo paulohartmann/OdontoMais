@@ -7,10 +7,10 @@ package odontomais.view.tabmod;
 
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
+
 import odontomais.model.Profissional;
 
 /**
- *
  * @author rodrigos
  */
 public class TabProfissional extends AbstractTableModel {
@@ -18,8 +18,8 @@ public class TabProfissional extends AbstractTableModel {
     private ArrayList<Profissional> datalist;
     private Boolean[] editcolumns = new Boolean[3];
     private String[] columns = {"Nome",
-        "Celular",
-        "Observações"};
+            "Email",
+            "Observações"};
 
     public TabProfissional(ArrayList<Profissional> l) {
         datalist = l;
@@ -112,38 +112,9 @@ public class TabProfissional extends AbstractTableModel {
             if (getColumnName(columnIndex).equals("Nome")) {
                 return Mem.getNome();
             }
-            if (getColumnName(columnIndex).equals("Celular")) {
-                return Mem.getTelCelular();
+            if (getColumnName(columnIndex).equals("Email")) {
+                return Mem.getEmail();
             }
-//            if (getColumnName(columnIndex).equals("Horário Almoço")) {
-//                return Mem.getHorarioAlmocoInicio().format(formatter) + " - " + Mem.getHorarioAlmocoFim().format(formatter);
-//            }
-//            if (getColumnName(columnIndex).equals("Dias Serviço")) {
-//                boolean[] dias = Mem.montaArrayDiasServico();
-//                String retorno = "";
-//                if (dias[0]) {
-//                    retorno += "DOM-";
-//                }
-//                if (dias[1]) {
-//                    retorno += "SEG-";
-//                }
-//                if (dias[2]) {
-//                    retorno += "TER-";
-//                }
-//                if (dias[3]) {
-//                    retorno += "QUA-";
-//                }
-//                if (dias[4]) {
-//                    retorno += "QUI-";
-//                }
-//                if (dias[5]) {
-//                    retorno += "SEX-";
-//                }
-//                if (dias[6]) {
-//                    retorno += "SAB";
-//                }
-//                return retorno;
-//            }
             if (getColumnName(columnIndex).equals("Observações")) {
                 return Mem.getObservacao();
             }

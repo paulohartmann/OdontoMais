@@ -13,7 +13,7 @@ public class Profissional implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
-    private String telCelular;
+    private String email;
     private String observacao;
 
     public long getId() {
@@ -22,14 +22,6 @@ public class Profissional implements Serializable {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getTelCelular() {
-        return telCelular;
-    }
-
-    public void setTelCelular(String telCelular) {
-        this.telCelular = telCelular;
     }
 
     public String getObservacao() {
@@ -46,5 +38,13 @@ public class Profissional implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

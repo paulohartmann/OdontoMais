@@ -2,9 +2,12 @@ package odontomais.view;
 
 import odontomais.model.Convenio;
 import odontomais.model.Paciente;
+import odontomais.model.Tratamento;
 import odontomais.service.ConvenioService;
 import odontomais.service.PacienteService;
+import odontomais.service.TratamentoService;
 import odontomais.service.util.MensagensAlerta;
+import odontomais.view.tabmod.JCheckBoxList;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -20,8 +23,10 @@ public class NovoPacienteComplementar extends JDialog {
     private JTextField edtAlergias;
     private JButton salvarButton;
     private JButton cancelButton;
+    private JList CheckBoxList;
 
     private Paciente paciente;
+    private DefaultListModel<JCheckBox> modelTratamento;
 
     public NovoPacienteComplementar(Paciente p) {
         this.paciente = p;
@@ -35,8 +40,6 @@ public class NovoPacienteComplementar extends JDialog {
                 onOK();
             }
         });
-
-
 
         cancelButton.addActionListener(e -> onCancel());
 
@@ -55,9 +58,6 @@ public class NovoPacienteComplementar extends JDialog {
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
-
-
-
 
     private void onCancel() {
         dispose();
@@ -92,6 +92,15 @@ public class NovoPacienteComplementar extends JDialog {
         }
         paciente.setMedicamentosRecorrentes(edtMedicamentoRecorrente.getText());
         paciente.setAlergias(edtAlergias.getText());
+        TratamentoService service = new TratamentoService();
+        paciente.getTratamentos().clear();
+        for(int i = 0; i < modelTratamento.size(); i++){
+            JCheckBox box = modelTratamento.get(i);
+            if(box.isSelected()){
+                Tratamento t = service.findByName(box.getText());
+                paciente.getTratamentos().add(t);
+            }
+        }
     }
 
     private void completaTela(){
@@ -104,5 +113,22 @@ public class NovoPacienteComplementar extends JDialog {
         edtMedicamentoRecorrente.setText((paciente.getMedicamentosRecorrentes() == null) ? "" : paciente.getMedicamentosRecorrentes());
         edtProblemaSaude.setText((paciente.getProblemasSaude() == null) ? "" : paciente.getProblemasSaude());
         edtProfissao.setText((paciente.getProfissao() == null) ? "" : paciente.getProfissao());
+        TratamentoService service = new TratamentoService();
+        for(Tratamento t : service.getList()){
+            JCheckBox box = new JCheckBox(t.getNome());
+            modelTratamento.addElement(box);
+            for(Tratamento o : paciente.getTratamentos()){
+                if(t.getNome().equals(o.getNome())){
+                    box.setSelected(true);
+                }
+            }
+        }
+
+
+    }
+
+    private void createUIComponents() {
+        modelTratamento = new DefaultListModel<JCheckBox>();
+        CheckBoxList = new JCheckBoxList(modelTratamento);
     }
 }

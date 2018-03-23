@@ -46,8 +46,13 @@ public class MainOdontoMais {
 
         TratamentoService tratamentoService = new TratamentoService();
         List<Tratamento> tratamentoList = tratamentoService.getList();
-        if(tratamentoList.size() <= 0){
-            
+        if (tratamentoList.size() <= 0) {
+            tratamentoService.salvar(new Tratamento("Clínica Geral"));
+            tratamentoService.salvar(new Tratamento("Estética"));
+            tratamentoService.salvar(new Tratamento("Prótese"));
+            tratamentoService.salvar(new Tratamento("Ortodontia"));
+            tratamentoService.salvar(new Tratamento("Cirurgia"));
+            tratamentoService.salvar(new Tratamento("Endodontia"));
         }
 
 

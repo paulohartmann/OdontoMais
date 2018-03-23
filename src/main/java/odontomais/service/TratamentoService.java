@@ -13,6 +13,10 @@ public class TratamentoService {
 
     TratamentoDao dao;
 
+    public TratamentoService(){
+        dao = new TratamentoDao();
+    }
+
     public boolean salvar(Tratamento t){
         if(dao.salvar(t).getId() > 0){
             return true;
@@ -26,6 +30,16 @@ public class TratamentoService {
     }
 
     public List<Tratamento> getList(){
-        return dao.getList();
+        try {
+            return dao.getList();
+        }catch (NullPointerException ex){
+            return null;
+        }
     }
+
+    public Tratamento findByName(String name){
+        return dao.findbyName(name);
+    }
+
+
 }

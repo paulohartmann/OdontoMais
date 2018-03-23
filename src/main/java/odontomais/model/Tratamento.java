@@ -2,10 +2,7 @@ package odontomais.model;
 
 import odontomais.view.tabmod.TabConvenio;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /*
@@ -20,11 +17,11 @@ public class Tratamento implements Serializable{
     private long id;
     private String nome;
 
-    public Tratamento(String nome) {
+    public Tratamento(){}
+
+    public Tratamento(String nome){
         this.nome = nome;
     }
-
-    public Tratamento(){}
 
     public long getId() {
         return id;

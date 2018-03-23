@@ -21,6 +21,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -64,6 +65,7 @@ public class Principal extends JFrame {
     private java.util.Timer timerRodape;
 
     AgendamentoDaSemana semana;
+    Clinica clinica;
 
     private TabAgendamentoSemana tabAgendaSegunda;
     private TabAgendamentoSemana tabAgendaTerca;
@@ -169,7 +171,6 @@ public class Principal extends JFrame {
     }
 
     private void atualizaAgenda() {
-
         semana = new AgendamentoDaSemana(pegaProfissionalSelecionado());
         updateTables();
 
@@ -190,6 +191,13 @@ public class Principal extends JFrame {
         addWindowListener(new WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
+            }
+        });
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                formWindowClosing();
             }
         });
 
@@ -252,14 +260,29 @@ public class Principal extends JFrame {
         JMenu menuRelat = new JMenu("Relatórios");
         menuBar1.add(menuFinancas);
         menuBar1.add(menuRelat);
+    }
 
-        //txtAgendTotal = new JLabel();
-
+    private void formWindowClosing() {
+        //monta email para enviar aos profissionais
     }
 
     private void formWindowOpened(WindowEvent evt) {
 
-        atualizaComboProfissional();
+        ClinicaService clinicaService = new ClinicaService();
+        clinica = clinicaService.find();
+        if (clinica == null) {
+            System.exit(0);
+        } else {
+            txtDescClinica.setText("<html><b>" + clinica.getNome() + "</b> | Fone:" + clinica.getTelComercial() + "</html>");
+        }
+
+        ProfissionalService profissionalService = new ProfissionalService();
+        List<Profissional> profissionalList = profissionalService.getList();
+        if (profissionalList.size() <= 0) {
+            System.exit(0);
+        } else {
+            atualizaComboProfissional(profissionalList);
+        }
         atualizaAgenda();
 
         timerRodape = new Timer();
@@ -267,14 +290,14 @@ public class Principal extends JFrame {
             @Override
             public void run() {
                 EventQueue.invokeLater(() -> txtDataHora.setText(converteDataTimeToString(LocalDateTime.now())));
+                if (LocalTime.now().isAfter(LocalTime.of(23, 00))) {
+                    System.exit(0);
+                }
+
             }
         }, 0, 1000);
 
         calculaAgendamentoDia();
-
-        ClinicaService clinicaService = new ClinicaService();
-        Clinica c = clinicaService.find();
-        txtDescClinica.setText("<html><b>" + c.getNome() + "</b> | Fone:" + c.getTelComercial() + "</html>");
 
         PacienteService pacienteService = new PacienteService();
         List<Paciente> aniverList = pacienteService.findDataAniver(LocalDate.now());
@@ -297,9 +320,7 @@ public class Principal extends JFrame {
         txtAgendVagoDia.setForeground(new Color(47, 101, 202));
     }
 
-    private void atualizaComboProfissional() {
-        ProfissionalService service = new ProfissionalService();
-        List<Profissional> profissionalList = service.getList();
+    private void atualizaComboProfissional(List<Profissional> profissionalList) {
         jcbProfissional.removeAllItems();
         for (Profissional p : profissionalList) {
             jcbProfissional.addItem(p.getNome());
@@ -412,7 +433,7 @@ public class Principal extends JFrame {
     }
 
     private void goConfigClinica() {
-        NovoClinica dialog = new NovoClinica(null);
+        NovoClinica dialog = new NovoClinica(clinica);
         dialog.pack();
         dialog.setVisible(true);
     }

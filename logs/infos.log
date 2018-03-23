@@ -13564,3 +13564,220 @@ Caused by: java.time.DateTimeException: Invalid value for MonthOfYear (valid val
  INFO 16 Mar 12:57:51 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
  INFO 16 Mar 12:57:53 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6f0ca692] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
  INFO 16 Mar 12:57:53 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 16 Mar 13:23:35 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 16 Mar 13:23:35 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 16 Mar 13:23:35 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 16 Mar 13:23:35 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 16 Mar 13:23:35 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 16 Mar 13:23:35 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 16 Mar 13:23:35 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 16 Mar 13:23:35 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 16 Mar 13:23:35 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 16 Mar 13:23:36 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 16 Mar 13:23:37 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@74e47444] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 16 Mar 13:23:37 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 16 Mar 13:24:20 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 16 Mar 13:24:20 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 16 Mar 13:24:20 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 16 Mar 13:24:20 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 16 Mar 13:24:20 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 16 Mar 13:24:20 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 16 Mar 13:24:20 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 16 Mar 13:24:20 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 16 Mar 13:24:20 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 16 Mar 13:24:21 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 16 Mar 13:24:22 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@74e47444] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 16 Mar 13:24:22 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 16 Mar 13:25:56 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 16 Mar 13:25:56 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 16 Mar 13:25:56 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 16 Mar 13:25:57 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 16 Mar 13:25:57 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 16 Mar 13:25:57 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 16 Mar 13:25:57 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 16 Mar 13:25:57 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 16 Mar 13:25:57 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 16 Mar 13:25:57 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 16 Mar 13:25:58 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2cac4385] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 16 Mar 13:25:58 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@10fde30a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 16 Mar 13:25:59 [main] org.hibernate.tool.schema.internal.SchemaCreatorImpl - HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@4ae33a11'
+ INFO 16 Mar 13:25:59 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 16 Mar 13:28:07 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 16 Mar 13:28:07 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 16 Mar 13:28:07 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 16 Mar 13:28:07 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 16 Mar 13:28:07 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 16 Mar 13:28:07 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 16 Mar 13:28:07 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 16 Mar 13:28:07 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 16 Mar 13:28:07 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 16 Mar 13:28:08 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 16 Mar 13:28:09 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2cac4385] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 16 Mar 13:28:09 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@10fde30a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 16 Mar 13:28:09 [main] org.hibernate.tool.schema.internal.SchemaCreatorImpl - HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@4ae33a11'
+ INFO 16 Mar 13:28:09 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 20 Mar 18:18:30 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 20 Mar 18:18:30 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 20 Mar 18:18:30 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 20 Mar 18:18:31 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 20 Mar 18:18:31 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 20 Mar 18:18:31 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 20 Mar 18:18:31 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 20 Mar 18:18:31 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 20 Mar 18:18:31 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 20 Mar 18:18:32 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 20 Mar 18:18:33 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2cac4385] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 20 Mar 18:18:33 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@10fde30a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 20 Mar 18:18:33 [main] org.hibernate.tool.schema.internal.SchemaCreatorImpl - HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@4ae33a11'
+ INFO 20 Mar 18:18:33 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 20 Mar 18:19:28 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 20 Mar 18:19:28 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 20 Mar 18:19:28 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 20 Mar 18:19:29 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 20 Mar 18:19:29 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 20 Mar 18:19:29 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 20 Mar 18:19:29 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 20 Mar 18:19:29 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 20 Mar 18:19:29 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 20 Mar 18:19:29 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 20 Mar 18:19:30 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@58496c97] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 20 Mar 18:19:30 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7fcf294e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 20 Mar 18:19:31 [main] org.hibernate.tool.schema.internal.SchemaCreatorImpl - HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@2eadc9f6'
+ INFO 20 Mar 18:19:37 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 20 Mar 18:24:20 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 20 Mar 18:24:20 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 20 Mar 18:24:20 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 20 Mar 18:24:20 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 20 Mar 18:24:21 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 20 Mar 18:24:21 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 20 Mar 18:24:21 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 20 Mar 18:24:21 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 20 Mar 18:24:21 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 20 Mar 18:24:21 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 20 Mar 18:24:22 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@58496c97] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 20 Mar 18:24:22 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7fcf294e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 20 Mar 18:24:22 [main] org.hibernate.tool.schema.internal.SchemaCreatorImpl - HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@2eadc9f6'
+ INFO 20 Mar 18:24:24 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 20 Mar 19:00:36 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 20 Mar 19:00:36 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 20 Mar 19:00:36 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 20 Mar 19:00:37 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 20 Mar 19:00:37 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 20 Mar 19:00:37 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 20 Mar 19:00:37 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 20 Mar 19:00:37 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 20 Mar 19:00:37 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 20 Mar 19:00:37 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 20 Mar 19:00:38 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2cac4385] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 20 Mar 19:00:38 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@10fde30a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 20 Mar 19:00:39 [main] org.hibernate.tool.schema.internal.SchemaCreatorImpl - HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@4ae33a11'
+ INFO 20 Mar 19:00:39 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 20 Mar 19:03:51 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 20 Mar 19:03:51 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 20 Mar 19:03:51 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 20 Mar 19:03:51 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 20 Mar 19:03:51 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 20 Mar 19:03:51 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 20 Mar 19:03:51 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 20 Mar 19:03:51 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 20 Mar 19:03:51 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 20 Mar 19:03:52 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 20 Mar 19:03:53 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@74e47444] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 20 Mar 19:03:53 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 20 Mar 19:05:53 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 20 Mar 19:05:53 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 20 Mar 19:05:54 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 20 Mar 19:05:54 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 20 Mar 19:05:54 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 20 Mar 19:05:54 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 20 Mar 19:05:54 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 20 Mar 19:05:54 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 20 Mar 19:05:54 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 20 Mar 19:05:54 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 20 Mar 19:05:55 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@74e47444] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 20 Mar 19:05:56 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 20 Mar 19:09:58 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 20 Mar 19:09:58 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 20 Mar 19:09:58 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 20 Mar 19:09:58 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 20 Mar 19:09:58 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 20 Mar 19:09:58 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 20 Mar 19:09:58 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 20 Mar 19:09:58 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 20 Mar 19:09:58 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 20 Mar 19:09:59 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 20 Mar 19:10:00 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@74e47444] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 20 Mar 19:10:00 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 21 Mar 07:08:45 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 21 Mar 07:08:45 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 21 Mar 07:08:45 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 21 Mar 07:08:46 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 21 Mar 07:08:46 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 21 Mar 07:08:46 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 21 Mar 07:08:46 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 21 Mar 07:08:46 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 21 Mar 07:08:46 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 21 Mar 07:08:47 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 21 Mar 07:08:48 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6e4de19b] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 21 Mar 07:08:49 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ERROR 21 Mar 07:09:03 [AWT-EventQueue-0] odontomais.persistence.jpa.GenericDAO - Erro ao procurar agendamento por paciente
+ INFO 21 Mar 07:11:40 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 21 Mar 07:11:40 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 21 Mar 07:11:40 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 21 Mar 07:11:40 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 21 Mar 07:11:40 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 21 Mar 07:11:40 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 21 Mar 07:11:40 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 21 Mar 07:11:40 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 21 Mar 07:11:40 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 21 Mar 07:11:41 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 21 Mar 07:11:42 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6e4de19b] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 21 Mar 07:11:42 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 21 Mar 20:12:27 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 21 Mar 20:12:27 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 21 Mar 20:12:27 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 21 Mar 20:12:28 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 21 Mar 20:12:28 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 21 Mar 20:12:28 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 21 Mar 20:12:28 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 21 Mar 20:12:28 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 21 Mar 20:12:28 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 21 Mar 20:12:28 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 21 Mar 20:12:30 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5c48c0c0] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 21 Mar 20:12:30 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 21 Mar 20:18:34 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 21 Mar 20:18:34 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 21 Mar 20:18:34 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 21 Mar 20:18:35 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 21 Mar 20:18:35 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 21 Mar 20:18:35 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 21 Mar 20:18:35 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 21 Mar 20:18:35 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 21 Mar 20:18:35 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 21 Mar 20:18:35 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 21 Mar 20:18:37 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5c48c0c0] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 21 Mar 20:18:37 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 21 Mar 20:39:22 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 21 Mar 20:39:22 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 21 Mar 20:39:22 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 21 Mar 20:39:23 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 21 Mar 20:39:23 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 21 Mar 20:39:23 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 21 Mar 20:39:23 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 21 Mar 20:39:23 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 21 Mar 20:39:23 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 21 Mar 20:39:23 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 21 Mar 20:39:25 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5c48c0c0] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 21 Mar 20:39:25 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
+ INFO 21 Mar 20:55:29 [main] org.hibernate.Version - HHH000412: Hibernate Core {5.2.10.Final}
+ INFO 21 Mar 20:55:29 [main] org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+ INFO 21 Mar 20:55:29 [main] org.hibernate.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+ WARN 21 Mar 20:55:30 [main] org.hibernate.engine.jdbc.connections.internal.ConnectionProviderInitiator - HHH000022: c3p0 properties were encountered, but the c3p0 provider class was not found on the classpath; these properties are going to be ignored.
+ WARN 21 Mar 20:55:30 [main] org.hibernate.orm.connections.pooling - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+ INFO 21 Mar 20:55:30 [main] org.hibernate.orm.connections.pooling - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://127.0.0.1:3306/OdontoMais]
+ INFO 21 Mar 20:55:30 [main] org.hibernate.orm.connections.pooling - HHH10001001: Connection properties: {user=root, password=root}
+ INFO 21 Mar 20:55:30 [main] org.hibernate.orm.connections.pooling - HHH10001003: Autocommit mode: false
+ INFO 21 Mar 20:55:30 [main] org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl - HHH000115: Hibernate connection pool size: 20 (min=1)
+ INFO 21 Mar 20:55:30 [main] org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+ INFO 21 Mar 20:55:32 [main] org.hibernate.orm.connections.access - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5c48c0c0] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+ INFO 21 Mar 20:55:32 [main] org.hibernate.hql.internal.QueryTranslatorFactoryInitiator - HHH000397: Using ASTQueryTranslatorFactory
