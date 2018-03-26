@@ -47,6 +47,7 @@ public class NovoAgendamento extends JDialog {
     final static Logger logger = Logger.getLogger(NovoAgendamento.class);
 
     public NovoAgendamento(Agendamento ag) {
+        init();
         if (ag != null) {
             agendamento = ag;
             preencheTela();
@@ -96,7 +97,7 @@ public class NovoAgendamento extends JDialog {
             goProcuraPaciente();
         }));
 
-        init();
+
     }
 
     private void goLiberaHorario() {
@@ -240,16 +241,15 @@ public class NovoAgendamento extends JDialog {
         Agendamento ag = service.findById(agendamento.getId());
         if (ag == null) {
             ag = agendamento;
+        } else {
+            paciente = agendamento.getPaciente();
+            convenio = agendamento.getConvenio();
+            profissional = agendamento.getProfissional();
+            edtComboConvenio.setSelectedItem(agendamento.getConvenio().getNome());
+            edtResidencial.setText(agendamento.getPaciente().getTelRes());
+            edtCelular.setText(agendamento.getPaciente().getTelCel());
+            edtNomePaciente.setText(agendamento.getPaciente().getNomeCompleto());
         }
-        paciente = agendamento.getPaciente();
-        convenio = agendamento.getConvenio();
-        profissional = agendamento.getProfissional();
-
-
-        edtComboConvenio.setSelectedItem(agendamento.getConvenio().getNome());
-        edtResidencial.setText(agendamento.getPaciente().getTelRes());
-        edtCelular.setText(agendamento.getPaciente().getTelCel());
-        edtNomePaciente.setText(agendamento.getPaciente().getNomeCompleto());
 
 
         edtHoraIni.setTime(ag.getHoraInicio());

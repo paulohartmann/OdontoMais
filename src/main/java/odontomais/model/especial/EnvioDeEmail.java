@@ -17,16 +17,17 @@ import java.util.Properties;
  */
 public class EnvioDeEmail {
 
-    private static final String FROM_EMAIL = "odontomaisodontologia@hotmail.com";
+    private static final String FROM_EMAIL = "odontomaisodontologia@gmail.com";
     private static final String PASSWORD = "33753767";
     private static final String TLS = "587";
 
     public static Session getSession() {
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com"); //SMTP Host
-        props.put("mail.smtp.port", "587"); //TLS Port
-        props.put("mail.smtp.auth", "true"); //enable authentication
-        props.put("mail.smtp.starttls.enable", "true"); //enable
+        props.put("mail.smtp.auth", true);
+        props.put("mail.smtp.starttls.enable", true);
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
 
         Authenticator auth = new Authenticator() {
             //override the getPasswordAuthentication method
@@ -62,7 +63,7 @@ public class EnvioDeEmail {
     }
 
 
-    public String getBodyListaAgendamento(LocalDate data, List<Agendamento> lista){
+    public static String getBodyListaAgendamento(LocalDate data, List<Agendamento> lista){
         String listaString = "<table>";
         for(Agendamento a : lista){
             listaString += "<tr><td>"+DataUtil.converteTimeToString(a.getHoraInicio()) + "</td><td> " + a.getPaciente().getNomeCompleto() + "</td></tr>";

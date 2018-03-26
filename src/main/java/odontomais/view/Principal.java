@@ -6,6 +6,7 @@ import odontomais.model.Clinica;
 import odontomais.model.Paciente;
 import odontomais.model.Profissional;
 import odontomais.model.especial.AgendamentoDaSemana;
+import odontomais.model.especial.EnvioDeEmail;
 import odontomais.service.AgendamentoService;
 import odontomais.service.ClinicaService;
 import odontomais.service.PacienteService;
@@ -14,6 +15,7 @@ import odontomais.service.util.DataUtil;
 import odontomais.view.tabmod.RenAgendamento;
 import odontomais.view.tabmod.TabAgendamentoSemana;
 
+import javax.mail.Session;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -263,7 +265,13 @@ public class Principal extends JFrame {
     }
 
     private void formWindowClosing() {
-        //monta email para enviar aos profissionais
+
+        int i = JOptionPane.showConfirmDialog(this, "Deseja enviar a agenda do próximo dia aos profissionais por email agora?", "Envio da agenda", JOptionPane.YES_NO_OPTION);
+        if (i == JOptionPane.YES_OPTION) {
+            Session s = EnvioDeEmail.getSession();
+            LocalDate d = LocalDate.now().plusDays(1);
+            EnvioDeEmail.sendEmail(s, "paulohar@gmail.com", "Teste Clinica", EnvioDeEmail.getBodyListaAgendamento(d, semana.getSegunda().getLista()));
+        }
     }
 
     private void formWindowOpened(WindowEvent evt) {
