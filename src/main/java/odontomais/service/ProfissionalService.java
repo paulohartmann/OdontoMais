@@ -1,8 +1,10 @@
 package odontomais.service;
 
 import java.util.List;
+
 import odontomais.model.Profissional;
 import odontomais.persistence.ProfissionalDao;
+import odontomais.view.Principal;
 
 /*
  * Author: phlab
@@ -31,16 +33,23 @@ public class ProfissionalService {
     public int findQtdByName(String nome) {
         return dao.findQtdByName(nome);
     }
-    
-    public Profissional findByName(String nome){
+
+    public Profissional findByName(String nome) {
         return dao.findExisteByName(nome);
     }
-    
-    public List<Profissional> getList(){
+
+    public List<Profissional> getList() {
         return dao.getList();
     }
 
-    public Profissional encontrar(long id){
-        return dao.encontrar(id);
+    public List<Profissional> findLikeName(String nome) {
+
+        return dao.findLikeName(nome);
+
     }
+
+    public void remover(Profissional p){
+        dao.remover(p.getId());
+    }
+
 }

@@ -4,6 +4,8 @@ import javax.persistence.Query;
 import odontomais.model.Profissional;
 import odontomais.persistence.jpa.GenericDAO;
 
+import java.util.List;
+
 public class ProfissionalDao extends GenericDAO<Profissional, Long> {
 
     public ProfissionalDao() {
@@ -32,6 +34,20 @@ public class ProfissionalDao extends GenericDAO<Profissional, Long> {
             Query query = criarQuery(consulta);
             query.setParameter("param", param);
             resultado = (Profissional) query.getSingleResult();
+        } catch (Exception rx) {
+            getLogger().error("Erro ao procurar profissional pelo nome", rx.getCause());
+        }
+        return resultado;
+    }
+
+    public List<Profissional> findLikeName(String param) {
+        List<Profissional> resultado = null;
+        String consulta = "SELECT c FROM Profissional c WHERE "
+                + "c.nome LIKE :param";
+        try {
+            Query query = criarQuery(consulta);
+            query.setParameter("param", param + "%");
+            resultado = (List<Profissional>) query.getResultList();
         } catch (Exception rx) {
             getLogger().error("Erro ao procurar profissional pelo nome", rx.getCause());
         }

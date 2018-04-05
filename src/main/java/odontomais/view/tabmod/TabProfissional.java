@@ -6,6 +6,7 @@
 package odontomais.view.tabmod;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import odontomais.model.Profissional;
@@ -15,13 +16,13 @@ import odontomais.model.Profissional;
  */
 public class TabProfissional extends AbstractTableModel {
 
-    private ArrayList<Profissional> datalist;
+    private List<Profissional> datalist;
     private Boolean[] editcolumns = new Boolean[3];
     private String[] columns = {"Nome",
             "Email",
             "Observações"};
 
-    public TabProfissional(ArrayList<Profissional> l) {
+    public TabProfissional(List<Profissional> l) {
         datalist = l;
         editcolumns[0] = false;
         editcolumns[1] = false;

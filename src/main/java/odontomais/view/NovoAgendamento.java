@@ -155,7 +155,9 @@ public class NovoAgendamento extends JDialog {
         ConvenioService service = new ConvenioService();
         edtComboConvenio.removeAllItems();
         service.getLista().forEach((c) -> {
-            edtComboConvenio.addItem(c.getNome());
+            if(!c.isSemValidade()) {
+                edtComboConvenio.addItem(c.getNome());
+            }
         });
     }
 
@@ -249,6 +251,9 @@ public class NovoAgendamento extends JDialog {
             edtResidencial.setText(agendamento.getPaciente().getTelRes());
             edtCelular.setText(agendamento.getPaciente().getTelCel());
             edtNomePaciente.setText(agendamento.getPaciente().getNomeCompleto());
+
+            edtComboProfissional.setSelectedItem(agendamento.getProfissional().getNome());
+            edtComboProfissional.setEnabled(false);
         }
 
 
@@ -258,8 +263,8 @@ public class NovoAgendamento extends JDialog {
         edtHoraFim.setEnabled(false);
         edtData.setDate(agendamento.getDataAgenda());
         edtData.setEnabled(false);
-        edtComboProfissional.setSelectedItem(agendamento.getProfissional().getNome());
-        edtComboProfissional.setEnabled(false);
+
+
         edtComboTipoAgendamento.setSelectedItem(agendamento.getTipoAgendamento());
         edtObs.setText(agendamento.getObservacao());
     }

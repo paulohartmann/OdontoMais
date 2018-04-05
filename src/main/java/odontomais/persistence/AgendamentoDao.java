@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 public class AgendamentoDao extends GenericDAO<Agendamento, Long> {
@@ -46,6 +47,20 @@ public class AgendamentoDao extends GenericDAO<Agendamento, Long> {
             resultado = (List<Agendamento>) query.getResultList();
         } catch (Exception rx) {
             getLogger().error("Erro ao procurar agendamento do dia e profissional", rx.getCause());
+        }
+        return resultado;
+    }
+
+    public List<Agendamento> findAgendaByProfissional(long id) {
+        List<Agendamento> resultado = null;
+        String consulta = "SELECT c FROM Agendamento c WHERE "
+                + "c.profissional.id = :id";
+        try {
+            Query query = criarQuery(consulta);
+            query.setParameter("id", id);
+            resultado = (List<Agendamento>) query.getResultList();
+        } catch (Exception rx) {
+            getLogger().error("Erro ao procurar agendamento do profissional", rx.getCause());
         }
         return resultado;
     }
@@ -92,4 +107,5 @@ public class AgendamentoDao extends GenericDAO<Agendamento, Long> {
         }
         return resultado;
     }
+
 }

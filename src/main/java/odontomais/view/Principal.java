@@ -173,8 +173,12 @@ public class Principal extends JFrame {
     }
 
     private void atualizaAgenda() {
-        semana = new AgendamentoDaSemana(pegaProfissionalSelecionado());
-        updateTables();
+        try {
+            semana = new AgendamentoDaSemana(pegaProfissionalSelecionado());
+            updateTables();
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(this, "Profissional não encotrado, por favor reinicie o sistema");
+        }
 
     }
 
@@ -276,6 +280,11 @@ public class Principal extends JFrame {
 
     private void formWindowOpened(WindowEvent evt) {
 
+        init();
+
+    }
+
+    private void init() {
         ClinicaService clinicaService = new ClinicaService();
         clinica = clinicaService.find();
         if (clinica == null) {
@@ -313,7 +322,6 @@ public class Principal extends JFrame {
         for (Paciente p : aniverList) {
             txtAniver.setText(txtAniver.getText() + "<b>" + p.getNomeCompleto() + "</b> - Fone: " + p.getTelCel() + "<br/>");
         }
-
     }
 
     private void calculaAgendamentoDia() {
@@ -433,11 +441,17 @@ public class Principal extends JFrame {
     private void goNovoProfissional() {
         NovoProfissional dialog = new NovoProfissional(null);
         dialog.pack();
+        dialog.setModal(false);
+        dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }
 
     private void goProcurarProfissional() {
-
+        ListaProfissional dialog = new ListaProfissional();
+        dialog.pack();
+        dialog.setModal(false);
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
     }
 
     private void goConfigClinica() {
