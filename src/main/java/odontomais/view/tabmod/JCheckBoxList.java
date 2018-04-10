@@ -1,11 +1,11 @@
 package odontomais.view.tabmod;
 
-import java.awt.Component;
-
 import javax.swing.*;
-import javax.swing.border.*;
-
-import java.awt.event.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class JCheckBoxList extends JList<JCheckBox> {

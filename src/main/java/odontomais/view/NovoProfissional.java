@@ -2,11 +2,12 @@ package odontomais.view;
 
 import odontomais.model.Profissional;
 import odontomais.service.ProfissionalService;
-import odontomais.service.util.FormatadoresTexto;
 import odontomais.service.util.MensagensAlerta;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class NovoProfissional extends JDialog {
 

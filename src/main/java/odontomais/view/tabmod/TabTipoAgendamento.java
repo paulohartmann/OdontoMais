@@ -5,9 +5,10 @@
  */
 package odontomais.view.tabmod;
 
-import java.util.ArrayList;
-import javax.swing.table.AbstractTableModel;
 import odontomais.model.TipoAgendamento;
+
+import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
 
 /**
  *

@@ -4,6 +4,7 @@ import odontomais.model.Convenio;
 import odontomais.model.Paciente;
 import odontomais.service.ConvenioService;
 import odontomais.service.PacienteService;
+import odontomais.service.util.DataUtil;
 import odontomais.service.util.FormatadoresTexto;
 import odontomais.service.util.MensagensAlerta;
 
@@ -11,8 +12,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 import java.util.List;
-
-import odontomais.service.util.DataUtil;
 
 /*
  * Author: phlab

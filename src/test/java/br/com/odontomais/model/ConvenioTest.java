@@ -1,7 +1,6 @@
 package br.com.odontomais.model;
 
 import odontomais.model.Convenio;
-import org.junit.Assert;
 
 import java.time.LocalDate;
 

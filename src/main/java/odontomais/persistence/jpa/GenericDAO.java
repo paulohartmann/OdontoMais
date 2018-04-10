@@ -4,11 +4,11 @@ import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Query;
 
 public class GenericDAO<T, I extends Serializable> {
 

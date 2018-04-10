@@ -1,8 +1,9 @@
 package odontomais.persistence;
 
-import javax.persistence.Query;
 import odontomais.model.TipoAgendamento;
 import odontomais.persistence.jpa.GenericDAO;
+
+import javax.persistence.Query;
 
 public class TipoAgendamentoDao extends GenericDAO<TipoAgendamento, Long> {
 

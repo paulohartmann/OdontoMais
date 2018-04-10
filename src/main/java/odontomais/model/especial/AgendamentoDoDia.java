@@ -5,16 +5,16 @@
  */
 package odontomais.model.especial;
 
+import odontomais.model.*;
+import odontomais.service.AgendamentoService;
+import odontomais.service.ClinicaService;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
-import odontomais.model.*;
-import odontomais.service.AgendamentoService;
-import odontomais.service.ClinicaService;
 
 /**
  * @author paulohar

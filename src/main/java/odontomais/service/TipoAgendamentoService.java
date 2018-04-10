@@ -1,8 +1,9 @@
 package odontomais.service;
 
-import java.util.List;
 import odontomais.model.TipoAgendamento;
 import odontomais.persistence.TipoAgendamentoDao;
+
+import java.util.List;
 
 /*
  * Author: phlab

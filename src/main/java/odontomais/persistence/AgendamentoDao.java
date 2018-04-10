@@ -5,12 +5,11 @@ import odontomais.model.Paciente;
 import odontomais.model.Profissional;
 import odontomais.persistence.jpa.GenericDAO;
 
+import javax.persistence.Query;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
 
 public class AgendamentoDao extends GenericDAO<Agendamento, Long> {
 

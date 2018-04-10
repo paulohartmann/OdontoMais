@@ -5,11 +5,11 @@
  */
 package odontomais.view.tabmod;
 
+import odontomais.model.Profissional;
+
+import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
-
-import odontomais.model.Profissional;
 
 /**
  * @author rodrigos

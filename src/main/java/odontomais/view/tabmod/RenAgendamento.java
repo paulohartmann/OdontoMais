@@ -5,15 +5,14 @@
 package odontomais.view.tabmod;
 
 import odontomais.model.Agendamento;
+import odontomais.service.util.DataUtil;
 
+import javax.swing.*;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import javax.swing.*;
-import javax.swing.table.TableCellRenderer;
-
-import odontomais.service.util.DataUtil;
 
 /**
  * @author rodrigos

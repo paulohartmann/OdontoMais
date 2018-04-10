@@ -5,9 +5,6 @@
  */
 package odontomais.view.main;
 
-import java.awt.GraphicsEnvironment;
-import java.util.List;
-
 import odontomais.model.Clinica;
 import odontomais.model.Profissional;
 import odontomais.model.Tratamento;
@@ -17,6 +14,9 @@ import odontomais.service.TratamentoService;
 import odontomais.view.NovoClinica;
 import odontomais.view.NovoProfissional;
 import odontomais.view.Principal;
+
+import java.awt.*;
+import java.util.List;
 
 /**
  * @author paulohar

@@ -17,8 +17,8 @@ import java.util.Properties;
  */
 public class EnvioDeEmail {
 
-    private static final String FROM_EMAIL = "odontomaisodontologia@gmail.com";
-    private static final String PASSWORD = "33753767";
+    private static final String FROM_EMAIL = "paulohar@gmail.com";
+    private static final String PASSWORD = "A37b439c4!";
     private static final String TLS = "587";
 
     public static Session getSession() {
@@ -26,7 +26,9 @@ public class EnvioDeEmail {
         props.put("mail.smtp.auth", true);
         props.put("mail.smtp.starttls.enable", true);
         props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
+        System.setProperty("https.protocols", "TLSv1");
 
 
         Authenticator auth = new Authenticator() {

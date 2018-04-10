@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity

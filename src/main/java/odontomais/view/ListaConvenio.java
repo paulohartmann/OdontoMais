@@ -3,11 +3,8 @@ package odontomais.view;
 import odontomais.model.Convenio;
 import odontomais.service.ConvenioService;
 import odontomais.view.tabmod.TabConvenio;
-import odontomais.view.tabmod.TabPaciente;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class ListaConvenio extends JDialog {

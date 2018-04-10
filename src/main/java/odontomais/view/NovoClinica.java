@@ -7,7 +7,6 @@ import odontomais.service.util.FormatadoresTexto;
 import odontomais.service.util.MensagensAlerta;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.event.*;
 
 public class NovoClinica extends JDialog {

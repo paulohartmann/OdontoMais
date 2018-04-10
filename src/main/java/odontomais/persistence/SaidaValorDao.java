@@ -1,7 +1,5 @@
 package odontomais.persistence;
 
-import odontomais.model.Clinica;
-import odontomais.model.EntradaValor;
 import odontomais.model.SaidaValor;
 import odontomais.persistence.jpa.GenericDAO;
 

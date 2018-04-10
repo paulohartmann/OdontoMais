@@ -1,9 +1,9 @@
 package odontomais.persistence;
 
-import javax.persistence.Query;
 import odontomais.model.Profissional;
 import odontomais.persistence.jpa.GenericDAO;
 
+import javax.persistence.Query;
 import java.util.List;
 
 public class ProfissionalDao extends GenericDAO<Profissional, Long> {

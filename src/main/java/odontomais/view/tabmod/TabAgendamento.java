@@ -6,7 +6,6 @@
 package odontomais.view.tabmod;
 
 import odontomais.model.Agendamento;
-import odontomais.model.Clinica;
 import odontomais.service.util.DataUtil;
 
 import javax.swing.table.AbstractTableModel;

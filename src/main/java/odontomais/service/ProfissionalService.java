@@ -1,10 +1,9 @@
 package odontomais.service;
 
-import java.util.List;
-
 import odontomais.model.Profissional;
 import odontomais.persistence.ProfissionalDao;
-import odontomais.view.Principal;
+
+import java.util.List;
 
 /*
  * Author: phlab

@@ -1,10 +1,9 @@
 package odontomais.persistence;
 
-import javax.persistence.Query;
-
 import odontomais.model.Convenio;
 import odontomais.persistence.jpa.GenericDAO;
 
+import javax.persistence.Query;
 import java.util.List;
 
 public class ConvenioDao extends GenericDAO<Convenio, Long> {

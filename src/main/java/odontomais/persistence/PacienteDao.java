@@ -1,12 +1,11 @@
 package odontomais.persistence;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import odontomais.model.Paciente;
 import odontomais.persistence.jpa.GenericDAO;
 
 import javax.persistence.Query;
+import java.time.LocalDate;
+import java.util.List;
 
 public class PacienteDao extends GenericDAO<Paciente, Long> {
 

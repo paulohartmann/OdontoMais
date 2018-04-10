@@ -7,7 +7,6 @@ import odontomais.service.ProfissionalService;
 import odontomais.view.tabmod.TabProfissional;
 
 import javax.swing.*;
-import java.awt.event.*;
 import java.util.List;
 
 public class ListaProfissional extends JDialog {

@@ -1,9 +1,7 @@
 package odontomais.view;
 
-import odontomais.model.Convenio;
 import odontomais.model.Paciente;
 import odontomais.model.Tratamento;
-import odontomais.service.ConvenioService;
 import odontomais.service.PacienteService;
 import odontomais.service.TratamentoService;
 import odontomais.service.util.MensagensAlerta;
@@ -11,7 +9,6 @@ import odontomais.view.tabmod.JCheckBoxList;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.List;
 
 public class NovoPacienteComplementar extends JDialog {
 

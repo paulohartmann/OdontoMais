@@ -1,9 +1,10 @@
 package odontomais.service;
 
-import java.time.LocalDate;
-import java.util.List;
 import odontomais.model.Paciente;
 import odontomais.persistence.PacienteDao;
+
+import java.time.LocalDate;
+import java.util.List;
 
 /*
  * Author: phlab

@@ -7,6 +7,8 @@ import com.github.lgooddatepicker.components.TimePickerSettings;
 import odontomais.model.*;
 import odontomais.service.*;
 import odontomais.service.util.FormatadoresTexto;
+import odontomais.service.util.MensagensAlerta;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -14,9 +16,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
-
-import odontomais.service.util.MensagensAlerta;
-import org.apache.log4j.Logger;
 
 public class NovoAgendamento extends JDialog {
 

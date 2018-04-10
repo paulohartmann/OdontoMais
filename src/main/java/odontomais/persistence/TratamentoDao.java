@@ -1,6 +1,5 @@
 package odontomais.persistence;
 
-import odontomais.model.Paciente;
 import odontomais.model.Tratamento;
 import odontomais.persistence.jpa.GenericDAO;
 

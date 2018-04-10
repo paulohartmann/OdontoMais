@@ -5,17 +5,15 @@
  */
 package odontomais.service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
 import odontomais.model.Agendamento;
 import odontomais.model.Paciente;
 import odontomais.model.Profissional;
 import odontomais.persistence.AgendamentoDao;
-import odontomais.view.ListaProfissional;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author paulohar
