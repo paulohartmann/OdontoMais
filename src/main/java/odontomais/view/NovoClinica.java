@@ -36,7 +36,6 @@ public class NovoClinica extends JDialog {
         }
         setLocationRelativeTo(null);
         setContentPane(contentPane);
-        setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
 
@@ -131,7 +130,6 @@ public class NovoClinica extends JDialog {
         if (edtHorarioIni.getText().equals("__:__")) return false;
         if (edtHorarioFim.getText().equals("__:__")) return false;
         if (edtHoraFimAlmoco.getText().equals("__:__")) return false;
-        if (edtHoraIniAlmoco.getText().equals("__:__")) return false;
-        return true;
+        return !edtHoraIniAlmoco.getText().equals("__:__");
     }
 }

@@ -16,6 +16,14 @@ public class Profissional implements Serializable {
     private String email;
     private String observacao;
 
+    public Profissional(){
+
+    }
+
+    public  Profissional(String name){
+        this.nome = name;
+    }
+
     public long getId() {
         return id;
     }

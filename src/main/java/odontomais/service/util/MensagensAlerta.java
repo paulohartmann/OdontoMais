@@ -15,6 +15,10 @@ public class MensagensAlerta {
         JOptionPane.showMessageDialog(s, "Cadastro realizado com sucesso!", "Informação", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public static void msgPagamentoOK(Component s){
+        JOptionPane.showMessageDialog(s, "Pagamento realizado com sucesso!", "Informação", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public static void msgCamposObrigatorios(Component s){
         JOptionPane.showMessageDialog(s, "Confira os campos obrigatórios do formulário!", "Informação", JOptionPane.INFORMATION_MESSAGE);
     }

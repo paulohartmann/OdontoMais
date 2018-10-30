@@ -25,7 +25,6 @@ public class ListaAgendamentos extends JDialog {
     public ListaAgendamentos() {
         setContentPane(contentPane);
         setLocationRelativeTo(null);
-        setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
         buttonOK.addActionListener(e -> onOK());

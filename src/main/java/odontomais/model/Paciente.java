@@ -2,6 +2,7 @@ package odontomais.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,50 +19,39 @@ public class Paciente implements Serializable {
     private String email;
     private String cpf;
     private String rg;
-
     private String endResidencial;
     private String bairro;
     private String cidade;
     private String estado;
-
-    //TODO: telRes realmente precisa?
     private String telRes;
     private String telCel;
     private String telTrab;
     private String profissao;
-    //TODO: apenas um convênio por paciente?
-
-    @ManyToOne(cascade=CascadeType.MERGE)
-    private Convenio convenio;
-
-    @ManyToMany(cascade=CascadeType.MERGE)
-    private List<Tratamento> tratamentos = new ArrayList<>();
 
     private boolean tratamentoMedicoRecente;
     private String medicamentosRecorrentes;
     private String alergias;
+    //problemas de saúde, separados por vírgula
+    private String problemasSaude;
 
-    public Paciente(String nomeCompleto, LocalDate dataNascimento, String sexo, String endResidencial,
-                    String bairro, String cidade, String telRes, String telCel, String telTrab, String profissao,
-                    Convenio convenio, String cpf, String rg, String email) {
-        this.nomeCompleto = nomeCompleto;
-        this.dataNascimento = dataNascimento;
-        this.sexo = sexo;
-        this.endResidencial = endResidencial;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.telRes = telRes;
-        this.telCel = telCel;
-        this.telTrab = telTrab;
-        this.profissao = profissao;
-        this.convenio = convenio;
-        this.cpf = cpf;
-        this.rg = rg;
-        this.email = email;
-    }
+    private BigDecimal debito;
+
+    @ManyToOne(cascade=CascadeType.MERGE)
+    private Convenio convenio;
+    @ManyToMany(cascade=CascadeType.MERGE)
+    private List<Tratamento> tratamentos = new ArrayList<>();
 
     public Paciente() {
         convenio = new Convenio();
+        debito = new BigDecimal(0);
+    }
+
+    public BigDecimal getDebito() {
+        return debito;
+    }
+
+    public void setDebito(BigDecimal debito) {
+        this.debito = debito;
     }
 
     public long getId() {
@@ -76,9 +66,6 @@ public class Paciente implements Serializable {
         this.tratamentos = tratamentos;
     }
 
-    //problemas de saúde, separados por vírgula
-    private String problemasSaude;
-
     public void setId(long id) {
         this.id = id;
     }
@@ -90,7 +77,6 @@ public class Paciente implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
     public String getTelTrab() {
         return telTrab;

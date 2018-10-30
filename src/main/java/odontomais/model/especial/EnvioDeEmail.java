@@ -10,12 +10,23 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.Callable;
 
 /*
  * Author: phlab
  * Date: 20/03/18
  */
-public class EnvioDeEmail {
+public class EnvioDeEmail implements Callable<Integer> {
+
+    String emailTo;
+    String subject;
+    String body;
+
+    public EnvioDeEmail(String emailTo, String subject, String body) {
+        this.emailTo = emailTo;
+        this.subject = subject;
+        this.body = body;
+    }
 
     private static final String FROM_EMAIL = "paulohar@gmail.com";
     private static final String PASSWORD = "A37b439c4!";
@@ -40,35 +51,10 @@ public class EnvioDeEmail {
         return Session.getInstance(props, auth);
     }
 
-    public static void sendEmail(Session session, String toEmail, String subject, String body) {
-        try {
-            MimeMessage msg = new MimeMessage(session);
-            //set message headers
-            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-            msg.addHeader("format", "flowed");
-            msg.addHeader("Content-Transfer-Encoding", "8bit");
-
-            msg.setFrom(new InternetAddress(FROM_EMAIL, "NoReply"));
-            msg.setReplyTo(InternetAddress.parse(FROM_EMAIL, false));
-            msg.setSubject(subject, "UTF-8");
-            msg.setText(body, "UTF-8");
-            msg.setSentDate(new Date());
-
-            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
-            System.out.println("Message is ready");
-            Transport.send(msg);
-
-            System.out.println("EMail Sent Successfully!!");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public static String getBodyListaAgendamento(LocalDate data, List<Agendamento> lista){
+    public static String getBodyListaAgendamento(LocalDate data, List<Agendamento> lista) {
         String listaString = "<table>";
-        for(Agendamento a : lista){
-            listaString += "<tr><td>"+DataUtil.converteTimeToString(a.getHoraInicio()) + "</td><td> " + a.getPaciente().getNomeCompleto() + "</td></tr>";
+        for (Agendamento a : lista) {
+            listaString += "<tr><td>" + DataUtil.converteTimeToString(a.getHoraInicio()) + "</td><td> " + a.getPaciente().getNomeCompleto() + "</td></tr>";
         }
         listaString += "</table>";
 
@@ -560,7 +546,7 @@ public class EnvioDeEmail {
                 "      <div style=\"mso-line-height-rule: exactly;mso-text-raise: 4px;\">\n" +
                 "        <p style=\"Margin-top: 0;Margin-bottom: 0;\">Sua agenda est&#225; pronta! Confira abaixo<br/>" +
                 "       Hor&#225;rios da agenda referentes ao dia: " +
-                            DataUtil.converteDataToString(data) +
+                DataUtil.converteDataToString(data) +
                 "</p>" +
                 "<p style=\"Margin-top: 0;Margin-bottom: 0;\"> " +
                 listaString +
@@ -624,4 +610,29 @@ public class EnvioDeEmail {
         return body;
     }
 
+    @Override
+    public Integer call() {
+        try {
+            MimeMessage msg = new MimeMessage(getSession());
+            //set message headers
+            msg.addHeader("Content-type", "text/html; charset=UTF-8");
+            msg.addHeader("format", "flowed");
+            msg.addHeader("Content-Transfer-Encoding", "8bit");
+
+            msg.setFrom(new InternetAddress(FROM_EMAIL, "NoReply"));
+            msg.setReplyTo(InternetAddress.parse(FROM_EMAIL, false));
+            msg.setSubject(subject, "UTF-8");
+            //msg.setText(body, "text/html; charset=utf-8");
+            msg.setContent(body, "text/html; charset=utf-8");
+            msg.setSentDate(new Date());
+
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo, false));
+            Transport.send(msg);
+            return 1;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }

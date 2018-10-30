@@ -34,8 +34,8 @@ public class AgendamentoService {
         dao.remover(a.getId());
     }
 
-    public void removeAgendamentosDoProfissional(List<Agendamento> list){
-        if(list != null && list.size() > 0) {
+    public void removeAgendamentosDoProfissional(List<Agendamento> list) {
+        if (list != null && list.size() > 0) {
             for (Agendamento a : list) {
                 dao.remover(a.getId());
             }
@@ -65,11 +65,7 @@ public class AgendamentoService {
     }
 
     public boolean salvar(Agendamento a) {
-        if (dao.salvar(a).getId() > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return dao.salvar(a).getId() > 0;
     }
 
     public void atualizar(Agendamento a) {
@@ -80,8 +76,8 @@ public class AgendamentoService {
         return dao.findById(id);
     }
 
-    public int totalDeAgendamentosDia(LocalDate dia) {
-        List<Agendamento> lista = dao.findAgendaDia(dia);
+    public int totalDeAgendamentosDia(LocalDate dia, long idProfissional) {
+        List<Agendamento> lista = dao.findAgendaByDataProfissional(dia, idProfissional);
         return lista.size();
     }
 

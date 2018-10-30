@@ -27,4 +27,18 @@ public class TratamentoDao extends GenericDAO<Tratamento, Long> {
         return resultado;
     }
 
+    public int findExisteByName(String nome) {
+        int resultado = 0;
+        String consulta = "SELECT c FROM Tratamento c WHERE "
+                + "c.nome = :param";
+        try {
+            Query query = criarQuery(consulta);
+            query.setParameter("param", nome);
+            resultado = query.getFirstResult();
+        } catch (Exception rx) {
+            getLogger().error("Erro ao procurar tratamento por nome", rx.getCause());
+        }
+        return resultado;
+    }
+
 }

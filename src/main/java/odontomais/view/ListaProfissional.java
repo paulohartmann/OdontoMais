@@ -21,7 +21,6 @@ public class ListaProfissional extends JDialog {
 
     public ListaProfissional() {
         setContentPane(contentPane);
-        setModal(true);
 
         btnEditar.addActionListener(e -> onOK());
 

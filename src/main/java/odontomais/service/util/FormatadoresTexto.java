@@ -82,4 +82,16 @@ public class FormatadoresTexto {
         return mf1;
     }
 
+    public static MaskFormatter dinheiroFormat() {
+
+        MaskFormatter mf1 = null;
+        try {
+            mf1 = new MaskFormatter("R$");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        mf1.setPlaceholderCharacter('_');
+        return mf1;
+    }
+
 }

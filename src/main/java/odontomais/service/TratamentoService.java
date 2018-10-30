@@ -18,11 +18,7 @@ public class TratamentoService {
     }
 
     public boolean salvar(Tratamento t){
-        if(dao.salvar(t).getId() > 0){
-            return true;
-        }else{
-            return false;
-        }
+        return dao.salvar(t).getId() > 0;
     }
 
     public void remover(Tratamento t){
@@ -40,6 +36,11 @@ public class TratamentoService {
     public Tratamento findByName(String name){
         return dao.findbyName(name);
     }
+
+    public int findExisteByName(String name){
+        return dao.findExisteByName(name);
+    }
+
 
 
 }

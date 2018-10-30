@@ -23,8 +23,6 @@ public class NovoProfissional extends JDialog {
     public NovoProfissional(Profissional p) {
         setLocationRelativeTo(null);
         setContentPane(contentPane);
-        setModal(true);
-
 
         if (p != null) {
             this.profissional = p;

@@ -13,11 +13,12 @@ public class NovoConvenio extends JDialog {
     private JButton buttonCancel;
     private JTextField edtDescricao;
     private JTextField edtNumero;
+    private ConvenioService serviceConvenio;
 
     public NovoConvenio() {
         setContentPane(contentPane);
-        setModal(true);
         getRootPane().setDefaultButton(buttonOK);
+        serviceConvenio = new ConvenioService();
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -48,7 +49,6 @@ public class NovoConvenio extends JDialog {
     }
 
     private void onOK() {
-        ConvenioService service = new ConvenioService();
         if (testaCampos()) {
 
             Convenio c = new Convenio();
@@ -56,7 +56,7 @@ public class NovoConvenio extends JDialog {
             c.setNumero(edtNumero.getText());
             
 
-            if (service.salvar(c)) {
+            if (serviceConvenio.salvar(c)) {
                 MensagensAlerta.msgCadastroOK(this);
                 dispose();
             } else {
@@ -76,6 +76,6 @@ public class NovoConvenio extends JDialog {
     private boolean testaCampos() {
         if (edtDescricao.equals("")) return false;
         //TODO: testa se já existe no banco
-        return true;
+        return serviceConvenio.findByName(edtDescricao.getText()).size() <= 0;
     }
 }

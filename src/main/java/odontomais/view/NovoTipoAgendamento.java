@@ -15,9 +15,7 @@ public class NovoTipoAgendamento extends JDialog {
     private TipoAgendamentoService serviceTipoAgendamento;
 
     public NovoTipoAgendamento() {
-        setLocationRelativeTo(null);
         setContentPane(contentPane);
-        setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         serviceTipoAgendamento = new TipoAgendamentoService();
 

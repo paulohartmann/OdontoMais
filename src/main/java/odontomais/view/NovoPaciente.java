@@ -10,7 +10,6 @@ import odontomais.service.util.MensagensAlerta;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.time.LocalDate;
 import java.util.List;
 
 /*
@@ -52,7 +51,6 @@ public class NovoPaciente extends JDialog {
         completaConvenioTela();
 
         setContentPane(contentPane);
-        setModal(true);
 
         btnNovoConvenio.addActionListener(e -> newConvenio());
 
@@ -156,35 +154,31 @@ public class NovoPaciente extends JDialog {
         pacienteAtual.setRg(edtRG.getText());
         pacienteAtual.setTelTrab(edtTrabalho.getText());
         pacienteAtual.setConvenio(selecionaConvenio());
+
         if (selectSexoF.isSelected()) {
             pacienteAtual.setSexo("F");
         } else {
             pacienteAtual.setSexo("M");
         }
-
     }
 
     private boolean testaCampos() {
-        if (edtRG.getText().equals("")) {
-            return false;
-        }
-        if (edtCPF.getText().equals("")) {
-            return false;
-        }
-        if (edtDataNascimento.getText().equals("__/__/____")) {
-            return false;
-        }
+//        if (edtDataNascimento.getText().equals("__/__/____")) {
+//            return false;
+//        }
+//        try {
+//            if (DataUtil.converteStringToDate(edtDataNascimento.getText()).isAfter(LocalDate.now())) return false;
+//        } catch (NullPointerException ex) {
+//            return false;
+//        }
+
         if (edtNome.getText().equals("")) {
             return false;
         }
         if (edtCelular.getText().equals("")) {
             return false;
         }
-        try {
-            if (DataUtil.converteStringToDate(edtDataNascimento.getText()).isAfter(LocalDate.now())) return false;
-        } catch (NullPointerException ex) {
-            return false;
-        }
+
 
         PacienteService service = new PacienteService();
         if (service.findExisteByCPF(edtCPF.getText()) > 0) {

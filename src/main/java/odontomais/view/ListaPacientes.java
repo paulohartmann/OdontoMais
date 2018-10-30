@@ -28,7 +28,6 @@ public class ListaPacientes extends JDialog {
     public ListaPacientes() {
         setLocationRelativeTo(null);
         setContentPane(contentPane);
-        setModal(true);
         getRootPane().setDefaultButton(btnSelecionar);
 
         addWindowListener(new WindowAdapter() {
@@ -68,11 +67,11 @@ public class ListaPacientes extends JDialog {
     private void onExcluir() {
         if (tblPacientes.getSelectedRow() >= 0) {
             Paciente p = tabPaciente.get(tblPacientes.getSelectedRow());
-            int opc = JOptionPane.showConfirmDialog(this, "Você deseja realmente excluir o paciente "+ p.getNomeCompleto() + "?", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            int opc = JOptionPane.showConfirmDialog(this, "Você deseja realmente excluir o paciente " + p.getNomeCompleto() + "?", "Confirmação", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
             if (opc == JOptionPane.YES_OPTION) {
                 AgendamentoService agendamentoService = new AgendamentoService();
                 List<Agendamento> listAg = agendamentoService.findByPaciente(p);
-                for(Agendamento a : listAg){
+                for (Agendamento a : listAg) {
                     agendamentoService.remove(a);
                 }
                 PacienteService service = new PacienteService();
@@ -97,6 +96,8 @@ public class ListaPacientes extends JDialog {
         tblPacientes.setModel(tabPaciente);
         tblPacientes.getTableHeader().setReorderingAllowed(false);
         tblPacientes.getTableHeader().setVisible(true);
+        tblPacientes.getColumnModel().getColumn(0).setMinWidth(250);
+        tblPacientes.getColumnModel().getColumn(0).setPreferredWidth(250);
         tblPacientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tabPaciente.fireTableDataChanged();
     }

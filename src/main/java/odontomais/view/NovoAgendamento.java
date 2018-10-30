@@ -55,7 +55,6 @@ public class NovoAgendamento extends JDialog {
             edtData.setDateToToday();
         }
         setContentPane(contentPane);
-        setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
         buttonOK.addActionListener((ActionEvent e) -> {
@@ -183,22 +182,18 @@ public class NovoAgendamento extends JDialog {
     }
 
     private void goProcuraPaciente() {
-        ListaPacientes listaPacientes = new ListaPacientes();
-        listaPacientes.pack();
-        listaPacientes.setLocationRelativeTo(null);
-        listaPacientes.setVisible(true);
-
-        if (listaPacientes.getPaciente() != null) {
-            paciente = listaPacientes.getPaciente();
-            completaPaciente();
-        }
+        PacienteService service = new PacienteService();
+        paciente = service.goProcuraPaciente();
+        completaPaciente();
     }
 
     private void completaPaciente() {
-        edtNomePaciente.setText(paciente.getNomeCompleto());
-        edtCelular.setText(paciente.getTelCel());
-        edtResidencial.setText(paciente.getTelRes());
-        edtComboConvenio.setSelectedItem(paciente.getConvenio().getNome());
+        if(paciente != null) {
+            edtNomePaciente.setText(paciente.getNomeCompleto());
+            edtCelular.setText(paciente.getTelCel());
+            edtResidencial.setText(paciente.getTelRes());
+            edtComboConvenio.setSelectedItem(paciente.getConvenio().getNome());
+        }
     }
 
     private void onOK() {

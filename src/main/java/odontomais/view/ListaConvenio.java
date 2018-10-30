@@ -18,7 +18,6 @@ public class ListaConvenio extends JDialog {
 
     public ListaConvenio() {
         setContentPane(contentPane);
-        setModal(true);
         getRootPane().setDefaultButton(buttonNovo);
 
         buttonExcluir.addActionListener(e -> onBloquear());
