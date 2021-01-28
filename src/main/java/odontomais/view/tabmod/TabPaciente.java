@@ -12,7 +12,6 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 /**
- *
  * @author rodrigos
  */
 public class TabPaciente extends AbstractTableModel {
@@ -20,13 +19,13 @@ public class TabPaciente extends AbstractTableModel {
     private List<Paciente> datalist;
     private Boolean[] editcolumns = new Boolean[8];
     private String[] columns = {"Nome",
-        "Dt. Nascimento",
-        "Email",
-        "Tel. Celular",
-        "Tel. Residencial",
-        "Tel. Trabalho",
-        "CPF",
-        "RG"};
+            "Dt. Nascimento",
+            "Email",
+            "Tel. Celular",
+            "Tel. Residencial",
+            "Tel. Trabalho",
+            "CPF",
+            "RG"};
 
     public TabPaciente(List<Paciente> l) {
         datalist = l;
@@ -122,28 +121,60 @@ public class TabPaciente extends AbstractTableModel {
         Paciente Mem = get(rowIndex);
         if (Mem != null) {
             if (getColumnName(columnIndex).equals("Nome")) {
-                return Mem.getNomeCompleto();
+                if (Mem.getNomeCompleto() != null) {
+                    return Mem.getNomeCompleto();
+                } else {
+                    return "";
+                }
             }
             if (getColumnName(columnIndex).equals("Dt. Nascimento")) {
-                return DataUtil.converteDataToString(Mem.getDataNascimento());
+                if (Mem.getDataNascimento() != null) {
+                    return DataUtil.converteDataToString(Mem.getDataNascimento());
+                } else {
+                    return "";
+                }
             }
             if (getColumnName(columnIndex).equals("Tel. Celular")) {
-                return Mem.getTelCel();
+                if (Mem.getTelCel() != null) {
+                    return Mem.getTelCel();
+                } else {
+                    return "";
+                }
             }
             if (getColumnName(columnIndex).equals("Tel. Residencial")) {
-                return Mem.getTelRes();
+                if (Mem.getTelRes() != null) {
+                    return Mem.getTelRes();
+                } else {
+                    return "";
+                }
             }
             if (getColumnName(columnIndex).equals("Tel. Trabalho")) {
-                return Mem.getTelTrab();
+                if (Mem.getTelTrab() != null) {
+                    return Mem.getTelTrab();
+                } else {
+                    return "";
+                }
             }
             if (getColumnName(columnIndex).equals("Email")) {
-                return Mem.getEmail();
+                if (Mem.getEmail() != null) {
+                    return Mem.getEmail();
+                } else {
+                    return "";
+                }
             }
             if (getColumnName(columnIndex).equals("RG")) {
-                return Mem.getRg();
+                if (Mem.getRg() != null) {
+                    return Mem.getRg();
+                } else {
+                    return "";
+                }
             }
             if (getColumnName(columnIndex).equals("CPF")) {
-                return Mem.getCpf();
+                if (Mem.getCpf() != null) {
+                    return Mem.getCpf();
+                } else {
+                    return "";
+                }
             }
             return "";
         } else {

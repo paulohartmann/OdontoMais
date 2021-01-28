@@ -19,7 +19,7 @@ public class Pagamento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id; //
     private LocalDate dataHora; //
-    @ManyToOne(cascade=CascadeType.MERGE)
+    @OneToOne(cascade=CascadeType.MERGE)
     private Paciente paciente; //
     private String profissional; //
     private String tratamento; //
@@ -29,14 +29,6 @@ public class Pagamento implements Serializable {
 
     public Pagamento(){
         this.dataHora = LocalDate.now();
-    }
-
-    public List<String> getListFormaPagamento(){
-        List<String> list = new ArrayList<>();
-        list.add("Dinheiro");
-        list.add("Cartão");
-        list.add("Cheque");
-        return list;
     }
 
     public long getId() {

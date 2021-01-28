@@ -14,6 +14,10 @@ import java.util.List;
  */
 public class PagamentoDAO extends GenericDAO<Pagamento, Long> {
 
+    public PagamentoDAO(){
+        super(Pagamento.class);
+    }
+
     public List<Pagamento> findFilter(Paciente paciente, LocalDate dataIni, LocalDate dataFim) {
         List<Pagamento> resultado = null;
         String consulta = "SELECT c FROM Pagamento c WHERE " +

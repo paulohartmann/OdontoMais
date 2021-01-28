@@ -28,6 +28,7 @@ public class ListaPacientes extends JDialog {
     public ListaPacientes() {
         setLocationRelativeTo(null);
         setContentPane(contentPane);
+        setModal(true);
         getRootPane().setDefaultButton(btnSelecionar);
 
         addWindowListener(new WindowAdapter() {

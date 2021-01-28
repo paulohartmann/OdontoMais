@@ -20,7 +20,8 @@ public class TabPagamento extends AbstractTableModel {
 
     private List<Pagamento> datalist;
     private Boolean[] editcolumns = new Boolean[7];
-    private String[] columns = {"Paciente", "Forma Pgmto.", "Profissional", "Tratamento", "Data", "Débito", "Pagamento"};
+    private String[] columns = {"Paciente", "Forma Pgmto.", "Profissional", "Tratamento", "Data", "Custo Tratamento" +
+            "", "Pagamento"};
 
     public TabPagamento(List<Pagamento> l) {
         datalist = l;
@@ -129,7 +130,7 @@ public class TabPagamento extends AbstractTableModel {
             if (getColumnName(columnIndex).equals("Data")) {
                 return DataUtil.converteDataToString(Mem.getDataHora());
             }
-            if (getColumnName(columnIndex).equals("Débito")) {
+            if (getColumnName(columnIndex).equals("Custo Tratamento")) {
                 if (Mem.getDebito().compareTo(new BigDecimal(0)) > 0) {
                     return Mem.getDebito();
                 }

@@ -48,7 +48,7 @@ public class PacienteDao extends GenericDAO<Paciente, Long> {
     public List<Paciente> findFromNome(String nome) {
         List<Paciente> resultado = null;
         String consulta = "SELECT c FROM Paciente c WHERE "
-                + "c.nomeCompleto LIKE :param";
+                + "c.nomeCompleto LIKE :param order by c.nomeCompleto desc";
         try {
             Query query = criarQuery(consulta);
             query.setParameter("param", nome + "%");

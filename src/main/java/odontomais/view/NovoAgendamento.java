@@ -47,6 +47,7 @@ public class NovoAgendamento extends JDialog {
 
     public NovoAgendamento(Agendamento ag) {
         init();
+
         if (ag != null) {
             agendamento = ag;
             preencheTela();

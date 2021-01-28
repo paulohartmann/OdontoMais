@@ -7,15 +7,12 @@ import odontomais.model.Paciente;
 import odontomais.model.Profissional;
 import odontomais.model.especial.AgendamentoDaSemana;
 import odontomais.model.especial.EnvioDeEmail;
-import odontomais.model.especial.ListaHorariosPDF;
-import odontomais.model.especial.Template;
-import odontomais.service.AgendamentoService;
-import odontomais.service.ClinicaService;
-import odontomais.service.PacienteService;
-import odontomais.service.ProfissionalService;
+import odontomais.service.*;
 import odontomais.service.util.DataUtil;
 import odontomais.view.tabmod.RenAgendamento;
+import odontomais.view.tabmod.RenContasPagar;
 import odontomais.view.tabmod.TabAgendamentoSemana;
+import odontomais.view.tabmod.TabContasPagar;
 
 import javax.mail.Session;
 import javax.swing.*;
@@ -70,6 +67,9 @@ public class Principal extends JFrame {
     private JButton btnNextWeek4;
     private JLabel txtAgendVagoDia;
     private JButton btnNovoPagamento;
+    private JButton btnNovaCobranca;
+    private JTable tblContasPagar;
+    private JButton btnPagarCobranca;
 
     private java.util.Timer timerRodape;
 
@@ -83,6 +83,8 @@ public class Principal extends JFrame {
     private TabAgendamentoSemana tabAgendaSexta;
     private TabAgendamentoSemana tabAgendaSabado;
 
+    private TabContasPagar tabContasPagar;
+
 
     public Principal() {
         setContentPane(contentPane);
@@ -91,6 +93,8 @@ public class Principal extends JFrame {
 
         novoAgendamentoButton.addActionListener(e -> goNovoAgendamento(null));
         btnNovoPagamento.addActionListener(e -> goNovoPagamento());
+        btnNovaCobranca.addActionListener(e -> goNovaCobranca());
+        btnPagarCobranca.addActionListener(e -> goPagarCobranca());
 
         btnNextWeek.addActionListener(e -> goNextWeek(1));
         btnPrevWeek.addActionListener(e -> goPrevWeek(1));
@@ -227,32 +231,32 @@ public class Principal extends JFrame {
         }
     }
 
-    private void goClickRelatorioAgendamento(int diaSemana){
-//        switch (diaSemana) {
-//            case 1:
-//                goNovoRelatorioAgendamento(semana.getSegunda().getLista());
-//                break;
-//            case 2:
-//                goNovoRelatorioAgendamento(semana.getTerca().getLista());
-//                break;
-//            case 3:
-//                goNovoRelatorioAgendamento(semana.getQuarta().getLista());
-//                break;
-//            case 4:
-//                goNovoRelatorioAgendamento(semana.getQuinta().getLista());
-//                break;
-//            case 5:
-//                goNovoRelatorioAgendamento(semana.getSexta().getLista());
-//                break;
-//            case 6:
-//                goNovoRelatorioAgendamento(semana.getSabado().getLista());
-//                break;
-//        }
+    private void goClickRelatorioAgendamento(int diaSemana) {
+        switch (diaSemana) {
+            case 1:
+                goNovoRelatorioAgendamento(semana.getSegunda().getLista());
+                break;
+            case 2:
+                goNovoRelatorioAgendamento(semana.getTerca().getLista());
+                break;
+            case 3:
+                goNovoRelatorioAgendamento(semana.getQuarta().getLista());
+                break;
+            case 4:
+                goNovoRelatorioAgendamento(semana.getQuinta().getLista());
+                break;
+            case 5:
+                goNovoRelatorioAgendamento(semana.getSexta().getLista());
+                break;
+            case 6:
+                goNovoRelatorioAgendamento(semana.getSabado().getLista());
+                break;
+        }
     }
 
-    private void goNovoRelatorioAgendamento(List<Agendamento> list){
-        Template oi = new ListaHorariosPDF(list);
-        oi.criarPDF("PDF.pdf");
+    private void goNovoRelatorioAgendamento(List<Agendamento> list) {
+        // Template oi = new ListaHorariosPDF(list);
+        // oi.criarPDF("PDF.pdf");
 
     }
 
@@ -353,9 +357,13 @@ public class Principal extends JFrame {
         JMenu menuFinancas = new JMenu("Finanças");
         JMenuItem itemListaPagamentos = new JMenuItem("Pagamentos Realizados");
         itemListaPagamentos.setIcon(new ImageIcon(ClassLoader.getSystemResource("16/tabela.png")));
-        itemListaPagamentos.addActionListener(e -> goMovimentoCaixa());
+        itemListaPagamentos.addActionListener(e -> goListapagamentos());
         menuFinancas.add(itemListaPagamentos);
 
+        JMenuItem itemMovimentoCaixa = new JMenuItem("Movimento Caixa");
+        itemMovimentoCaixa.setIcon(new ImageIcon(ClassLoader.getSystemResource("16/tabela.png")));
+        itemMovimentoCaixa.addActionListener(e -> goMovimentoCaixa());
+        menuFinancas.add(itemMovimentoCaixa);
 
         JMenu menuRelat = new JMenu("Relatórios");
         menuBar1.add(menuFinancas);
@@ -393,6 +401,7 @@ public class Principal extends JFrame {
     private void formWindowOpened(WindowEvent evt) {
         init();
         initRodape();
+        atualizaTableContasPagar();
         preencherAniversarioList();
 
     }
@@ -456,6 +465,19 @@ public class Principal extends JFrame {
         for (Profissional p : profissionalList) {
             jcbProfissional.addItem(p.getNome());
         }
+    }
+
+    private void atualizaTableContasPagar(){
+        ContasPagarService service = new ContasPagarService();
+        tabContasPagar = new TabContasPagar(service.getListVencimento(5));
+        tblContasPagar.setModel(tabContasPagar);
+        tblContasPagar.setDefaultRenderer(Object.class, new RenContasPagar(service.getList()));
+        tblContasPagar.getTableHeader().setReorderingAllowed(false);
+        tblContasPagar.getTableHeader().setVisible(true);
+        tblContasPagar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tblContasPagar.getColumnModel().getColumn(0).setMinWidth(150);
+        tblContasPagar.getColumnModel().getColumn(0).setPreferredWidth(150);
+        tabContasPagar.fireTableDataChanged();
     }
 
     private Profissional pegaProfissionalSelecionado() {
@@ -533,7 +555,7 @@ public class Principal extends JFrame {
         NovoPaciente dialog = new NovoPaciente(null);
         dialog.pack();
         dialog.setLocationRelativeTo(null);
-        dialog.setModal(true);
+        dialog.setModal(false);
         dialog.setVisible(true);
     }
 
@@ -541,7 +563,7 @@ public class Principal extends JFrame {
         ListaPacientes dialog = new ListaPacientes();
         dialog.pack();
         dialog.setLocationRelativeTo(null);
-        dialog.setModal(true);
+        dialog.setModal(false);
         dialog.setVisible(true);
     }
 
@@ -549,7 +571,7 @@ public class Principal extends JFrame {
         NovoConvenio dialog = new NovoConvenio();
         dialog.pack();
         dialog.setLocationRelativeTo(null);
-        dialog.setModal(true);
+        dialog.setModal(false);
         dialog.setVisible(true);
     }
 
@@ -564,16 +586,24 @@ public class Principal extends JFrame {
     private void goNovoProfissional() {
         NovoProfissional dialog = new NovoProfissional(null);
         dialog.pack();
-        dialog.setModal(true);
         dialog.setLocationRelativeTo(null);
+        dialog.setModal(true);
         dialog.setVisible(true);
     }
 
     private void goProcurarProfissional() {
         ListaProfissional dialog = new ListaProfissional();
         dialog.pack();
-        dialog.setModal(true);
         dialog.setLocationRelativeTo(null);
+        dialog.setModal(false);
+        dialog.setVisible(true);
+    }
+
+    private void goMovimentoCaixa(){
+        ListaMovimentoCaixa dialog = new ListaMovimentoCaixa();
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setModal(true);
         dialog.setVisible(true);
     }
 
@@ -609,7 +639,25 @@ public class Principal extends JFrame {
         dialog.setVisible(true);
     }
 
-    private void goMovimentoCaixa() {
+    private void goNovaCobranca() {
+        NovaCobranca dialog = new NovaCobranca();
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setModal(true);
+        dialog.setVisible(true);
+        atualizaTableContasPagar();
+    }
+
+    private void goPagarCobranca() {
+        PagamentoCobranca dialog = new PagamentoCobranca();
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setModal(true);
+        dialog.setVisible(true);
+        atualizaTableContasPagar();
+    }
+
+    private void goListapagamentos() {
         ListaPagamento dialog = new ListaPagamento();
         dialog.pack();
         dialog.setLocationRelativeTo(null);

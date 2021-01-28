@@ -1,5 +1,7 @@
 package odontomais.view;
 
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import odontomais.model.*;
 import odontomais.service.PacienteService;
 import odontomais.service.PagamentoService;
@@ -12,6 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class NovoPagamento extends JDialog {
     private JPanel contentPane;
@@ -26,6 +29,9 @@ public class NovoPagamento extends JDialog {
     private JLabel lblDebitoAtivo;
     private JPanel pnlDebitoAtivo;
     private JTextArea edtObs;
+    private DatePicker dataPagamento;
+    private JRadioButton pagamentoRadioButton;
+    private JRadioButton novaCobrancaRadioButton;
 
     private Paciente paciente;
 
@@ -36,10 +42,9 @@ public class NovoPagamento extends JDialog {
         setContentPane(contentPane);
         getRootPane().setDefaultButton(buttonOK);
 
+
         buttonOK.addActionListener(e -> onOK());
-
         buttonCancel.addActionListener(e -> onCancel());
-
         btnProcurarPaciente.addActionListener(e -> goProcuraPaciente());
 
         // call onCancel() when cross is clicked
@@ -77,8 +82,6 @@ public class NovoPagamento extends JDialog {
                 PagamentoService service = new PagamentoService();
                 service.salvar(pagamento);
 
-                PacienteService pacienteService = new PacienteService();
-                pacienteService.atualizarDebito(pagamento);
                 MensagensAlerta.msgPagamentoOK(this);
                 dispose();
             }
@@ -120,7 +123,21 @@ public class NovoPagamento extends JDialog {
         if (paciente != null) {
             edtPaciente.setText(paciente.getNomeCompleto());
             lblDebitoAtivo.setText(paciente.getDebito().toString());
-            if (paciente.getDebito().compareTo(new BigDecimal(0)) > 0) {
+
+            List<Pagamento> list = new PagamentoService().findFilter(paciente);
+            BigDecimal debito = new BigDecimal(0);
+            BigDecimal pagamento = new BigDecimal(0);
+            for (Pagamento pg : list) {
+                if (pg.getDebito().compareTo(new BigDecimal(0)) > 0) {
+                    debito = debito.add(pg.getDebito());
+                } else {
+                    pagamento = pagamento.add(pg.getDebito());
+                }
+            }
+
+            BigDecimal soma = pagamento.add(debito);
+            lblDebitoAtivo.setText(soma.toString());
+            if (soma.compareTo(new BigDecimal(0)) > 0) {
                 lblDebitoAtivo.setForeground(Color.RED);
             } else {
                 lblDebitoAtivo.setForeground(Color.GREEN);
@@ -135,7 +152,16 @@ public class NovoPagamento extends JDialog {
             return null;
         }
         Pagamento pagamento = new Pagamento();
-        pagamento.setDebito(new BigDecimal(edtDebito.getText()));
+        pagamento.setDataHora(dataPagamento.getDate());
+        if (pagamentoRadioButton.isSelected()) {
+            pagamento.setDebito(new BigDecimal(edtDebito.getText()).negate());
+        } else {
+            pagamento.setDebito(new BigDecimal(edtDebito.getText()));
+        }
+        if (!pagamentoRadioButton.isSelected() && !novaCobrancaRadioButton.isSelected()) {
+            return null;
+        }
+        //pagamento.setDebito(new BigDecimal(edtDebito.getText()));
         FormaPagamento forma = (FormaPagamento) comboFormaPagamento.getSelectedItem();
         pagamento.setFormaPagamento(forma.name());
         pagamento.setObsTratamento(edtObs.getText());
@@ -166,6 +192,12 @@ public class NovoPagamento extends JDialog {
 
     private void createUIComponents() {
         comboFormaPagamento = new JComboBox(FormaPagamento.values());
+        DatePickerSettings ds2 = new DatePickerSettings();
+        ds2.setFormatForDatesCommonEra("dd/MM/yyyy");
+        ds2.setFormatForDatesBeforeCommonEra("dd/MM/yyyy");
+
+        dataPagamento = new DatePicker(ds2);
+        dataPagamento.setDateToToday();
     }
 
 

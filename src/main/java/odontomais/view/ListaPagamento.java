@@ -35,6 +35,7 @@ public class ListaPagamento extends JDialog {
     private JLabel lblDebito;
     private JLabel lblFiltros;
     private JLabel lblSoma;
+    private JButton btnExcluir;
     private TabPagamento tabPagamento;
 
     private Paciente paciente;
@@ -45,6 +46,8 @@ public class ListaPagamento extends JDialog {
 
         buttonOK.addActionListener(e -> onOK());
         buttonCancel.addActionListener(e -> onCancel());
+        btnExcluir.addActionListener(e -> excluiRegistro());
+
         procurarButton.addActionListener(e -> goProcuraPaciente());
         dataIni.addDateChangeListener(e -> atualizaTabela());
         dataFim.addDateChangeListener(e -> atualizaTabela());
@@ -109,6 +112,25 @@ public class ListaPagamento extends JDialog {
         tblPagamento.getTableHeader().setVisible(true);
         tblPagamento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tabPagamento.fireTableDataChanged();
+    }
+
+    private void excluiRegistro() {
+        if (tblPagamento.getSelectedRowCount() > 0) {
+            Pagamento pgmt = tabPagamento.get(tblPagamento.getSelectedRow());
+            String str = "";
+            if (pgmt.getDebito().compareTo(new BigDecimal(0)) > 0) {
+                str = "o débito de ";
+            } else {
+                str = "o pagamento de ";
+            }
+            int result = JOptionPane.showConfirmDialog(this, "Deseja realmente remover " + str + pgmt.getDebito().toString() +
+                    " do paciente " + pgmt.getPaciente().getNomeCompleto(), "Atenção", JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.YES_OPTION) {
+                PagamentoService service = new PagamentoService();
+                service.remover(pgmt);
+            }
+            atualizaTabela();
+        }
     }
 
     private List<Pagamento> buscaListaPagamento() {
@@ -182,9 +204,9 @@ public class ListaPagamento extends JDialog {
 
         BigDecimal soma = pagamento.add(debito);
         lblSoma.setText(soma.toString());
-        if(soma.compareTo(new BigDecimal(0)) > 0){
+        if (soma.compareTo(new BigDecimal(0)) > 0) {
             lblSoma.setForeground(Color.RED);
-        } else{
+        } else {
             lblSoma.setForeground(Color.GREEN);
         }
         return list;
