@@ -1,6 +1,6 @@
 # Odonto Mais
 
-Java SE Project for Dentist Clinic. Developed to work on Desktop with MySQL Server. 
+Java SE Project for Dentist Clinic Management. Developed to work on Desktop with MySQL Server. 
 
 Already Working:</br>
 - CRUD of all classes (JPA and Hibernate Pesistence)</br> 
@@ -10,4 +10,3 @@ Already Working:</br>
 - Reports and History (Jasperreports)
 - Daily Error Log (Log4j)
     
-Feel free to clone :D 
